@@ -1,12 +1,12 @@
-import './App.css'
-import Combat from './components/Combat'
+import "./App.css";
+import Combat from "./components/Combat";
 
 function App() {
   return (
     <>
-      <Combat/>
+      <Combat />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
