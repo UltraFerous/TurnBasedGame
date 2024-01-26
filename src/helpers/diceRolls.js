@@ -20,6 +20,7 @@ const filterDicePoolBelow = function (rolls, target) {
   return filterDiceResults;
 };
 
+// Finds which hit roll is needed.
 const woundComparison = function (user, target) {
   if (user === target) {
     return 4;
