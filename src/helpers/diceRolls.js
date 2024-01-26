@@ -33,9 +33,7 @@ const woundComparison = function (user, target) {
   if (user <= target / 2) {
     return 6;
   }
-  if (user < target) {
-    return 5;
-  }
+  return 5;
 };
 
 export { rollXDice, filterDicePoolAbove, filterDicePoolBelow, woundComparison };

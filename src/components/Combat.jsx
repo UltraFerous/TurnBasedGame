@@ -10,8 +10,8 @@ import EnemyContext from "../context/enemyContext";
 
 function Combat() {
   const [turn, setTurn] = useState(0);
-  const {player, setPlayer}  = useContext(PlayerContext);
-  const {enemy, setEnemy}  = useContext(EnemyContext);
+  const { player, setPlayer } = useContext(PlayerContext);
+  const { enemy, setEnemy } = useContext(EnemyContext);
 
   const playerTurnManager = function () {
     let seccesses = 0;
@@ -49,9 +49,9 @@ function Combat() {
         currentWounds: enemy.stats.currentWounds - targetDamage,
       },
     });
-    
+
     // setTurn(1);
-    return
+    return;
   };
 
   return (
