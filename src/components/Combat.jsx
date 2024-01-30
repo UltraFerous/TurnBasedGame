@@ -9,18 +9,21 @@ function Combat() {
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
 
-  const changeTurn = function(turn, setTurn) {
+  // Will change the turn between player and enemy, will only work for 2 entities.
+  const changeTurn = function (turn, setTurn) {
     turn === 0 ? setTurn(1) : setTurn(0);
   };
 
+  // Will check if any entities have 0 or less health, if there are the combat ends
   const checkIfCombatIsOver = function (attacker, defender, setbattleOver) {
     if (attacker.stats.currentWounds < 1 || defender.stats.currentWounds < 1) {
       // Because the turn changes before the combat ends we need to do an immediate turn change
-      changeTurn(turn, setTurn)
+      changeTurn(turn, setTurn);
       setbattleOver(true);
     }
   };
-
+  
+  // Calculates the new entity stats after damage is applied
   const calculateDamage = function (attacker, defender) {
     const updatedStats = {
       ...defender,
@@ -32,12 +35,14 @@ function Combat() {
     return updatedStats;
   };
 
+  // Manages the turn cycle
   const turnManager = function (attacker, defender, setAttacker, setDefender) {
     const damageDone = calculateDamage(attacker, defender);
     setDefender(damageDone);
-    changeTurn(turn, setTurn)
+    changeTurn(turn, setTurn);
   };
 
+  // Constantly checks if combat is over
   useEffect(() => {
     checkIfCombatIsOver(player, enemy, setbattleOver);
   }, [player, enemy]);
