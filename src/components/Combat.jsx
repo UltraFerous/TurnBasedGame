@@ -9,9 +9,15 @@ function Combat() {
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
 
-  const checkIfCombatIsOver = async function (attacker, defender, setbattleOver) {
+  const changeTurn = function(turn, setTurn) {
+    turn === 0 ? setTurn(1) : setTurn(0);
+  };
+
+  const checkIfCombatIsOver = function (attacker, defender, setbattleOver) {
     if (attacker.stats.currentWounds < 1 || defender.stats.currentWounds < 1) {
-      return setbattleOver(true);
+      // Because the turn changes before the combat ends we need to do an immediate turn change
+      changeTurn(turn, setTurn)
+      setbattleOver(true);
     }
   };
 
@@ -26,21 +32,10 @@ function Combat() {
     return updatedStats;
   };
 
-  const turnManager = async function (
-    attacker,
-    defender,
-    setAttacker,
-    setDefender
-  ) {
-    try {
-      const damageDone = calculateDamage(attacker, defender);
-      await setDefender(damageDone);
-      if (!battleOver) {
-        turn === 0 ? setTurn(1) : setTurn(0);
-      }
-    } catch {
-      console.error("Error in turnManager:", error);
-    }
+  const turnManager = function (attacker, defender, setAttacker, setDefender) {
+    const damageDone = calculateDamage(attacker, defender);
+    setDefender(damageDone);
+    changeTurn(turn, setTurn)
   };
 
   useEffect(() => {
@@ -64,8 +59,7 @@ function Combat() {
           Change Turn
         </button>
       ) : (
-        // Because the turn changes before the combat ends we check if turn is equal to 1
-        <div>Battle Over {turn === 1 ? "Player Wins!" : "Enemy Wins!"}</div>
+        <div>Battle Over {turn === 0 ? "Player Wins!" : "Enemy Wins!"}</div>
       )}
     </div>
   );
