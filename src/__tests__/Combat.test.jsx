@@ -3,9 +3,11 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { toBeInTheDocument } from "@testing-library/jest-dom";
 import {
   rollXDice,
+  rollXDiceD3,
   filterDicePoolAbove,
   filterDicePoolBelow,
   woundComparison,
+  roll2D6Dice
 } from "../helpers/diceRolls";
 import Combat from "../components/Combat";
 import { PlayerContextProvider } from "../context/playerContext";
@@ -58,15 +60,29 @@ describe("Change Turn Button", () => {
 });
 
 describe("Dice Rolling", () => {
-  test("Rolls Proper Amount of Dice", () => {
+  test("D6 Rolls Proper Amount of Dice", () => {
     const testDiceRoll = rollXDice(10);
     expect(testDiceRoll.length).toBe(10);
   });
-  test("Rolls Number Between 1 and 6", () => {
+  test("D6 Rolls Number Between 1 and 6", () => {
     for (let i = 0; i < 20; i++) {
       let testDiceRoll = rollXDice(1)[0];
       expect(testDiceRoll).toBeLessThan(7);
       expect(testDiceRoll).toBeGreaterThan(0);
+    }
+  });
+  test("D3 Rolls Number Between 1 and 3", () => {
+    for (let i = 0; i < 20; i++) {
+      let testDiceRoll = rollXDiceD3(1)[0];
+      expect(testDiceRoll).toBeLessThan(4);
+      expect(testDiceRoll).toBeGreaterThan(0);
+    }
+  });
+  test("2D6 Rolls Number Between 2 and 12", () => {
+    for (let i = 0; i < 20; i++) {
+      let testDiceRoll = roll2D6Dice();
+      expect(testDiceRoll).toBeLessThan(13);
+      expect(testDiceRoll).toBeGreaterThan(1);
     }
   });
 });

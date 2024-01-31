@@ -8,6 +8,21 @@ const rollXDice = function (amount) {
   return diceResults;
 };
 
+// Rolls X amount of D3 dice
+const rollXDiceD3 = function (amount) {
+  const diceResults = [];
+  for (let i = 0; i < amount; i++) {
+    let roll = Math.floor(Math.random() * 3 + 1);
+    diceResults.push(roll);
+  }
+  return diceResults;
+};
+
+// Rolls X amount of D3 dice
+const roll2D6Dice = function (amount) {
+  return Math.floor(Math.random() * (12 - 2 + 1) + 2);
+};
+
 // Filters dice to only successfull results
 const filterDicePoolAbove = function (rolls, target) {
   const filterDiceResults = rolls.filter((roll) => roll >= target);
@@ -37,4 +52,4 @@ const woundComparison = function (user, target) {
   return 5;
 };
 
-export { rollXDice, filterDicePoolAbove, filterDicePoolBelow, woundComparison };
+export { rollXDice, rollXDiceD3, roll2D6Dice, filterDicePoolAbove, filterDicePoolBelow, woundComparison };
