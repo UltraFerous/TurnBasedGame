@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import PlayerContext from "../context/playerContext";
 import EnemyContext from "../context/enemyContext";
 import { attackRoll } from "../helpers/attack";
+import WeaponList from "./WeaponList";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 
 function Combat() {
@@ -41,6 +42,11 @@ function Combat() {
     return updatedStats;
   };
 
+  const handleWeaponsOnClick = function () {
+    turnManager(player, enemy, setPlayer, setEnemy);
+    turnManager(enemy, player, setEnemy, setPlayer);
+  };
+
   // Manages the turn cycle
   const turnManager = function (attacker, defender, setAttacker, setDefender) {
     const damageDone = calculateDamage(attacker, defender);
@@ -58,15 +64,7 @@ function Combat() {
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>Enemy Health: {enemy.stats.currentWounds}</div>
       {battleOver === false ? (
-        <button
-          type="submit"
-          onClick={() => {
-            turnManager(player, enemy, setPlayer, setEnemy);
-            turnManager(enemy, player, setEnemy, setPlayer);
-          }}
-        >
-          Change Turn
-        </button>
+        player.weapons.map((item, index) => <WeaponList key={player.weapons[index].id} name={player.weapons[index].name} handleWeaponsOnClick={handleWeaponsOnClick} />)
       ) : (
         <div>Battle Over {turn === 0 ? "Player Wins!" : "Enemy Wins!"}</div>
       )}
