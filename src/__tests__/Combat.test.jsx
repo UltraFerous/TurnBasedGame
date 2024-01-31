@@ -17,8 +17,8 @@ test("test", () => {
   expect(true).toBe(true);
 });
 
-describe("Change Turn Button", () => {
-  test("renders", () => {
+describe("Attack Buttons", () => {
+  test("renders both attack buttons", () => {
     render(
       <>
         <PlayerContextProvider>
@@ -29,11 +29,15 @@ describe("Change Turn Button", () => {
       </>
     );
     // Query the button using a more specific query
-    const changeTurnButton = screen.getByRole("button", {
-      text: "Change Turn",
-    });
+    const firstAttackButton = screen.getAllByRole("button", {
+      text: "/Attack/i)",
+    })[0];
+    const secondAttackButton = screen.getAllByRole("button", {
+      text: "/Attack/i)",
+    })[1];
     // Assert that the button is defined or present in the document
-    expect(changeTurnButton).toBeDefined();
+    expect(firstAttackButton).toBeDefined();
+    expect(secondAttackButton).toBeDefined();
   });
 
   test("clicks", () => {
@@ -47,16 +51,16 @@ describe("Change Turn Button", () => {
       </>
     );
 
-    const changeTurnButton = screen.getByRole("button", {
-      text: "Change Turn",
-    });
-    fireEvent.click(changeTurnButton);
+    const firstAttackButton = screen.getAllByRole("button", {
+      text: "/Attack/i)",
+    })[0];
+    fireEvent.click(firstAttackButton);
 
     const turnText = screen.getByText(/It is turn: player/i);
     expect(turnText).toBeInTheDocument();
 
-    for (let i = 0; i < 20; i++){
-      fireEvent.click(changeTurnButton);
+    for (let i = 0; i < 20; i++) {
+      fireEvent.click(firstAttackButton);
     }
 
     const endScreenText = screen.getByText(/Wins!/i);
@@ -74,17 +78,17 @@ describe("Change Turn Button", () => {
       </>
     );
 
-    const changeTurnButton = screen.getByRole("button", {
-      text: "Change Turn",
-    });
+    const firstAttackButton = screen.getAllByRole("button", {
+      text: "/Attack/i)",
+    })[0];
 
-    for (let i = 0; i < 20; i++){
-      fireEvent.click(changeTurnButton);
+    for (let i = 0; i < 20; i++) {
+      fireEvent.click(firstAttackButton);
     }
 
     const endScreenText = screen.getByText(/Wins!/i);
     expect(endScreenText).toBeInTheDocument();
-    expect(changeTurnButton).not.toBeInTheDocument();
+    expect(firstAttackButton).not.toBeInTheDocument();
   });
 });
 
