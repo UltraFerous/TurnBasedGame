@@ -7,7 +7,7 @@ import {
   filterDicePoolAbove,
   filterDicePoolBelow,
   woundComparison,
-  roll2D6Dice
+  roll2D6Dice,
 } from "../helpers/diceRolls";
 import Combat from "../components/Combat";
 import { PlayerContextProvider } from "../context/playerContext";
@@ -19,13 +19,15 @@ test("test", () => {
 
 describe("Change Turn Button", () => {
   test("renders", () => {
-    render(    <>
-      <PlayerContextProvider>
-        <EnemyContextProvider>
-          <Combat />
-        </EnemyContextProvider>
-      </PlayerContextProvider>
-    </>);
+    render(
+      <>
+        <PlayerContextProvider>
+          <EnemyContextProvider>
+            <Combat />
+          </EnemyContextProvider>
+        </PlayerContextProvider>
+      </>
+    );
     // Query the button using a more specific query
     const changeTurnButton = screen.getByRole("button", {
       text: "Change Turn",
@@ -35,25 +37,21 @@ describe("Change Turn Button", () => {
   });
 
   test("clicks", () => {
-    render(    <>
-      <PlayerContextProvider>
-        <EnemyContextProvider>
-          <Combat />
-        </EnemyContextProvider>
-      </PlayerContextProvider>
-    </>);
+    render(
+      <>
+        <PlayerContextProvider>
+          <EnemyContextProvider>
+            <Combat />
+          </EnemyContextProvider>
+        </PlayerContextProvider>
+      </>
+    );
 
     const changeTurnButton = screen.getByRole("button", {
       text: "Change Turn",
     });
     fireEvent.click(changeTurnButton);
 
-    // Query for the text content after the click
-    const turnText = screen.getByText(/It is turn: enemy/i);
-    // Assert that the text is present in the document
-    expect(turnText).toBeInTheDocument();
-
-    fireEvent.click(changeTurnButton);
     const secondTurnText = screen.getByText(/It is turn: player/i);
     expect(secondTurnText).toBeInTheDocument();
   });
@@ -89,27 +87,27 @@ describe("Dice Rolling", () => {
 
 describe("Dice Filtering", () => {
   test("The above filter removes the correct dice", () => {
-    const testRolls = [1, 2, 3, 4, 5, 6]
+    const testRolls = [1, 2, 3, 4, 5, 6];
     const filteredRoll = filterDicePoolAbove(testRolls, 3);
     expect(filteredRoll.length).toEqual(4);
   });
   test("The above filter removes the correct dice", () => {
-    const testRolls = [1, 2, 3, 4, 5, 6]
+    const testRolls = [1, 2, 3, 4, 5, 6];
     const filteredRoll = filterDicePoolAbove(testRolls, 6);
     expect(filteredRoll.length).toEqual(1);
   });
   test("The above filter removes the correct dice", () => {
-    const testRolls = [1, 2, 3, 4, 5, 6]
+    const testRolls = [1, 2, 3, 4, 5, 6];
     const filteredRoll = filterDicePoolAbove(testRolls, 7);
     expect(filteredRoll.length).toEqual(0);
   });
   test("The below filter removes the correct dice", () => {
-    const testRolls = [1, 2, 3, 4, 5, 6]
+    const testRolls = [1, 2, 3, 4, 5, 6];
     const filteredRoll = filterDicePoolBelow(testRolls, 3);
     expect(filteredRoll.length).toEqual(2);
   });
   test("The below filter removes the correct dice", () => {
-    const testRolls = [1, 2, 3, 4, 5, 6]
+    const testRolls = [1, 2, 3, 4, 5, 6];
     const filteredRoll = filterDicePoolBelow(testRolls, 1);
     expect(filteredRoll.length).toEqual(0);
   });
@@ -117,31 +115,31 @@ describe("Dice Filtering", () => {
 
 describe("Wound Comparison", () => {
   test("The Equals Condition", () => {
-    const comparisonResult = woundComparison(4,4)
+    const comparisonResult = woundComparison(4, 4);
     expect(comparisonResult).toEqual(4);
   });
   test("The Greater Than Condition", () => {
-    const comparisonResult = woundComparison(6,4)
+    const comparisonResult = woundComparison(6, 4);
     expect(comparisonResult).toEqual(3);
   });
   test("The Double Condition", () => {
-    const comparisonResult = woundComparison(8,4)
+    const comparisonResult = woundComparison(8, 4);
     expect(comparisonResult).toEqual(2);
   });
   test("The Less Than Condition", () => {
-    const comparisonResult = woundComparison(3,4)
+    const comparisonResult = woundComparison(3, 4);
     expect(comparisonResult).toEqual(5);
   });
   test("The Half Condition", () => {
-    const comparisonResult = woundComparison(2,4)
+    const comparisonResult = woundComparison(2, 4);
     expect(comparisonResult).toEqual(6);
   });
   test("The Half Condition Exaggerated", () => {
-    const comparisonResult = woundComparison(1,4)
+    const comparisonResult = woundComparison(1, 4);
     expect(comparisonResult).toEqual(6);
   });
   test("The Double Condition Exaggerated", () => {
-    const comparisonResult = woundComparison(14,4)
+    const comparisonResult = woundComparison(14, 4);
     expect(comparisonResult).toEqual(2);
   });
 });

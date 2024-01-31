@@ -16,13 +16,18 @@ function Combat() {
 
   // Will check if any entities have 0 or less health, if there are the combat ends
   const checkIfCombatIsOver = function (attacker, defender, setbattleOver) {
-    if (attacker.stats.currentWounds < 1 || defender.stats.currentWounds < 1) {
+    if (attacker.stats.currentWounds < 1) {
       // Because the turn changes before the combat ends we need to do an immediate turn change
       changeTurn(turn, setTurn);
       setbattleOver(true);
+      return;
+    }
+    if (defender.stats.currentWounds < 1) {
+      setbattleOver(true);
+      return;
     }
   };
-  
+
   // Calculates the new entity stats after damage is applied
   const calculateDamage = function (attacker, defender) {
     const updatedStats = {
@@ -39,7 +44,6 @@ function Combat() {
   const turnManager = function (attacker, defender, setAttacker, setDefender) {
     const damageDone = calculateDamage(attacker, defender);
     setDefender(damageDone);
-    changeTurn(turn, setTurn);
   };
 
   // Constantly checks if combat is over
@@ -56,9 +60,8 @@ function Combat() {
         <button
           type="submit"
           onClick={() => {
-            turn === 0
-              ? turnManager(player, enemy, setPlayer, setEnemy)
-              : turnManager(enemy, player, setEnemy, setPlayer);
+            turnManager(player, enemy, setPlayer, setEnemy);
+            turnManager(enemy, player, setEnemy, setPlayer);
           }}
         >
           Change Turn

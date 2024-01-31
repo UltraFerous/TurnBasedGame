@@ -40,21 +40,18 @@ const attackRoll = function (user, target) {
   // Roll to hit, roll amount of attacks above or equal to skill
   const hitRollResults = hitRoll(user);
   successfulRolls = hitRollResults.length;
-  console.log("Hit roll", successfulRolls);
 
   // Roll to wound, roll above comparison, unit strength + weapon vs target toughness
   const woundRollResults = woundRoll(user, target, successfulRolls);
   successfulRolls = woundRollResults.length;
-  console.log("Wound roll", successfulRolls);
 
   //Target rolls to save, armour + rend, roll above or equal to target
   const saveRollResults = saveRoll(user, target, successfulRolls);
   successfulRolls = saveRollResults.length;
-  console.log("Save roll", successfulRolls);
 
   //Reduce target wounds equal to the weapons damage
   const targetDamageResults = damageRoll(successfulRolls, user);
-  console.log("Damage roll", targetDamageResults);
+  console.log(user.information.name, " does ", targetDamageResults, " damage.");
 
   //Returns the new health of the target
   const newCurrentWounds = target.stats.currentWounds - targetDamageResults;
