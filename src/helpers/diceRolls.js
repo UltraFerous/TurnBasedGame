@@ -20,7 +20,12 @@ const rollXDiceD3 = function (amount) {
 
 // Rolls X amount of D3 dice
 const roll2D6Dice = function (amount) {
-  return Math.floor(Math.random() * (12 - 2 + 1) + 2);
+  const twoRolls = rollXDice(2);
+  const sumRolls = twoRolls.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+  return sumRolls;
 };
 
 // Filters dice to only successfull results
@@ -52,4 +57,11 @@ const woundComparison = function (user, target) {
   return 5;
 };
 
-export { rollXDice, rollXDiceD3, roll2D6Dice, filterDicePoolAbove, filterDicePoolBelow, woundComparison };
+export {
+  rollXDice,
+  rollXDiceD3,
+  roll2D6Dice,
+  filterDicePoolAbove,
+  filterDicePoolBelow,
+  woundComparison,
+};
