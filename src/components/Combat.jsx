@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import PlayerContext from "../context/playerContext";
 import EnemyContext from "../context/enemyContext";
 import { attackRoll } from "../helpers/attack";
+import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 
 function Combat() {
   const [turn, setTurn] = useState(0);

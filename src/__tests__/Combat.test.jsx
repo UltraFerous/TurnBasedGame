@@ -52,8 +52,39 @@ describe("Change Turn Button", () => {
     });
     fireEvent.click(changeTurnButton);
 
-    const secondTurnText = screen.getByText(/It is turn: player/i);
-    expect(secondTurnText).toBeInTheDocument();
+    const turnText = screen.getByText(/It is turn: player/i);
+    expect(turnText).toBeInTheDocument();
+
+    for (let i = 0; i < 20; i++){
+      fireEvent.click(changeTurnButton);
+    }
+
+    const endScreenText = screen.getByText(/Wins!/i);
+    expect(endScreenText).toBeInTheDocument();
+  });
+
+  test("Combat ends screen is working", () => {
+    render(
+      <>
+        <PlayerContextProvider>
+          <EnemyContextProvider>
+            <Combat />
+          </EnemyContextProvider>
+        </PlayerContextProvider>
+      </>
+    );
+
+    const changeTurnButton = screen.getByRole("button", {
+      text: "Change Turn",
+    });
+
+    for (let i = 0; i < 20; i++){
+      fireEvent.click(changeTurnButton);
+    }
+
+    const endScreenText = screen.getByText(/Wins!/i);
+    expect(endScreenText).toBeInTheDocument();
+    expect(changeTurnButton).not.toBeInTheDocument();
   });
 });
 
