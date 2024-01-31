@@ -14,7 +14,7 @@ const enemyObj = {
   },
   weapons: [
     {
-      id: 1,
+      id: 0,
       name: "Attack 1",
       skill: 5,
       strengthBonus: 2,
@@ -25,7 +25,7 @@ const enemyObj = {
   ],
   abilities: [
     {
-      id: 1,
+      id: 0,
       name: "name",
       description: "",
     },

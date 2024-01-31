@@ -12,10 +12,9 @@ const playerObj = {
     wounds: 5,
     currentWounds: 5,
   },
-    
   weapons: [
     {
-      id: 1,
+      id: 0,
       name: "Attack 1",
       skill: 4,
       strengthBonus: 1,
@@ -23,10 +22,19 @@ const playerObj = {
       damage: 1,
       attacks: 4,
     },
+    {
+      id: 1,
+      name: "NUKE",
+      skill: 1,
+      strengthBonus: 10,
+      rend: 10,
+      damage: 10,
+      attacks: 10,
+    },
   ],
   abilities: [
     {
-      id: 1,
+      id: 0,
       name: "name",
       description: "",
     },

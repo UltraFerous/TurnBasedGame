@@ -1,12 +1,12 @@
 import React from "react";
 
-const WeaponList = ({name, handleWeaponsOnClick}) => {
+const WeaponList = ({id, name, handleWeaponsOnClick}) => {
   return (
     <div>
       <button
         type="submit"
         onClick={() => {
-          handleWeaponsOnClick()
+          handleWeaponsOnClick(id)
         }}
       >
         Attack with {name}

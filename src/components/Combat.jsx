@@ -31,25 +31,25 @@ function Combat() {
   };
 
   // Calculates the new entity stats after damage is applied
-  const calculateDamage = function (attacker, defender) {
+  const calculateDamage = function(index, attacker, defender) {
     const updatedStats = {
       ...defender,
       stats: {
         ...defender.stats,
-        currentWounds: attackRoll(attacker, defender),
+        currentWounds: attackRoll(index, attacker, defender),
       },
     };
     return updatedStats;
   };
 
-  const handleWeaponsOnClick = function () {
-    turnManager(player, enemy, setPlayer, setEnemy);
-    turnManager(enemy, player, setEnemy, setPlayer);
+  const handleWeaponsOnClick = function (index) {
+    turnManager(index, player, enemy, setPlayer, setEnemy);
+    turnManager(0, enemy, player, setEnemy, setPlayer);
   };
 
   // Manages the turn cycle
-  const turnManager = function (attacker, defender, setAttacker, setDefender) {
-    const damageDone = calculateDamage(attacker, defender);
+  const turnManager = function (index, attacker, defender, setAttacker, setDefender) {
+    const damageDone = calculateDamage(index, attacker, defender);
     setDefender(damageDone);
   };
 
@@ -64,7 +64,14 @@ function Combat() {
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>Enemy Health: {enemy.stats.currentWounds}</div>
       {battleOver === false ? (
-        player.weapons.map((item, index) => <WeaponList key={player.weapons[index].id} name={player.weapons[index].name} handleWeaponsOnClick={handleWeaponsOnClick} />)
+        player.weapons.map((item, index) => (
+          <WeaponList
+            key={player.weapons[index].id}
+            id={player.weapons[index].id}
+            name={player.weapons[index].name}
+            handleWeaponsOnClick={handleWeaponsOnClick}
+          />
+        ))
       ) : (
         <div>Battle Over {turn === 0 ? "Player Wins!" : "Enemy Wins!"}</div>
       )}
