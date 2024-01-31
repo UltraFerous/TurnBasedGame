@@ -42,6 +42,7 @@ function Combat() {
     return updatedStats;
   };
 
+  // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (index) {
     turnManager(index, player, enemy, setPlayer, setEnemy);
     turnManager(0, enemy, player, setEnemy, setPlayer);
@@ -64,14 +65,14 @@ function Combat() {
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>Enemy Health: {enemy.stats.currentWounds}</div>
       {battleOver === false ? (
-        player.weapons.map((item, index) => (
+        player.weapons.map((item, index) => {
           <WeaponList
             key={player.weapons[index].id}
             id={player.weapons[index].id}
             name={player.weapons[index].name}
             handleWeaponsOnClick={handleWeaponsOnClick}
-          />
-        ))
+          />;
+        })
       ) : (
         <div>Battle Over {turn === 0 ? "Player Wins!" : "Enemy Wins!"}</div>
       )}

@@ -32,10 +32,10 @@ const playerObj = {
       attacks: 10,
     },
   ],
-  abilities: [
+  powers: [
     {
       id: 0,
-      name: "name",
+      name: "Damage Spell",
       description: "",
     },
   ],
