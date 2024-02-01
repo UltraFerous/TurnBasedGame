@@ -55,7 +55,17 @@ const attackRoll = function (index, user, target) {
 
   //Returns the new health of the target
   const newCurrentWounds = target.stats.currentWounds - targetDamageResults;
-  return newCurrentWounds;
+  console.log("NEW CURRENT WOUNDS: ", newCurrentWounds);
+
+  const updatedTarget = {
+    ...target,
+    stats: {
+      ...target.stats,
+      currentWounds: newCurrentWounds,
+    },
+  };
+
+  return { user, updatedTarget };
 };
 
 export { attackRoll };

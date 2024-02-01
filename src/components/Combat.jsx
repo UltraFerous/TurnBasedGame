@@ -35,17 +35,18 @@ function Combat() {
   };
 
   // Calculates the new entity stats after damage is applied
-  const calculateDamage = function (index, attacker, defender) {
-    const updatedStats = {
-      ...defender,
-      stats: {
-        ...defender.stats,
-        currentWounds: attackRoll(index, attacker, defender),
-      },
-    };
-    return updatedStats;
-  };
+  // const calculateDamage = function (index, attacker, defender) {
+  //   const updatedStats = {
+  //     ...defender,
+  //     stats: {
+  //       ...defender.stats,
+  //       currentWounds: attackRoll(index, attacker, defender),
+  //     },
+  //   };
+  //   return updatedStats;
+  // };
 
+  //THESE FUNCTIONS ARE NOT SCABLE TO THE ENEMY
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (index) {
     turnManager(index, player, enemy, setPlayer, setEnemy);
@@ -66,8 +67,35 @@ function Combat() {
     setAttacker,
     setDefender
   ) {
-    const damageDone = calculateDamage(index, attacker, defender);
-    setDefender(damageDone);
+    const newStats = attackRoll(index, attacker, defender);
+    // setDefender(newStats.updatedTarget);
+    updatePlayerAndEnemyStats(
+      player,
+      enemy,
+      newStats.user,
+      newStats.updatedTarget,
+      setAttacker,
+      setDefender
+    );
+  };
+
+  // The asynchronous function to update both player and enemy states
+  const updatePlayerAndEnemyStats = async function (
+    player,
+    enemy,
+    newAttacker,
+    newDefender,
+    setAttacker,
+    setDefender
+  ) {
+    try {
+      // Update player state
+      await setAttacker((player) => ({ ...player, ...newAttacker }));
+      // Update enemy state
+      await setDefender((enemy) => ({ ...enemy, ...newDefender }));
+    } catch (error) {
+      console.error("Error updating stats:", error);
+    }
   };
 
   // Constantly checks if combat is over

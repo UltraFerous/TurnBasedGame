@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act  } from "@testing-library/react";
 import { toBeInTheDocument } from "@testing-library/jest-dom";
 import {
   rollXDice,
@@ -40,7 +40,7 @@ describe("Attack Buttons", () => {
     expect(secondAttackButton).toBeDefined();
   });
 
-  test("clicks", () => {
+  test("clicks", async() => {
     render(
       <>
         <PlayerContextProvider>
@@ -60,14 +60,17 @@ describe("Attack Buttons", () => {
     expect(turnText).toBeInTheDocument();
 
     for (let i = 0; i < 20; i++) {
-      fireEvent.click(firstAttackButton);
+      await act(async () => {
+        fireEvent.click(firstAttackButton);
+        await new Promise(resolve => setTimeout(resolve, 50));
+      });
     }
 
     const endScreenText = screen.getByText(/Wins!/i);
     expect(endScreenText).toBeInTheDocument();
   });
 
-  test("Combat ends screen is working", () => {
+  test("Combat ends screen is working", async() => {
     render(
       <>
         <PlayerContextProvider>
@@ -83,7 +86,10 @@ describe("Attack Buttons", () => {
     })[0];
 
     for (let i = 0; i < 20; i++) {
-      fireEvent.click(firstAttackButton);
+      await act(async () => {
+        fireEvent.click(firstAttackButton);
+        await new Promise(resolve => setTimeout(resolve, 50));
+      });
     }
 
     const endScreenText = screen.getByText(/Wins!/i);
@@ -98,21 +104,21 @@ describe("Dice Rolling", () => {
     expect(testDiceRoll.length).toBe(10);
   });
   test("D6 Rolls Number Between 1 and 6", () => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 50; i++) {
       let testDiceRoll = rollXDice(1)[0];
       expect(testDiceRoll).toBeLessThan(7);
       expect(testDiceRoll).toBeGreaterThan(0);
     }
   });
   test("D3 Rolls Number Between 1 and 3", () => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 50; i++) {
       let testDiceRoll = rollXDiceD3(1)[0];
       expect(testDiceRoll).toBeLessThan(4);
       expect(testDiceRoll).toBeGreaterThan(0);
     }
   });
   test("2D6 Rolls Number Between 2 and 12", () => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 50; i++) {
       let testDiceRoll = roll2D6Dice();
       expect(testDiceRoll).toBeLessThan(13);
       expect(testDiceRoll).toBeGreaterThan(1);
