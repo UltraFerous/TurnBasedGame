@@ -23,7 +23,7 @@ function Combat() {
 
   // Will change the turn between player and enemy, will only work for 2 entities.
   const changeTurn = function (turn, setTurn) {
-    turn === 0 ? setTurn(1) : awaitsetTurn(0);
+    turn === 0 ? setTurn(1) : setTurn(0);
   };
 
   // Will check if any entities have 0 or less health, if there are the combat ends
@@ -43,61 +43,37 @@ function Combat() {
   //THESE FUNCTIONS ARE NOT SCABLE TO THE ENEMY
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (index) {
-    turnManager(index, player, enemy, setPlayer, setEnemy);
-    turnManager(0, enemy, player, setEnemy, setPlayer);
+    turnManager(index, 1, player, enemy, setPlayer, setEnemy);
   };
 
   const handlePowersOnClick = function (index) {
-    const newStats = usePower(index, player, enemy);
-    updatePlayerAndEnemyStats(
-      player,
-      enemy,
-      newStats.updatedUser,
-      newStats.updatedTarget,
-      setPlayer,
-      setEnemy
-    );
-    turnManager(0, enemy, player, setEnemy, setPlayer);
+    const statsAfterPower = usePower(index, player, enemy);
+    updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
   };
 
   // Manages the turn cycle
-  const turnManager = function (
-    index,
-    attacker,
-    defender,
-    setAttacker,
-    setDefender
-  ) {
-    const newStats = attackRoll(index, attacker, defender);
-    updatePlayerAndEnemyStats(
-      player,
-      enemy,
-      newStats.updatedUser,
-      newStats.updatedTarget,
-      setAttacker,
-      setDefender
-    );
+  const turnManager = function (attackIndex, targetID, attacker, defender) {
+    const newStats = attackRoll(attackIndex, attacker, defender);
+    updateStats(targetID, newStats);
   };
 
-  const updatePlayerAndEnemyStats = function (
-    user,
-    target,
-    newAttacker,
-    newDefender,
-    setAttacker,
-    setDefender
-  ) {
-    // Update player state
-    // setAttacker(({...newAttacker }));
-    // Update enemy state
-    setDefender(() => ({...newDefender }));
+  const updateStats = function (targetID, newStats) {
+    if (targetID === 0) {
+      return setPlayer({ ...newStats });
+    }
+    setEnemy(() => ({ ...newStats }));
     return;
   };
 
   // Constantly checks if combat is over
   useEffect(() => {
     checkIfCombatIsOver(player, enemy, setbattleOver);
-    console.log("TURN CHANGED");
+  }, [player, enemy]);
+
+  useEffect(() => {
+    if (!battleOver && turn !== 0) {
+      turnManager(0, 0, enemy, player);
+    }
   }, [player, enemy]);
 
   return (

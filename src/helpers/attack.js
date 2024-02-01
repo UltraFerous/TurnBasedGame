@@ -34,7 +34,7 @@ const damageRoll = function (index, rolls, user) {
   return rolls * user.weapons[index].damage;
 };
 
-const attackRoll = function (index, user, target) {
+const attackRoll = function (index, user, target, id) {
   let successfulRolls = 0;
 
   // Roll to hit, roll amount of attacks above or equal to skill
@@ -56,8 +56,7 @@ const attackRoll = function (index, user, target) {
   //Returns the new health of the target
   const newCurrentWounds = target.stats.currentWounds - targetDamageResults;
 
-  const updatedUser = user;
-  const updatedTarget = {
+  const updatedTargetStats = {
     ...target,
     stats: {
       ...target.stats,
@@ -65,7 +64,7 @@ const attackRoll = function (index, user, target) {
     },
   };
 
-  return { updatedUser, updatedTarget };
+  return updatedTargetStats;
 };
 
 export { attackRoll };

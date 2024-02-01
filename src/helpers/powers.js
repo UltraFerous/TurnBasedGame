@@ -1,8 +1,7 @@
 import { rollXDiceD3 } from "./diceRolls";
 
 const justDoDamage = function (user, target) {
-  const updatedUser = user;
-  const updatedTarget = {
+  const updatedStats = {
     ...target,
     stats: {
       ...target.stats,
@@ -10,20 +9,19 @@ const justDoDamage = function (user, target) {
     },
   };
   console.log(user.information.name, " does 3 damage.");
-  return { updatedUser, updatedTarget };
+  return { updatedStats, targetID: 1 };
 };
 
 const justDoDamageSelf = function (user, target) {
-  const updatedUser = {
+  const updatedStats = {
     ...user,
     stats: {
       ...user.stats,
       currentWounds: user.stats.currentWounds - 3,
     },
   };
-  const updatedTarget = target;
   console.log(user.information.name, " does 3 damage self.");
-  return { updatedUser, updatedTarget };
+  return { updatedStats, targetID: 0 };
 };
 
 const applyPowerAttackBuff = function (power, user, target) {
