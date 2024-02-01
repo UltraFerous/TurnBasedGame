@@ -16,8 +16,14 @@ function Combat() {
   const { enemy, setEnemy } = useContext(EnemyContext);
 
   // Will change the turn between player and enemy, will only work for 2 entities.
+  const showState = function () {
+    console.log(player);
+    console.log(enemy);
+  };
+
+  // Will change the turn between player and enemy, will only work for 2 entities.
   const changeTurn = function (turn, setTurn) {
-    turn === 0 ? setTurn(1) : setTurn(0);
+    turn === 0 ? setTurn(1) : awaitsetTurn(0);
   };
 
   // Will check if any entities have 0 or less health, if there are the combat ends
@@ -34,18 +40,6 @@ function Combat() {
     }
   };
 
-  // Calculates the new entity stats after damage is applied
-  // const calculateDamage = function (index, attacker, defender) {
-  //   const updatedStats = {
-  //     ...defender,
-  //     stats: {
-  //       ...defender.stats,
-  //       currentWounds: attackRoll(index, attacker, defender),
-  //     },
-  //   };
-  //   return updatedStats;
-  // };
-
   //THESE FUNCTIONS ARE NOT SCABLE TO THE ENEMY
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (index) {
@@ -54,8 +48,15 @@ function Combat() {
   };
 
   const handlePowersOnClick = function (index) {
-    const powerEffect = usePower(index, player, enemy);
-    setEnemy(powerEffect);
+    const newStats = usePower(index, player, enemy);
+    updatePlayerAndEnemyStats(
+      player,
+      enemy,
+      newStats.updatedUser,
+      newStats.updatedTarget,
+      setPlayer,
+      setEnemy
+    );
     turnManager(0, enemy, player, setEnemy, setPlayer);
   };
 
@@ -68,43 +69,40 @@ function Combat() {
     setDefender
   ) {
     const newStats = attackRoll(index, attacker, defender);
-    // setDefender(newStats.updatedTarget);
     updatePlayerAndEnemyStats(
       player,
       enemy,
-      newStats.user,
+      newStats.updatedUser,
       newStats.updatedTarget,
       setAttacker,
       setDefender
     );
   };
 
-  // The asynchronous function to update both player and enemy states
-  const updatePlayerAndEnemyStats = async function (
-    player,
-    enemy,
+  const updatePlayerAndEnemyStats = function (
+    user,
+    target,
     newAttacker,
     newDefender,
     setAttacker,
     setDefender
   ) {
-    try {
-      // Update player state
-      await setAttacker((player) => ({ ...player, ...newAttacker }));
-      // Update enemy state
-      await setDefender((enemy) => ({ ...enemy, ...newDefender }));
-    } catch (error) {
-      console.error("Error updating stats:", error);
-    }
+    // Update player state
+    // setAttacker(({...newAttacker }));
+    // Update enemy state
+    setDefender(() => ({...newDefender }));
+    return;
   };
 
   // Constantly checks if combat is over
   useEffect(() => {
     checkIfCombatIsOver(player, enemy, setbattleOver);
+    console.log("TURN CHANGED");
   }, [player, enemy]);
 
   return (
     <div>
+      <button onClick={() => showState()}>SHOW STATE</button>
       <div>It is turn: {turn === 0 ? "player" : "enemy"}.</div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>Enemy Health: {enemy.stats.currentWounds}</div>

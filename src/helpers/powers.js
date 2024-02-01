@@ -1,15 +1,29 @@
 import { rollXDiceD3 } from "./diceRolls";
 
 const justDoDamage = function (user, target) {
-  const updatedStats = {
+  const updatedUser = user;
+  const updatedTarget = {
     ...target,
     stats: {
       ...target.stats,
       currentWounds: target.stats.currentWounds - 3,
     },
   };
-  console.log(user.information.name, " does 3 damage.")
-  return updatedStats;
+  console.log(user.information.name, " does 3 damage.");
+  return { updatedUser, updatedTarget };
+};
+
+const justDoDamageSelf = function (user, target) {
+  const updatedUser = {
+    ...user,
+    stats: {
+      ...user.stats,
+      currentWounds: user.stats.currentWounds - 3,
+    },
+  };
+  const updatedTarget = target;
+  console.log(user.information.name, " does 3 damage self.");
+  return { updatedUser, updatedTarget };
 };
 
 const applyPowerAttackBuff = function (power, user, target) {
@@ -62,6 +76,8 @@ const usePower = function (power, user, target) {
   switch (power) {
     case 0:
       return justDoDamage(user, target);
+    case 1:
+      return justDoDamageSelf(user, target);
     default:
       console.log(`Sorry, we are out of ${expr}.`);
   }

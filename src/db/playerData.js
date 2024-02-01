@@ -38,6 +38,11 @@ const playerObj = {
       name: "Damage Spell",
       description: "",
     },
+    {
+      id: 1,
+      name: "Damage Spell Self",
+      description: "",
+    },
   ],
   save: {
     armour: 3,
