@@ -12,6 +12,13 @@ const playerObj = {
     wounds: 5,
     currentWounds: 5,
   },
+  statModifiers: {
+    strengthMod: 0,
+    toughnessMod: 0,
+    initiativeMod: 0,
+    castBonusMod: 0,
+    skillMod: 0,
+  },
   weapons: [
     {
       id: 0,

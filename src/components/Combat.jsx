@@ -28,7 +28,6 @@ function Combat() {
 
   // Will check if any entities have 0 or less health, if there are the combat ends
   const checkIfCombatIsOver = function (attacker, defender, setbattleOver) {
-    changeTurn();
     if (attacker.stats.currentWounds < 1 || defender.stats.currentWounds < 1) {
       setbattleOver(true);
       return;
@@ -67,6 +66,7 @@ function Combat() {
 
   // Constantly checks if combat is over
   useEffect(() => {
+    changeTurn();
     checkIfCombatIsOver(player, enemy, setbattleOver);
   }, [player, enemy]);
 

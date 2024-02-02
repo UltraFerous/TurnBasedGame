@@ -9,15 +9,17 @@ import {
 const hitRoll = function (index, user) {
   return filterDicePoolAbove(
     rollXDice(user.weapons[index].attacks),
-    user.weapons[index].skill
+    user.weapons[index].skill + user.statModifiers.skillMod
   );
 };
 
 // Rolls the dice to wound, looking for results above or equal to the comparison result
 const woundRoll = function (index, user, target, rolls) {
   const woundTargetNumber = woundComparison(
-    user.stats.strength + user.weapons[index].strengthBonus,
-    target.stats.toughness
+    user.stats.strength +
+      user.statModifiers.strengthMod +
+      user.weapons[index].strengthBonus,
+    target.stats.toughness + target.statModifiers.toughnessMod
   );
   return filterDicePoolAbove(rollXDice(rolls), woundTargetNumber);
 };
