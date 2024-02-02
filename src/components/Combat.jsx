@@ -29,20 +29,12 @@ function Combat() {
   // Will check if any entities have 0 or less health, if there are the combat ends
   const checkIfCombatIsOver = function (attacker, defender, setbattleOver) {
     changeTurn();
-    console.log("TRIGGERED: TURN IS: ", turn);
-    if (attacker.stats.currentWounds < 1) {
-      // Because the turn changes before the combat ends we need to do an immediate turn change
-      changeTurn();
+    if (attacker.stats.currentWounds < 1 || defender.stats.currentWounds < 1) {
       setbattleOver(true);
       return;
     }
     if (attacker.stats.currentWounds > 0 && !battleOver && turn !== 0) {
       turnManager(0, 0, enemy, player);
-      return;
-    }
-    if (defender.stats.currentWounds < 1) {
-      changeTurn();
-      setbattleOver(true);
       return;
     }
   };
