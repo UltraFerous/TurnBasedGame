@@ -22,31 +22,39 @@ function Combat() {
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
-  const changeTurn = function (turn, setTurn) {
+  const changeTurn = function () {
     turn === 0 ? setTurn(1) : setTurn(0);
   };
 
   // Will check if any entities have 0 or less health, if there are the combat ends
   const checkIfCombatIsOver = function (attacker, defender, setbattleOver) {
+    changeTurn();
+    console.log("TRIGGERED: TURN IS: ", turn);
     if (attacker.stats.currentWounds < 1) {
       // Because the turn changes before the combat ends we need to do an immediate turn change
-      changeTurn(turn, setTurn);
+      changeTurn();
       setbattleOver(true);
       return;
     }
+    if (attacker.stats.currentWounds > 0 && !battleOver && turn !== 0) {
+      turnManager(0, 0, enemy, player);
+      return;
+    }
     if (defender.stats.currentWounds < 1) {
+      changeTurn();
       setbattleOver(true);
       return;
     }
   };
 
   //THESE FUNCTIONS ARE NOT SCABLE TO THE ENEMY
+  //     turnManager(0, 0, enemy, player);
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (index) {
     turnManager(index, 1, player, enemy, setPlayer, setEnemy);
   };
 
-  const handlePowersOnClick = function (index) {
+  const handlePowersOnClick = async function (index) {
     const statsAfterPower = usePower(index, player, enemy);
     updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
   };
@@ -59,21 +67,15 @@ function Combat() {
 
   const updateStats = function (targetID, newStats) {
     if (targetID === 0) {
-      return setPlayer({ ...newStats });
+      return setPlayer((prevPlayer) => ({ ...prevPlayer, ...newStats }));
     }
-    setEnemy(() => ({ ...newStats }));
+    setEnemy((prevEnemy) => ({ ...prevEnemy, ...newStats }));
     return;
   };
 
   // Constantly checks if combat is over
   useEffect(() => {
     checkIfCombatIsOver(player, enemy, setbattleOver);
-  }, [player, enemy]);
-
-  useEffect(() => {
-    if (!battleOver && turn !== 0) {
-      turnManager(0, 0, enemy, player);
-    }
   }, [player, enemy]);
 
   return (
