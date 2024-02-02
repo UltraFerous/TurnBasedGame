@@ -46,7 +46,7 @@ function Combat() {
     turnManager(index, 1, player, enemy, setPlayer, setEnemy);
   };
 
-  const handlePowersOnClick = async function (index) {
+  const handlePowersOnClick = function (index) {
     const statsAfterPower = usePower(index, player, enemy);
     updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
   };
@@ -73,7 +73,6 @@ function Combat() {
   return (
     <div>
       <button onClick={() => showState()}>SHOW STATE</button>
-      <div>It is turn: {turn === 0 ? "player" : "enemy"}.</div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>Enemy Health: {enemy.stats.currentWounds}</div>
       {battleOver === false ? (
@@ -102,7 +101,7 @@ function Combat() {
           </div>
         </div>
       ) : (
-        <div>Battle Over {turn === 0 ? "Player Wins!" : "Enemy Wins!"}</div>
+        <div>Battle Over!</div>
       )}
     </div>
   );
