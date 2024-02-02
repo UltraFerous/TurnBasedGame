@@ -8,7 +8,7 @@ import {
 // Rolls the dice to hit, looking for results above or equal to the weapon skill
 const hitRoll = function (index, user) {
   return filterDicePoolAbove(
-    rollXDice(user.weapons[index].attacks),
+    rollXDice(user.weapons[index].attacks + user.statModifiers.attacksMod),
     user.weapons[index].skill + user.statModifiers.skillMod
   );
 };
@@ -28,7 +28,7 @@ const woundRoll = function (index, user, target, rolls) {
 const saveRoll = function (index, user, target, rolls) {
   return filterDicePoolBelow(
     rollXDice(rolls),
-    target.save.armour + user.weapons[index].rend
+    target.save.armour - target.statModifiers.armourMod - target.save.shield + user.weapons[index].rend
   );
 };
 

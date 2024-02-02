@@ -14,10 +14,12 @@ const enemyObj = {
   },
   statModifiers: {
     strengthMod: 0,
+    attacksMod: 0,
     toughnessMod: 0,
     initiativeMod: 0,
     castBonusMod: 0,
     skillMod: 0,
+    armourMod: 0,
   },
   weapons: [
     {
@@ -39,7 +41,6 @@ const enemyObj = {
   ],
   save: {
     armour: 4,
-    armourBonus: 0,
     shield: 0,
     ward: 0,
   },
