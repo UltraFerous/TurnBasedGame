@@ -52,6 +52,11 @@ const playerObj = {
       name: "Damage Spell Self",
       description: "",
     },
+    {
+      id: 2,
+      name: "Spell Attack Test",
+      description: "",
+    },
   ],
   save: {
     armour: 3,

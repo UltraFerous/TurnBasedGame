@@ -36,7 +36,7 @@ const damageRoll = function (index, rolls, user) {
   return rolls * user.weapons[index].damage;
 };
 
-const attackRoll = function (index, user, target, id) {
+const attackRoll = function (index, user, target) {
   let successfulRolls = 0;
 
   // Roll to hit, roll amount of attacks above or equal to skill

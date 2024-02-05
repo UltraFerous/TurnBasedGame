@@ -1,4 +1,5 @@
 import { rollXDiceD3 } from "./diceRolls";
+import { attackRoll } from "../helpers/attack";
 
 const justDoDamage = function (user, target) {
   const updatedStats = {
@@ -22,6 +23,27 @@ const justDoDamageSelf = function (user, target) {
   };
   console.log(user.information.name, " does 3 damage self.");
   return { updatedStats, targetID: 0 };
+};
+
+const testAttackSpell = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 2,
+        strengthBonus: 10,
+        rend: 10,
+        damage: 10,
+        attacks: 4,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
 };
 
 const applyPowerAttackBuff = function (power, user, target) {
@@ -76,8 +98,10 @@ const usePower = function (power, user, target) {
       return justDoDamage(user, target);
     case 1:
       return justDoDamageSelf(user, target);
+    case 2:
+      return testAttackSpell(user, target);
     default:
-      console.log(`Sorry, we are out of ${expr}.`);
+      console.log(`Sorry.`);
   }
 };
 

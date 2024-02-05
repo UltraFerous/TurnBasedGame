@@ -41,12 +41,12 @@ function Combat() {
   //THESE FUNCTIONS ARE NOT SCABLE TO THE ENEMY
   //     turnManager(0, 0, enemy, player);
   // This is the function that is called when an attack button is clicked
-  const handleWeaponsOnClick = function (index) {
-    turnManager(index, 1, player, enemy, setPlayer, setEnemy);
+  const handleWeaponsOnClick = function (weaponIndex) {
+    turnManager(weaponIndex, 1, player, enemy, setPlayer, setEnemy); // The 1 is the target
   };
 
-  const handlePowersOnClick = function (index) {
-    const statsAfterPower = usePower(index, player, enemy);
+  const handlePowersOnClick = function (powerIndex) {
+    const statsAfterPower = usePower(powerIndex, player, enemy);
     updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
   };
 
