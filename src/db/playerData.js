@@ -64,6 +64,13 @@ const playerObj = {
     shield: 0,
     ward: 7,
   },
+  items: [
+    {
+      id: 0,
+      name: "Small Health Potion",
+      amount: 1,
+    },
+  ],
 };
 
 export default playerObj;

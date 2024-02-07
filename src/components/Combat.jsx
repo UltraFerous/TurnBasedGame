@@ -4,8 +4,10 @@ import EnemyContext from "../context/enemyContext";
 import { attackRoll } from "../helpers/attack";
 import WeaponList from "./WeaponList";
 import PowerList from "./PowerList";
+import ItemList from "./ItemList.jsx";
 import { usePower } from "../helpers/powers.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
+import { useItem } from "../helpers/items.js";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
@@ -50,6 +52,11 @@ function Combat() {
     if (statsAfterPower.targetID >= 0) {
       updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
     }
+  };
+
+  const handleItemsOnClick = function (itemIndex) {
+    const statsAfterItem = useItem(itemIndex, player, enemy);
+    updateStats(statsAfterItem.targetID, statsAfterItem.updatedStats);
   };
 
   // Manages the turn cycle
@@ -98,6 +105,18 @@ function Combat() {
                 id={power.id}
                 name={power.name}
                 handlePowersOnClick={handlePowersOnClick}
+              />
+            ))}
+          </div>
+          <div>
+            <strong>Items:</strong>
+            {player.items.map((item, index) => (
+              <ItemList
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                amount={item.amount}
+                handleItemsOnClick={handleItemsOnClick}
               />
             ))}
           </div>
