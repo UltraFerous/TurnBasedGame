@@ -1,4 +1,4 @@
-import { rollXDiceD3 } from "./diceRolls";
+import { rollXDiceD3, roll2D6Dice } from "./diceRolls";
 import { attackRoll } from "../helpers/attack";
 
 const justDoDamage = function (user, target) {
@@ -46,7 +46,7 @@ const testAttackSpell = function (user, target) {
   return { updatedStats, targetID: 1 };
 };
 
-const applyPowerAttackBuff = function (power, user, target) {
+const applyPowerAttackBuff = function (user, target) {
   const updatedStats = {
     ...user,
     stats: {
@@ -57,7 +57,7 @@ const applyPowerAttackBuff = function (power, user, target) {
   return updatedStats;
 };
 
-const applyPowerHitCastBonus = function (power, user, target) {
+const applyPowerHitCastBonus = function (user, target) {
   const updatedStats = {
     ...user,
     stats: {
@@ -69,7 +69,7 @@ const applyPowerHitCastBonus = function (power, user, target) {
   return updatedStats;
 };
 
-const applyPowerWeakenEnemyArmour = function (power, user, target) {
+const applyPowerWeakenEnemyArmour = function (user, target) {
   const updatedStats = {
     ...target,
     save: {
@@ -80,7 +80,7 @@ const applyPowerWeakenEnemyArmour = function (power, user, target) {
   return updatedStats;
 };
 
-const applyPowerHealWounds = function (power, user, target) {
+const applyPowerHealWounds = function (user, target) {
   const healAmount = rollXDiceD3(1)[0];
   const updatedStats = {
     ...user,
@@ -92,16 +92,28 @@ const applyPowerHealWounds = function (power, user, target) {
   return updatedStats;
 };
 
-const usePower = function (power, user, target) {
+const activatePower = function (user, enemy, callbackPower, activationValue) {
+  const activationRoll = roll2D6Dice();
+  if (activationRoll <= 2) {
+    console.log("The power miscasted!");
+    return { targetID: -1 };
+  } else if (activationRoll < activationValue) {
+    console.log("The power was not activated!");
+    return { targetID: -1 };
+  }
+  return callbackPower(user, enemy);
+};
+
+const usePower = function (power, user, enemy) {
   switch (power) {
     case 0:
-      return justDoDamage(user, target);
+      return activatePower(user, enemy, justDoDamage, 5);
     case 1:
-      return justDoDamageSelf(user, target);
+      return activatePower(user, enemy, justDoDamageSelf, 5);
     case 2:
-      return testAttackSpell(user, target);
+      return activatePower(user, enemy, testAttackSpell, 5);
     default:
-      console.log(`Sorry.`);
+      console.log(`Sorry power just didn't work.`);
   }
 };
 

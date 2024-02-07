@@ -47,7 +47,9 @@ function Combat() {
 
   const handlePowersOnClick = function (powerIndex) {
     const statsAfterPower = usePower(powerIndex, player, enemy);
-    updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
+    if (statsAfterPower.targetID >= 0) {
+      updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
+    }
   };
 
   // Manages the turn cycle
