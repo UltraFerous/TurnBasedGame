@@ -46,7 +46,8 @@ const testAttackSpell = function (user, target) {
   return { updatedStats, targetID: 1 };
 };
 
-const applyPowerAttackBuff = function (user, target) {
+// Doctrine of Ignis
+const applyStrengthAttackBuff = function (user, target) {
   const updatedStats = {
     ...user,
     stats: {
@@ -54,34 +55,101 @@ const applyPowerAttackBuff = function (user, target) {
       strength: user.stats.strength + 1,
     },
   };
-  return updatedStats;
+  return { updatedStats, targetID: 0 };
 };
 
+const ignisDamagePower = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 2,
+        attacks: 6,
+        strengthBonus: -2,
+        rend: 1,
+        damage: 2,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
+};
+
+// Doctrine of Lux
 const applyPowerHitCastBonus = function (user, target) {
   const updatedStats = {
     ...user,
-    stats: {
-      ...user.stats,
-      castBonus: user.stats.castBonus + 1,
-      hitBonus: user.stats.hitBonus + 1,
+    statModifiers: {
+      ...statModifiers,
+      castBonusMod: user.statModifiers.castBonusMod + 1,
+      skillMod: user.statModifiers.skillMod + 1,
     },
   };
-  return updatedStats;
+  return { updatedStats, targetID: 0 };
 };
 
+const luxDamagePower = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 6,
+        attacks: 2,
+        strengthBonus: 4,
+        rend: 3,
+        damage: 4,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
+};
+
+// Doctrine of Ferrum
 const applyPowerWeakenEnemyArmour = function (user, target) {
   const updatedStats = {
-    ...target,
-    save: {
-      ...target.save,
-      armour: target.save.armour + 1,
+    ...user,
+    statModifiers: {
+      ...statModifiers,
+      // This should be +1 since armour is rolled under
+      armourMod: user.statModifiers.armourMod + 1,
     },
   };
-  return updatedStats;
+  return { updatedStats, targetID: 0 };
 };
 
+const ferrumDamagePower = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 3,
+        attacks: 4,
+        strengthBonus: 0,
+        rend: 0,
+        damage: 2,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
+};
+
+// Doctrine of Vita
 const applyPowerHealWounds = function (user, target) {
-  const healAmount = rollXDiceD3(1)[0];
+  const healAmount = rollXDiceD3(1)[0] + 1;
   const updatedStats = {
     ...user,
     stats: {
@@ -89,13 +157,157 @@ const applyPowerHealWounds = function (user, target) {
       currentWounds: user.stats.currentWounds + healAmount,
     },
   };
-  return updatedStats;
+  return { updatedStats, targetID: 0 };
+};
+
+const vitaDamagePower = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 3,
+        attacks: 4,
+        strengthBonus: 0,
+        rend: 3,
+        damage: 1,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
+};
+
+// Doctrine of Umbra
+const applyPowerReduceHit = function (user, target) {
+  const updatedStats = {
+    ...target,
+    statModifiers: {
+      ...statModifiers,
+      skillMod: target.statModifiers.skillMod - 1,
+    },
+  };
+  return { updatedStats, targetID: 1 };
+};
+
+const umbraDamagePower = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 2,
+        attacks: 1,
+        strengthBonus: -2,
+        rend: 3,
+        damage: 6,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
+};
+
+// Doctrine of Bestiarum
+const applyToughness = function (user, target) {
+  const updatedStats = {
+    ...user,
+    statModifiers: {
+      ...statModifiers,
+      skillMod: user.statModifiers.toughnessMod + 1,
+    },
+  };
+  return { updatedStats, targetID: 0 };
+};
+
+const bestiarumDamagePower = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 4,
+        attacks: 10,
+        strengthBonus: 1,
+        rend: 2,
+        damage: 1,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
+};
+
+// Doctrine of Mortis
+const applyArmour = function (user, target) {
+  const updatedStats = {
+    ...user,
+    statModifiers: {
+      ...statModifiers,
+      skillMod: user.statModifiers.armourMod + 1,
+    },
+  };
+  return { updatedStats, targetID: 0 };
+};
+
+const mortisDamagePower = function (user, target) {
+  const damageAmount = rollXDiceD3(1)[0];
+  const updatedStats = {
+    ...target,
+    stats: {
+      ...target.stats,
+      currentWounds: target.stats.currentWounds - damageAmount,
+    },
+  };
+  return { updatedStats, targetID: 1 };
+};
+
+// Doctrine of Coeli
+const applyDamageBuff = function (user, target) {
+  const updatedStats = {
+    ...user,
+    statModifiers: {
+      ...statModifiers,
+      skillMod: user.statModifiers.damageMod + 1,
+    },
+  };
+  return { updatedStats, targetID: 0 };
+};
+
+const coeliDamagePower = function (user, target) {
+  const powerAttackForUser = {
+    information: { ...user.information },
+    stats: { ...user.stats },
+    statModifiers: { ...user.statModifiers },
+    weapons: [
+      {
+        id: 0,
+        name: "Spell Attack One",
+        skill: 3,
+        attacks: 3,
+        strengthBonus: 1,
+        rend: 2,
+        damage: 0,
+      },
+    ],
+  };
+  const updatedStats = attackRoll(0, powerAttackForUser, target);
+  return { updatedStats, targetID: 1 };
 };
 
 const activatePower = function (user, enemy, callbackPower, activationValue) {
   const activationRoll = roll2D6Dice();
   if (activationRoll <= 2) {
-    console.log("The power miscasted!");
+    console.log("Oh No! Misactivation!");
     return { targetID: -1 };
   } else if (activationRoll < activationValue) {
     console.log("The power was not activated!");

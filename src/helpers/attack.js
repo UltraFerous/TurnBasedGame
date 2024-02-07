@@ -28,8 +28,16 @@ const woundRoll = function (index, user, target, rolls) {
 const saveRoll = function (index, user, target, rolls) {
   return filterDicePoolBelow(
     rollXDice(rolls),
-    target.save.armour - target.statModifiers.armourMod - target.save.shield + user.weapons[index].rend
+    target.save.armour -
+      target.statModifiers.armourMod -
+      target.save.shield +
+      user.weapons[index].rend
   );
+};
+
+// Rolls the dice to save, looking for failed saves which are results less than the ward save armour
+const wardSaveRoll = function (index, user, target, rolls) {
+  return filterDicePoolBelow(rollXDice(rolls), target.save.ward);
 };
 
 const damageRoll = function (index, rolls, user) {
@@ -52,11 +60,20 @@ const attackRoll = function (index, user, target) {
   successfulRolls = saveRollResults.length;
 
   //Reduce target wounds equal to the weapons damage
-  const targetDamageResults = damageRoll(index, successfulRolls, user);
+  const targetDamageResults =
+    damageRoll(index, successfulRolls, user) + user.statModifiers.damageMod;
   console.log(user.information.name, " does ", targetDamageResults, " damage.");
 
+  //Rolls for Ward Save after damage has been calculated. note most units do not have ward saves, ie = 7
+  const finalDamageResults = wardSaveRoll(
+    index,
+    user,
+    target,
+    targetDamageResults
+  ).length;
+
   //Returns the new health of the target
-  const newCurrentWounds = target.stats.currentWounds - targetDamageResults;
+  const newCurrentWounds = target.stats.currentWounds - finalDamageResults;
 
   const updatedTargetStats = {
     ...target,

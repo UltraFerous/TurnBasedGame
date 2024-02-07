@@ -18,6 +18,7 @@ const playerObj = {
     toughnessMod: 0,
     initiativeMod: 0,
     castBonusMod: 0,
+    damageMod: 0,
     skillMod: 0,
     armourMod: 0,
   },
@@ -61,7 +62,7 @@ const playerObj = {
   save: {
     armour: 3,
     shield: 0,
-    ward: 0,
+    ward: 7,
   },
 };
 
