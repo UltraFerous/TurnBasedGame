@@ -73,8 +73,31 @@ function Combat() {
     return;
   };
 
+  // This one is optional, I may remove this for now
+  const removeOverHeal = function () {
+    if (player.stats.currentWounds > player.stats.wounds) {
+      setPlayer({
+        ...player,
+        stats: {
+          ...player.stats,
+          currentWounds: player.stats.wounds,
+        },
+      });
+    }
+    if (enemy.stats.currentWounds > enemy.stats.wounds) {
+      setEnemy({
+        ...enemy,
+        stats: {
+          ...enemy.stats,
+          currentWounds: enemy.stats.wounds,
+        },
+      });
+    }
+  };
+
   // Constantly checks if combat is over
   useEffect(() => {
+    removeOverHeal();
     changeTurn();
     checkIfCombatIsOver(player, enemy, setbattleOver);
   }, [player, enemy]);
