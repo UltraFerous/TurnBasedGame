@@ -214,12 +214,12 @@ const umbraDamagePower = function (user, target) {
 };
 
 // Doctrine of Bestiarum
-const applyToughness = function (user, target) {
+const applyAttackBuff = function (user, target) {
   const updatedStats = {
     ...user,
     statModifiers: {
       ...user.statModifiers,
-      skillMod: user.statModifiers.toughnessMod + 1,
+      attacksMod: user.statModifiers.attacksMod + 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -247,12 +247,12 @@ const bestiarumDamagePower = function (user, target) {
 };
 
 // Doctrine of Mortis
-const applyArmour = function (user, target) {
+const applyToughness = function (user, target) {
   const updatedStats = {
     ...user,
     statModifiers: {
       ...user.statModifiers,
-      skillMod: user.statModifiers.armourMod + 1,
+      toughnessMod: user.statModifiers.toughnessMod + 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -276,7 +276,7 @@ const applyDamageBuff = function (user, target) {
     ...user,
     statModifiers: {
       ...user.statModifiers,
-      skillMod: user.statModifiers.damageMod + 1,
+      damageMod: user.statModifiers.damageMod + 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -343,11 +343,11 @@ const usePower = function (power, user, enemy) {
     case 11:
       return activatePower(user, enemy, umbraDamagePower, 5);
     case 12:
-      return activatePower(user, enemy, applyToughness, 5);
+      return activatePower(user, enemy, applyAttackBuff, 5);
     case 13:
       return activatePower(user, enemy, bestiarumDamagePower, 5);
     case 14:
-      return activatePower(user, enemy, applyArmour, 5);
+      return activatePower(user, enemy, applyToughness, 5);
     case 15:
       return activatePower(user, enemy, mortisDamagePower, 5);
     case 16:

@@ -41,7 +41,44 @@ describe("Testing the stat modifing powers different powers", () => {
   test("Test applyPowerHitCastBonus", () => {
     const buffHitCast = usePower(4, testStats, testStats);
     expect(buffHitCast.updatedStats.statModifiers.skillMod).toBeGreaterThan(0);
-    expect(buffHitCast.updatedStats.statModifiers.castBonusMod).toBeGreaterThan(0);
+    expect(buffHitCast.updatedStats.statModifiers.castBonusMod).toBeGreaterThan(
+      0
+    );
+  });
 
+  test("Test applyPowerWeakenEnemyArmour", () => {
+    const reducedArmour = usePower(6, testStats, testStats);
+    expect(reducedArmour.updatedStats.statModifiers.armourMod).toBeLessThan(0);
+  });
+
+  test("Test applyPowerHealWounds", () => {
+    const reducedArmour = usePower(8, testStats, testStats);
+    expect(reducedArmour.updatedStats.stats.currentWounds).toBeGreaterThan(
+      testStats.stats.currentWounds
+    );
+  });
+
+  test("Test applyPowerReduceHit", () => {
+    const reducedHit = usePower(10, testStats, testStats);
+    expect(reducedHit.updatedStats.statModifiers.skillMod).toBeLessThan(0);
+  });
+
+  test("Test applyAttackBuff", () => {
+    const bonusAttacks = usePower(12, testStats, testStats);
+    expect(bonusAttacks.updatedStats.statModifiers.attacksMod).toBeGreaterThan(
+      0
+    );
+  });
+
+  test("Test applyToughness", () => {
+    const bonusToughness = usePower(14, testStats, testStats);
+    expect(
+      bonusToughness.updatedStats.statModifiers.toughnessMod
+    ).toBeGreaterThan(0);
+  });
+
+  test("Test applyDamageBuff", () => {
+    const bonusDamage = usePower(16, testStats, testStats);
+    expect(bonusDamage.updatedStats.statModifiers.damageMod).toBeGreaterThan(0);
   });
 });
