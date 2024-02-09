@@ -17,6 +17,7 @@ const smallHealthPotion = function (user, enemy) {
     },
     items: updatedItems,
   };
+
   console.log(user.information.name, " uses a potion.");
   console.log(updatedStats);
   return { updatedStats, targetID: 0 };
@@ -27,7 +28,7 @@ const useItem = function (item, user, enemy) {
     case 0:
       return smallHealthPotion(user, enemy);
     default:
-      console.log(`Sorry power just didn't work.`);
+      console.log(`Sorry item just didn't work.`);
   }
 };
 

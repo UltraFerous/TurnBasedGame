@@ -46,7 +46,7 @@ const damageRoll = function (index, rolls, user) {
 
 const attackRoll = function (index, user, target) {
   let successfulRolls = 0;
-
+  // Index is the select weapon
   // Roll to hit, roll amount of attacks above or equal to skill
   const hitRollResults = hitRoll(index, user);
   successfulRolls = hitRollResults.length;
