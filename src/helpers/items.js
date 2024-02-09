@@ -17,20 +17,6 @@ const smallHealthPotion = function (user, enemy) {
     },
     items: updatedItems,
   };
-
-  if (updatedStats.stats.currentWounds > user.stats.wounds) {
-    const updatedStatsWithoutOverHeal = {
-      ...updatedStats,
-      stats: {
-        ...updatedStats.stats,
-        currentWounds: user.stats.wounds,
-      },
-      items: updatedItems,
-    };
-    console.log(user.information.name, " uses a potion, overheal removed.");
-    return { updatedStatsWithoutOverHeal, targetID: 0 };
-  }
-
   console.log(user.information.name, " uses a potion.");
   return { updatedStats, targetID: 0 };
 };
