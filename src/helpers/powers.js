@@ -324,6 +324,37 @@ const usePower = function (power, user, enemy) {
       return activatePower(user, enemy, justDoDamageSelf, 5);
     case 2:
       return activatePower(user, enemy, testAttackSpell, 5);
+    case 3:
+      return activatePower(user, enemy, applyStrengthAttackBuff, 5);
+    case 4:
+      return activatePower(user, enemy, applyPowerHitCastBonus, 5);
+    case 5:
+      return activatePower(user, enemy, luxDamagePower, 5);
+    case 6:
+      return activatePower(user, enemy, applyPowerWeakenEnemyArmour, 5);
+    case 7:
+      return activatePower(user, enemy, ferrumDamagePower, 5);
+    case 8:
+      return activatePower(user, enemy, applyPowerHealWounds, 5);
+    case 9:
+      return activatePower(user, enemy, vitaDamagePower, 5);
+    case 10:
+      return activatePower(user, enemy, applyPowerReduceHit, 5);
+    case 11:
+      return activatePower(user, enemy, umbraDamagePower, 5);
+    case 12:
+      return activatePower(user, enemy, applyToughness, 5);
+    case 13:
+      return activatePower(user, enemy, bestiarumDamagePower, 5);
+    case 14:
+      return activatePower(user, enemy, applyArmour, 5);
+    case 15:
+      return activatePower(user, enemy, mortisDamagePower, 5);
+    case 16:
+      return activatePower(user, enemy, applyDamageBuff, 5);
+    case 17:
+      return activatePower(user, enemy, coeliDamagePower, 5);
+
     default:
       console.log(`Sorry power just didn't work.`);
   }

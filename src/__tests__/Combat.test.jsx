@@ -123,20 +123,20 @@ describe("Dice Filtering", () => {
     const filteredRoll = filterDicePoolAbove(testRolls, 6);
     expect(filteredRoll.length).toEqual(1);
   });
-  test("The above filter removes the correct dice", () => {
-    const testRolls = [1, 2, 3, 4, 5, 6];
-    const filteredRoll = filterDicePoolAbove(testRolls, 7);
-    expect(filteredRoll.length).toEqual(0);
-  });
   test("The below filter removes the correct dice", () => {
     const testRolls = [1, 2, 3, 4, 5, 6];
     const filteredRoll = filterDicePoolBelow(testRolls, 3);
     expect(filteredRoll.length).toEqual(2);
   });
-  test("The below filter removes the correct dice", () => {
+  test("A roll of a 6 is always a success", () => {
     const testRolls = [1, 2, 3, 4, 5, 6];
-    const filteredRoll = filterDicePoolBelow(testRolls, 1);
-    expect(filteredRoll.length).toEqual(0);
+    const filteredRoll = filterDicePoolAbove(testRolls, 7);
+    expect(filteredRoll.length).toEqual(1);
+  });
+  test("A roll of a 1 is always always a fail", () => {
+    const testRolls = [1, 2, 3, 4, 5, 6];
+    const filteredRoll = filterDicePoolBelow(testRolls, 6);
+    expect(filteredRoll.length).toEqual(5);
   });
 });
 
