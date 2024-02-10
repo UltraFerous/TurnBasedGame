@@ -9,7 +9,7 @@ const smallHealthPotion = function (user, enemy) {
   // Create a new items array with the updated potion
   const updatedItems = [updatedPotion, ...user.items.splice(0, 0)];
   // Create the updatedStats object with the new items array
-  const updatedStats = {
+  let updatedStats = {
     ...user,
     stats: {
       ...user.stats,
@@ -17,6 +17,18 @@ const smallHealthPotion = function (user, enemy) {
     },
     items: updatedItems,
   };
+  // If the potion overheals then reset the health to maximum
+  if (updatedStats.stats.currentWounds > user.stats.wounds) {
+    updatedStats = {
+      ...updatedStats,
+      stats: {
+        ...user.stats,
+        currentWounds: updatedStats.stats.wounds,
+      },
+    };
+    console.log(user.information.name, "uses a potion, with overheal removed.");
+    return { updatedStats, targetID: 0 };
+  }
   console.log(user.information.name, " uses a potion.");
   return { updatedStats, targetID: 0 };
 };
