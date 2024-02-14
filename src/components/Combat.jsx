@@ -5,7 +5,7 @@ import { attackRoll } from "../helpers/attack";
 import WeaponList from "./WeaponList";
 import PowerList from "./PowerList";
 import ItemList from "./ItemList.jsx";
-import { usePower } from "../helpers/powers.js";
+import { usePower } from "../helpers/playerPowers.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
 
@@ -29,13 +29,12 @@ function Combat() {
   };
 
   // Will check if any entities have 0 or less health, if there are the combat ends
-  const checkIfCombatIsOver = function (attacker, defender, setbattleOver) {
+  const checkIfCombatIsOver = function (attacker, defender) {
     if (attacker.stats.currentWounds < 1 || defender.stats.currentWounds < 1) {
       setbattleOver(true);
       return;
     }
     if (attacker.stats.currentWounds > 0 && !battleOver && turn !== 0) {
-      console.log("ENEMY ATTACKS!");
       turnManager(0, 0, enemy, player);
       return;
     }
@@ -61,8 +60,8 @@ function Combat() {
   };
 
   // Manages the turn cycle
-  const turnManager = function (attackIndex, targetID, attacker, defender) {
-    const newStats = attackRoll(attackIndex, attacker, defender);
+  const turnManager = function (weaponIndex, targetID, attacker, defender) {
+    const newStats = attackRoll(weaponIndex, attacker, defender);
     updateStats(targetID, newStats);
   };
 
@@ -74,12 +73,10 @@ function Combat() {
     return;
   };
 
-
-
   // Constantly checks if combat is over
   useEffect(() => {
     changeTurn();
-    checkIfCombatIsOver(player, enemy, setbattleOver);
+    checkIfCombatIsOver(player, enemy);
   }, [player, enemy]);
 
   return (

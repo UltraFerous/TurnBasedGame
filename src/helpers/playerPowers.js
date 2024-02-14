@@ -1,5 +1,5 @@
 import { rollXDiceD3, roll2D6Dice } from "./diceRolls";
-import { attackRoll } from "../helpers/attack";
+import { attackRoll } from "./attack";
 
 const justDoDamage = function (user, target) {
   const updatedStats = {

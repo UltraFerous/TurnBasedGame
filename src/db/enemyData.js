@@ -33,7 +33,7 @@ const enemyObj = {
       attacks: 3,
     },
   ],
-  abilities: [
+  powers: [
     {
       id: 0,
       name: "name",
