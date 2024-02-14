@@ -15,19 +15,19 @@ import { useItem } from "../helpers/items.js";
 function Combat() {
   const [turn, setTurn] = useState(0);
   const [battleOver, setbattleOver] = useState(false);
-  const [target, setTarget] = useState(0);
+  const [targetEnemy, setTargetEnemy] = useState(0);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
 
   // This is used to for the targeting drop down
   const handleSelectChange = (event) => {
     const selectedIndex = parseInt(event.target.value, 10);
-    setTarget(selectedIndex);
+    setTargetEnemy(selectedIndex);
   };
 
   const showState = function () {
     console.log(player);
-    console.log(enemy[target]);
+    console.log(enemy[targetEnemy]);
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
@@ -42,20 +42,20 @@ function Combat() {
       return;
     }
     if (attacker.stats.currentWounds > 0 && !battleOver && turn !== 0) {
-      const enemyTurn = enemyTurnTactic(player, enemy[target]);
-      turnManager(enemyTurn.chosenOptionIndex, 0, enemy[target], player);
+      const enemyTurn = enemyTurnTactic(player, enemy[targetEnemy]);
+      turnManager(enemyTurn.chosenOptionIndex, 0, enemy[targetEnemy], player);
       return;
     }
   };
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    turnManager(weaponIndex, 1, player, enemy[target], setPlayer, setEnemy); // The 1 is the target
+    turnManager(weaponIndex, 1, player, enemy[targetEnemy], setPlayer, setEnemy); // The 1 is the target
   };
 
   // This is the function that is called when a power button is clicked
   const handlePowersOnClick = function (powerIndex) {
-    const statsAfterPower = usePower(powerIndex, player, enemy[target]);
+    const statsAfterPower = usePower(powerIndex, player, enemy[targetEnemy]);
     if (statsAfterPower.targetID >= 0) {
       updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
     }
@@ -63,7 +63,7 @@ function Combat() {
 
   // This is the function that is called when an item button is clicked
   const handleItemsOnClick = function (itemIndex) {
-    const statsAfterItem = useItem(itemIndex, player, enemy[target]);
+    const statsAfterItem = useItem(itemIndex, player, enemy[targetEnemy]);
     updateStats(statsAfterItem.targetID, statsAfterItem.updatedStats);
   };
 
@@ -91,7 +91,7 @@ function Combat() {
     if (targetID === 0) {
       return setPlayer((prevPlayer) => ({ ...prevPlayer, ...newStats }));
     }
-    updateEnemyStats(target, newStats);
+    updateEnemyStats(targetEnemy, newStats);
     return;
   };
 
@@ -107,7 +107,7 @@ function Combat() {
       <button onClick={() => showState()}>SHOW STATE</button>
       <div>
         Select target:
-        <select value={target} onChange={handleSelectChange}>
+        <select value={targetEnemy} onChange={handleSelectChange}>
           {enemy.map((enemy, index) => (
             <option value={index} key={index}>
               {enemy.information.name}
@@ -116,7 +116,7 @@ function Combat() {
         </select>
       </div>
       <div>Player Health: {player.stats.currentWounds}</div>
-      <div>Enemy Health: {enemy[target].stats.currentWounds}</div>
+      <div>Enemy Health: {enemy[targetEnemy].stats.currentWounds}</div>
       {battleOver === false ? (
         <div>
           {/* Displaying the options for weapon attacks */}
