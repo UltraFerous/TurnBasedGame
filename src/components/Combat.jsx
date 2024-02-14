@@ -15,13 +15,19 @@ import { useItem } from "../helpers/items.js";
 function Combat() {
   const [turn, setTurn] = useState(0);
   const [battleOver, setbattleOver] = useState(false);
+  const [target, setTarget] = useState(0);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
 
-  // Will change the turn between player and enemy, will only work for 2 entities.
+  // This is used to for the targeting drop down
+  const handleSelectChange = (event) => {
+    const selectedIndex = parseInt(event.target.value, 10);
+    setTarget(selectedIndex);
+  };
+
   const showState = function () {
     console.log(player);
-    console.log(enemy);
+    console.log(enemy[target]);
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
@@ -36,29 +42,28 @@ function Combat() {
       return;
     }
     if (attacker.stats.currentWounds > 0 && !battleOver && turn !== 0) {
-      const enemyTurn = enemyTurnTactic(player, enemy);
-
-      turnManager(enemyTurn.chosenOptionIndex, 0, enemy, player);
+      const enemyTurn = enemyTurnTactic(player, enemy[target]);
+      turnManager(enemyTurn.chosenOptionIndex, 0, enemy[target], player);
       return;
     }
   };
 
-  //THESE FUNCTIONS ARE NOT SCABLE TO THE ENEMY
-  //     turnManager(0, 0, enemy, player);
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    turnManager(weaponIndex, 1, player, enemy, setPlayer, setEnemy); // The 1 is the target
+    turnManager(weaponIndex, 1, player, enemy[target], setPlayer, setEnemy); // The 1 is the target
   };
 
+  // This is the function that is called when a power button is clicked
   const handlePowersOnClick = function (powerIndex) {
-    const statsAfterPower = usePower(powerIndex, player, enemy);
+    const statsAfterPower = usePower(powerIndex, player, enemy[target]);
     if (statsAfterPower.targetID >= 0) {
       updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
     }
   };
 
+  // This is the function that is called when an item button is clicked
   const handleItemsOnClick = function (itemIndex) {
-    const statsAfterItem = useItem(itemIndex, player, enemy);
+    const statsAfterItem = useItem(itemIndex, player, enemy[target]);
     updateStats(statsAfterItem.targetID, statsAfterItem.updatedStats);
   };
 
@@ -68,27 +73,53 @@ function Combat() {
     updateStats(targetID, newStats);
   };
 
+  const updateEnemyStats = (index, newStats) => {
+    setEnemy((prevEnemy) => {
+      return prevEnemy.map((enemy, i) => {
+        // If the current index matches the target index, update the stats
+        if (i === index) {
+          return { ...enemy, ...newStats };
+        } else {
+          // Otherwise, keep the current enemy object unchanged
+          return enemy;
+        }
+      });
+    });
+  };
+
   const updateStats = function (targetID, newStats) {
     if (targetID === 0) {
       return setPlayer((prevPlayer) => ({ ...prevPlayer, ...newStats }));
     }
-    setEnemy((prevEnemy) => ({ ...prevEnemy, ...newStats }));
+    updateEnemyStats(target, newStats);
     return;
   };
 
   // Constantly checks if combat is over
+  // The end turn doesnt work for all enemies, right now I'll leave it to the main enemy
   useEffect(() => {
     changeTurn();
-    checkIfCombatIsOver(player, enemy);
+    checkIfCombatIsOver(player, enemy[0]);
   }, [player, enemy]);
 
   return (
     <div>
       <button onClick={() => showState()}>SHOW STATE</button>
+      <div>
+        Select target:
+        <select value={target} onChange={handleSelectChange}>
+          {enemy.map((enemy, index) => (
+            <option value={index} key={index}>
+              {enemy.information.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div>Player Health: {player.stats.currentWounds}</div>
-      <div>Enemy Health: {enemy.stats.currentWounds}</div>
+      <div>Enemy Health: {enemy[target].stats.currentWounds}</div>
       {battleOver === false ? (
         <div>
+          {/* Displaying the options for weapon attacks */}
           <div>
             <strong>Weapons:</strong>
             {player.weapons.map((item, index) => (
@@ -100,6 +131,7 @@ function Combat() {
               />
             ))}
           </div>
+          {/* Displaying the options for power attacks */}
           <div>
             <strong>Powers:</strong>
             {player.powers.map((power, index) => (
@@ -111,6 +143,7 @@ function Combat() {
               />
             ))}
           </div>
+          {/* Displaying the options for item use */}
           <div>
             <strong>Items:</strong>
             {player.items.map((item, index) => (
