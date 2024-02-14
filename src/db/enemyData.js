@@ -45,6 +45,8 @@ const enemyObj = {
     shield: 0,
     ward: 7,
   },
+  items: [
+  ],
 };
 
 export default enemyObj;

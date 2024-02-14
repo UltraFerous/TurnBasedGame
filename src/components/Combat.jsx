@@ -6,6 +6,7 @@ import WeaponList from "./WeaponList";
 import PowerList from "./PowerList";
 import ItemList from "./ItemList.jsx";
 import { usePower } from "../helpers/playerPowers.js";
+import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
 
@@ -35,7 +36,9 @@ function Combat() {
       return;
     }
     if (attacker.stats.currentWounds > 0 && !battleOver && turn !== 0) {
-      turnManager(0, 0, enemy, player);
+      const enemyTurn = enemyTurnTactic(player, enemy);
+
+      turnManager(enemyTurn.chosenOptionIndex, 0, enemy, player);
       return;
     }
   };
