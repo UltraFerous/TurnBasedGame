@@ -1,4 +1,4 @@
-import { usePower } from "../helpers/powers";
+import { usePlayerPower } from "../helpers/playerPowers";
 
 describe("Testing the stat modifing powers different powers", () => {
   const testStats = {
@@ -28,14 +28,14 @@ describe("Testing the stat modifing powers different powers", () => {
   };
 
   test("Test applyStrengthAttackBuff", () => {
-    const buffedStrength = usePower(2, testStats, testStats);
+    const buffedStrength = usePlayerPower(2, testStats, testStats);
     expect(
       buffedStrength.updatedStats.statModifiers.strengthMod
     ).toBeGreaterThan(0);
   });
 
   test("Test applyPowerHitCastBonus", () => {
-    const buffHitCast = usePower(4, testStats, testStats);
+    const buffHitCast = usePlayerPower(4, testStats, testStats);
     expect(buffHitCast.updatedStats.statModifiers.skillMod).toBeGreaterThan(0);
     expect(buffHitCast.updatedStats.statModifiers.castBonusMod).toBeGreaterThan(
       0
@@ -43,38 +43,38 @@ describe("Testing the stat modifing powers different powers", () => {
   });
 
   test("Test applyPowerWeakenEnemyArmour", () => {
-    const reducedArmour = usePower(6, testStats, testStats);
+    const reducedArmour = usePlayerPower(6, testStats, testStats);
     expect(reducedArmour.updatedStats.statModifiers.armourMod).toBeLessThan(0);
   });
 
   test("Test applyPowerHealWounds", () => {
-    const reducedArmour = usePower(8, testStats, testStats);
+    const reducedArmour = usePlayerPower(8, testStats, testStats);
     expect(reducedArmour.updatedStats.stats.currentWounds).toBeGreaterThan(
       testStats.stats.currentWounds
     );
   });
 
   test("Test applyPowerReduceHit", () => {
-    const reducedHit = usePower(10, testStats, testStats);
+    const reducedHit = usePlayerPower(10, testStats, testStats);
     expect(reducedHit.updatedStats.statModifiers.skillMod).toBeLessThan(0);
   });
 
   test("Test applyAttackBuff", () => {
-    const bonusAttacks = usePower(12, testStats, testStats);
+    const bonusAttacks = usePlayerPower(12, testStats, testStats);
     expect(bonusAttacks.updatedStats.statModifiers.attacksMod).toBeGreaterThan(
       0
     );
   });
 
   test("Test applyToughness", () => {
-    const bonusToughness = usePower(14, testStats, testStats);
+    const bonusToughness = usePlayerPower(14, testStats, testStats);
     expect(
       bonusToughness.updatedStats.statModifiers.toughnessMod
     ).toBeGreaterThan(0);
   });
 
   test("Test applyDamageBuff", () => {
-    const bonusDamage = usePower(16, testStats, testStats);
+    const bonusDamage = usePlayerPower(16, testStats, testStats);
     expect(bonusDamage.updatedStats.statModifiers.damageMod).toBeGreaterThan(0);
   });
 });
@@ -107,56 +107,56 @@ describe("Testing the powers that are attacks", () => {
   };
 
   test("Test ignisDamagePower", () => {
-    const statsAfterPower = usePower(3, testStats, testStats);
+    const statsAfterPower = usePlayerPower(3, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds + 1
     );
   });
 
   test("Test luxDamagePower", () => {
-    const statsAfterPower = usePower(5, testStats, testStats);
+    const statsAfterPower = usePlayerPower(5, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds + 1
     );
   });
 
   test("Test ferrumDamagePower", () => {
-    const statsAfterPower = usePower(7, testStats, testStats);
+    const statsAfterPower = usePlayerPower(7, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds + 1
     );
   });
 
   test("Test vitaDamagePower", () => {
-    const statsAfterPower = usePower(9, testStats, testStats);
+    const statsAfterPower = usePlayerPower(9, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds + 1
     );
   });
 
   test("Test umbraDamagePower", () => {
-    const statsAfterPower = usePower(11, testStats, testStats);
+    const statsAfterPower = usePlayerPower(11, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds + 1
     );
   });
 
   test("Test bestiarumDamagePower", () => {
-    const statsAfterPower = usePower(13, testStats, testStats);
+    const statsAfterPower = usePlayerPower(13, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds + 1
     );
   });
 
   test("Test mortisDamagePower", () => {
-    const statsAfterPower = usePower(15, testStats, testStats);
+    const statsAfterPower = usePlayerPower(15, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds
     );
   });
 
   test("Test coeliDamagePower", () => {
-    const statsAfterPower = usePower(17, testStats, testStats);
+    const statsAfterPower = usePlayerPower(17, testStats, testStats);
     expect(statsAfterPower.updatedStats.stats.currentWounds).toBeLessThan(
       testStats.stats.currentWounds + 1
     );

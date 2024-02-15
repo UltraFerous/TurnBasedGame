@@ -59,8 +59,8 @@ const enemyObj = [
       toughness: 3,
       initiative: 5,
       castBonus: 2,
-      wounds: 8,
-      currentWounds: 8,
+      wounds: 3,
+      currentWounds: 3,
     },
     statModifiers: {
       strengthMod: 0,

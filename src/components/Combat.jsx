@@ -5,7 +5,7 @@ import { attackRoll } from "../helpers/attack";
 import WeaponList from "./WeaponList";
 import PowerList from "./PowerList";
 import ItemList from "./ItemList.jsx";
-import { usePower } from "../helpers/playerPowers.js";
+import { usePlayerPower } from "../helpers/playerPowers.js";
 import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
@@ -54,8 +54,8 @@ function Combat() {
   };
 
   // This is the function that is called when a power button is clicked
-  const handlePowersOnClick = function (powerIndex) {
-    const statsAfterPower = usePower(powerIndex, player, enemy[targetEnemy]);
+  const handlePlayerPowersOnClick = function (powerIndex) {
+    const statsAfterPower = usePlayerPower(powerIndex, player, enemy[targetEnemy]);
     if (statsAfterPower.targetID >= 0) {
       updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
     }
@@ -139,7 +139,7 @@ function Combat() {
                 key={power.id}
                 id={power.id}
                 name={power.name}
-                handlePowersOnClick={handlePowersOnClick}
+                handlePowersOnClick={handlePlayerPowersOnClick}
               />
             ))}
           </div>

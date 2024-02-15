@@ -316,7 +316,7 @@ const activatePower = function (user, enemy, callbackPower, activationValue) {
   return callbackPower(user, enemy);
 };
 
-const usePower = function (power, user, enemy) {
+const usePlayerPower = function (power, user, enemy) {
   switch (power) {
     case 0:
       return activatePower(user, enemy, justDoDamage, 5);
@@ -360,4 +360,4 @@ const usePower = function (power, user, enemy) {
   }
 };
 
-export { usePower };
+export { usePlayerPower };
