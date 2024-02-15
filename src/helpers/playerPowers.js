@@ -1,6 +1,9 @@
 import { rollXDiceD3, roll2D6Dice } from "./diceRolls";
 import { attackRoll } from "./attack";
 
+// I have changed the setting of this game and thus the power names. It is too much to change right now, so some of the names are from the old setting.
+// This stuff needs to be refactored
+
 const justDoDamage = function (user, target) {
   const updatedStats = {
     ...target,
