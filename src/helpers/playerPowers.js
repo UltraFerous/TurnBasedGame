@@ -1,5 +1,8 @@
 import { rollXDiceD3, roll2D6Dice } from "./diceRolls";
-import { attackRoll } from "../helpers/attack";
+import { attackRoll } from "./attack";
+
+// I have changed the setting of this game and thus the power names. It is too much to change right now, so some of the names are from the old setting.
+// This stuff needs to be refactored
 
 const justDoDamage = function (user, target) {
   const updatedStats = {
@@ -50,9 +53,9 @@ const testAttackSpell = function (user, target) {
 const applyStrengthAttackBuff = function (user, target) {
   const updatedStats = {
     ...user,
-    stats: {
-      ...user.stats,
-      strength: user.stats.strength + 1,
+    statModifiers: {
+      ...user.statModifiers,
+      strengthMod: user.statModifiers.strengthMod + 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -84,7 +87,7 @@ const applyPowerHitCastBonus = function (user, target) {
   const updatedStats = {
     ...user,
     statModifiers: {
-      ...statModifiers,
+      ...user.statModifiers,
       castBonusMod: user.statModifiers.castBonusMod + 1,
       skillMod: user.statModifiers.skillMod + 1,
     },
@@ -118,9 +121,8 @@ const applyPowerWeakenEnemyArmour = function (user, target) {
   const updatedStats = {
     ...user,
     statModifiers: {
-      ...statModifiers,
-      // This should be +1 since armour is rolled under
-      armourMod: user.statModifiers.armourMod + 1,
+      ...user.statModifiers,
+      armourMod: user.statModifiers.armourMod - 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -186,7 +188,7 @@ const applyPowerReduceHit = function (user, target) {
   const updatedStats = {
     ...target,
     statModifiers: {
-      ...statModifiers,
+      ...user.statModifiers,
       skillMod: target.statModifiers.skillMod - 1,
     },
   };
@@ -215,12 +217,12 @@ const umbraDamagePower = function (user, target) {
 };
 
 // Doctrine of Bestiarum
-const applyToughness = function (user, target) {
+const applyAttackBuff = function (user, target) {
   const updatedStats = {
     ...user,
     statModifiers: {
-      ...statModifiers,
-      skillMod: user.statModifiers.toughnessMod + 1,
+      ...user.statModifiers,
+      attacksMod: user.statModifiers.attacksMod + 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -248,12 +250,12 @@ const bestiarumDamagePower = function (user, target) {
 };
 
 // Doctrine of Mortis
-const applyArmour = function (user, target) {
+const applyToughness = function (user, target) {
   const updatedStats = {
     ...user,
     statModifiers: {
-      ...statModifiers,
-      skillMod: user.statModifiers.armourMod + 1,
+      ...user.statModifiers,
+      toughnessMod: user.statModifiers.toughnessMod + 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -276,8 +278,8 @@ const applyDamageBuff = function (user, target) {
   const updatedStats = {
     ...user,
     statModifiers: {
-      ...statModifiers,
-      skillMod: user.statModifiers.damageMod + 1,
+      ...user.statModifiers,
+      damageMod: user.statModifiers.damageMod + 1,
     },
   };
   return { updatedStats, targetID: 0 };
@@ -305,7 +307,8 @@ const coeliDamagePower = function (user, target) {
 };
 
 const activatePower = function (user, enemy, callbackPower, activationValue) {
-  const activationRoll = roll2D6Dice();
+  const totalCastBonus = user.statModifiers.castBonusMod + user.stats.castBonus;
+  const activationRoll = roll2D6Dice() + totalCastBonus;
   if (activationRoll <= 2) {
     console.log("Oh No! Misactivation!");
     return { targetID: -1 };
@@ -316,17 +319,48 @@ const activatePower = function (user, enemy, callbackPower, activationValue) {
   return callbackPower(user, enemy);
 };
 
-const usePower = function (power, user, enemy) {
+const usePlayerPower = function (power, user, enemy) {
   switch (power) {
     case 0:
       return activatePower(user, enemy, justDoDamage, 5);
     case 1:
       return activatePower(user, enemy, justDoDamageSelf, 5);
     case 2:
-      return activatePower(user, enemy, testAttackSpell, 5);
+      return activatePower(user, enemy, applyStrengthAttackBuff, 5);
+    case 3:
+      return activatePower(user, enemy, ignisDamagePower, 5);
+    case 4:
+      return activatePower(user, enemy, applyPowerHitCastBonus, 5);
+    case 5:
+      return activatePower(user, enemy, luxDamagePower, 5);
+    case 6:
+      return activatePower(user, enemy, applyPowerWeakenEnemyArmour, 5);
+    case 7:
+      return activatePower(user, enemy, ferrumDamagePower, 5);
+    case 8:
+      return activatePower(user, enemy, applyPowerHealWounds, 5);
+    case 9:
+      return activatePower(user, enemy, vitaDamagePower, 5);
+    case 10:
+      return activatePower(user, enemy, applyPowerReduceHit, 5);
+    case 11:
+      return activatePower(user, enemy, umbraDamagePower, 5);
+    case 12:
+      return activatePower(user, enemy, applyAttackBuff, 5);
+    case 13:
+      return activatePower(user, enemy, bestiarumDamagePower, 5);
+    case 14:
+      return activatePower(user, enemy, applyToughness, 5);
+    case 15:
+      return activatePower(user, enemy, mortisDamagePower, 5);
+    case 16:
+      return activatePower(user, enemy, applyDamageBuff, 5);
+    case 17:
+      return activatePower(user, enemy, coeliDamagePower, 5);
+
     default:
       console.log(`Sorry power just didn't work.`);
   }
 };
 
-export { usePower };
+export { usePlayerPower };

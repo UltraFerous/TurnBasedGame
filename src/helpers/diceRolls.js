@@ -30,13 +30,15 @@ const roll2D6Dice = function (amount) {
 
 // Filters dice to only successfull results
 const filterDicePoolAbove = function (rolls, target) {
-  const filterDiceResults = rolls.filter((roll) => roll >= target);
+  const filterDiceResults = rolls.filter(
+    (roll) => roll >= target || roll === 6
+  );
   return filterDiceResults;
 };
 
-// Filters dice to only successfull results
+// Filters dice to only failed results
 const filterDicePoolBelow = function (rolls, target) {
-  const filterDiceResults = rolls.filter((roll) => roll < target);
+  const filterDiceResults = rolls.filter((roll) => roll < target || roll === 1);
   return filterDiceResults;
 };
 

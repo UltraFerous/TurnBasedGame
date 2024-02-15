@@ -53,17 +53,19 @@ const playerObj = {
       name: "Damage Spell Self",
       description: "",
     },
-    {
-      id: 2,
-      name: "Spell Attack Test",
-      description: "",
-    },
   ],
   save: {
     armour: 3,
     shield: 0,
     ward: 7,
   },
+  items: [
+    {
+      id: 0,
+      name: "Small Health Potion",
+      amount: 1,
+    },
+  ],
 };
 
 export default playerObj;
