@@ -9,7 +9,7 @@ import {
 const hitRoll = function (index, user) {
   return filterDicePoolAbove(
     rollXDice(user.weapons[index].attacks + user.statModifiers.attacksMod),
-    user.weapons[index].skill + user.statModifiers.skillMod
+    user.weapons[index].skill - user.statModifiers.skillMod
   );
 };
 

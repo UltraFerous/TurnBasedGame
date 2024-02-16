@@ -50,12 +50,23 @@ function Combat() {
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    turnManager(weaponIndex, 1, player, enemy[targetEnemy], setPlayer, setEnemy); // The 1 is the target
+    turnManager(
+      weaponIndex,
+      1,
+      player,
+      enemy[targetEnemy],
+      setPlayer,
+      setEnemy
+    ); // The 1 is the target
   };
 
   // This is the function that is called when a power button is clicked
   const handlePlayerPowersOnClick = function (powerIndex) {
-    const statsAfterPower = usePlayerPower(powerIndex, player, enemy[targetEnemy]);
+    const statsAfterPower = usePlayerPower(
+      powerIndex,
+      player,
+      enemy[targetEnemy]
+    );
     if (statsAfterPower.targetID >= 0) {
       updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
     }
@@ -107,13 +118,15 @@ function Combat() {
       <button onClick={() => showState()}>SHOW STATE</button>
       <div>
         Select target:
-        <select value={targetEnemy} onChange={handleSelectChange}>
-          {enemy.map((enemy, index) => (
-            <option value={index} key={index}>
-              {enemy.information.name}
-            </option>
-          ))}
-        </select>
+        {!battleOver && (
+          <select value={targetEnemy} onChange={handleSelectChange}>
+            {enemy.map((enemy, index) => (
+              <option value={index} key={index}>
+                {enemy.information.name}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>Enemy Health: {enemy[targetEnemy].stats.currentWounds}</div>

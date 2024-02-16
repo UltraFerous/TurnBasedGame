@@ -21,8 +21,8 @@ function App() {
           value={activeComponent}
           onChange={handleSelectChange}
         >
-          <option value={1}>Option 1</option>
-          <option value={2}>Option 2</option>
+          <option value={1}>Character Select Screen</option>
+          <option value={2}>Combat Screen</option>
         </select>
       </div>
 
