@@ -169,8 +169,13 @@ function Combat() {
       </div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>
-        Enemy Health:{" "}
-        {enemy[targetEnemy] && enemy[targetEnemy].stats.currentWounds}
+        Enemy Health:
+        {enemy.map((enemyUnit) => (
+          <div>
+            {" "}
+            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}{" "}
+          </div>
+        ))}
       </div>
       {battleOver === false ? (
         <div>
