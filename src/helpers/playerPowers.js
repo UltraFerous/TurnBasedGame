@@ -4,7 +4,7 @@ import { attackRoll } from "./attack";
 // I have changed the setting of this game and thus the power names. It is too much to change right now, so some of the names are from the old setting.
 // This stuff needs to be refactored
 
-const justDoDamage = function (user, target) {
+const justDoDamage = function (user, target, enemyIndex) {
   const updatedStats = {
     ...target,
     stats: {
@@ -13,10 +13,10 @@ const justDoDamage = function (user, target) {
     },
   };
   console.log(user.information.name, " does 3 damage.");
-  return { updatedStats, targetID: 1 };
+  return { side: 1, updatedStats, targetID: enemyIndex };
 };
 
-const justDoDamageSelf = function (user, target) {
+const justDoDamageSelf = function (user, target, enemyIndex) {
   const updatedStats = {
     ...user,
     stats: {
@@ -25,7 +25,7 @@ const justDoDamageSelf = function (user, target) {
     },
   };
   console.log(user.information.name, " does 3 damage self.");
-  return { updatedStats, targetID: 0 };
+  return { side: 0, updatedStats, targetID: 0 };
 };
 
 const testAttackSpell = function (user, target) {
@@ -306,7 +306,7 @@ const coeliDamagePower = function (user, target) {
   return { updatedStats, targetID: 1 };
 };
 
-const activatePower = function (user, enemy, callbackPower, activationValue) {
+const activatePower = function (user, enemy, enemyIndex, callbackPower, activationValue) {
   const totalCastBonus = user.statModifiers.castBonusMod + user.stats.castBonus;
   const activationRoll = roll2D6Dice() + totalCastBonus;
   if (activationRoll <= 2) {
@@ -316,15 +316,15 @@ const activatePower = function (user, enemy, callbackPower, activationValue) {
     console.log("The power was not activated!");
     return { targetID: -1 };
   }
-  return callbackPower(user, enemy);
+  return callbackPower(user, enemy, enemyIndex);
 };
 
-const usePlayerPower = function (power, user, enemy) {
+const usePlayerPower = function (power, user, enemy, enemyIndex) {
   switch (power) {
     case 0:
-      return activatePower(user, enemy, justDoDamage, 5);
+      return activatePower(user, enemy, enemyIndex, justDoDamage, 5);
     case 1:
-      return activatePower(user, enemy, justDoDamageSelf, 5);
+      return activatePower(user, enemy, enemyIndex, justDoDamageSelf, 5);
     case 2:
       return activatePower(user, enemy, applyStrengthAttackBuff, 5);
     case 3:

@@ -58,7 +58,7 @@ function Combat() {
       // If an enemy is alive, allow them to act
       if (unit.stats.currentWounds > 0) {
         const enemyTurn = enemyTurnTactic(player, unit);
-        resolveAttackCycle(enemyTurn.chosenOptionIndex, 0, unit, player);
+        resolveAttackCycle(0, enemyTurn.chosenOptionIndex, unit, player);
       }
       // If an enemy is found not to be defeated, add them to the updatedEnemies array
       if (unit.stats.currentWounds > 0) {
@@ -90,7 +90,7 @@ function Combat() {
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    resolveAttackCycle(weaponIndex, 1, player, enemy[targetEnemy]); // The 1 is the target
+    resolveAttackCycle(1, weaponIndex, player, enemy[targetEnemy]); // The 1 is the target
   };
 
   // This is the function that is called when a power button is clicked
@@ -98,10 +98,11 @@ function Combat() {
     const statsAfterPower = usePlayerPower(
       powerIndex,
       player,
-      enemy[targetEnemy]
+      enemy[targetEnemy],
+      targetEnemy
     );
     if (statsAfterPower.targetID >= 0) {
-      updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
+      updateStats(statsAfterPower.side, statsAfterPower.targetID, statsAfterPower.updatedStats);
     }
   };
 
@@ -112,14 +113,14 @@ function Combat() {
   };
 
   // Manages the turn cycle
-  const resolveAttackCycle = function (
+  const resolveAttackCycle = function(
+    combatTeam, 
     weaponIndex,
-    targetID,
     attacker,
     defender
   ) {
     const newStats = attackRoll(weaponIndex, attacker, defender);
-    updateStats(targetID, newStats);
+    updateStats(combatTeam, targetEnemy, newStats);
   };
 
   const updateEnemyStats = (index, newStats) => {
@@ -136,11 +137,11 @@ function Combat() {
     });
   };
 
-  const updateStats = function (targetID, newStats) {
-    if (targetID === 0) {
+  const updateStats = function (combatTeam, targetID, newStats) {
+    if (combatTeam === 0) {
       return setPlayer((prevPlayer) => ({ ...prevPlayer, ...newStats }));
     }
-    updateEnemyStats(targetEnemy, newStats);
+    updateEnemyStats(targetID, newStats);
     return;
   };
 
