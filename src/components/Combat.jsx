@@ -90,14 +90,7 @@ function Combat() {
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    resolveAttackCycle(
-      weaponIndex,
-      1,
-      player,
-      enemy[targetEnemy],
-      setPlayer,
-      setEnemy
-    ); // The 1 is the target
+    resolveAttackCycle(weaponIndex, 1, player, enemy[targetEnemy]); // The 1 is the target
   };
 
   // This is the function that is called when a power button is clicked
