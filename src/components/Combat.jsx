@@ -102,19 +102,27 @@ function Combat() {
       targetEnemy
     );
     if (statsAfterPower.targetID >= 0) {
-      updateStats(statsAfterPower.side, statsAfterPower.targetID, statsAfterPower.updatedStats);
+      updateStats(
+        statsAfterPower.combatTeam,
+        statsAfterPower.targetID,
+        statsAfterPower.updatedStats
+      );
     }
   };
 
   // This is the function that is called when an item button is clicked
   const handleItemsOnClick = function (itemIndex) {
     const statsAfterItem = useItem(itemIndex, player, enemy[targetEnemy]);
-    updateStats(statsAfterItem.targetID, statsAfterItem.updatedStats);
+    updateStats(
+      statsAfterItem.combatTeam,
+      statsAfterItem.targetID,
+      statsAfterItem.updatedStats
+    );
   };
 
   // Manages the turn cycle
-  const resolveAttackCycle = function(
-    combatTeam, 
+  const resolveAttackCycle = function (
+    combatTeam,
     weaponIndex,
     attacker,
     defender

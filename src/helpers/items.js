@@ -27,10 +27,10 @@ const smallHealthPotion = function (user, enemy) {
       },
     };
     console.log(user.information.name, "uses a potion, with overheal removed.");
-    return { updatedStats, targetID: 0 };
+    return { combatTeam: 0, updatedStats, targetID: 0 };
   }
   console.log(user.information.name, " uses a potion.");
-  return { updatedStats, targetID: 0 };
+  return { combatTeam: 0, updatedStats, targetID: 0 };
 };
 
 const useItem = function (item, user, enemy) {

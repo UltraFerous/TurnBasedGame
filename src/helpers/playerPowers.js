@@ -13,7 +13,7 @@ const justDoDamage = function (user, target, enemyIndex) {
     },
   };
   console.log(user.information.name, " does 3 damage.");
-  return { side: 1, updatedStats, targetID: enemyIndex };
+  return { combatTeam: 1, updatedStats, targetID: enemyIndex };
 };
 
 const justDoDamageSelf = function (user, target, enemyIndex) {
@@ -25,7 +25,7 @@ const justDoDamageSelf = function (user, target, enemyIndex) {
     },
   };
   console.log(user.information.name, " does 3 damage self.");
-  return { side: 0, updatedStats, targetID: 0 };
+  return { combatTeam: 0, updatedStats, targetID: 0 };
 };
 
 const testAttackSpell = function (user, target) {
