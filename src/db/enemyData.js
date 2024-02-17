@@ -27,7 +27,7 @@ const enemyObj = [
       {
         id: 0,
         name: "Attack 1",
-        skill: 5,
+        skill: 3,
         strengthBonus: 2,
         rend: 1,
         damage: 2,
@@ -76,7 +76,7 @@ const enemyObj = [
       {
         id: 0,
         name: "Attack 1",
-        skill: 5,
+        skill: 3,
         strengthBonus: 2,
         rend: 1,
         damage: 2,
@@ -125,7 +125,7 @@ const enemyObj = [
       {
         id: 0,
         name: "Attack 1",
-        skill: 5,
+        skill: 3,
         strengthBonus: 2,
         rend: 1,
         damage: 2,
