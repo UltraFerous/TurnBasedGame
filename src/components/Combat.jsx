@@ -69,7 +69,7 @@ function Combat() {
           turnManager(enemyTurn.chosenOptionIndex, 0, unit, player);
         }
 
-        // If an enemy is found to be defeated, add them to the updatedEnemies array
+        // If an enemy is found not to be defeated, add them to the updatedEnemies array
         if (unit.stats.currentWounds > 0) {
           updatedEnemies.push(unit);
         } else {
@@ -77,9 +77,13 @@ function Combat() {
         }
       }
 
+      // If an enemy was found to be removed reset the targeted enemy.
+      if (updatedEnemies.length < enemy.length) {
+        setTargetEnemy(0);
+      }
+
       // Update the enemy state after processing all enemies
       setEnemy(updatedEnemies);
-      setTargetEnemy(0);
     }
   };
 
