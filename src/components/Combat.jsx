@@ -52,36 +52,37 @@ function Combat() {
     return true;
   };
 
+  const resolveEnemyTurnActions = function () {
+    let updatedEnemies = [];
+    for (let unit of enemy) {
+      // If an enemy is alive, allow them to act
+      if (unit.stats.currentWounds > 0) {
+        const enemyTurn = enemyTurnTactic(player, unit);
+        resolveAttackCycle(enemyTurn.chosenOptionIndex, 0, unit, player);
+      }
+      // If an enemy is found not to be defeated, add them to the updatedEnemies array
+      if (unit.stats.currentWounds > 0) {
+        updatedEnemies.push(unit);
+      } else {
+        console.log("Removed from current Enemies:", unit);
+      }
+    }
+    return updatedEnemies;
+  };
+
   // Will check if any entities have 0 or less health, if there are the combat ends
   const checkIfCombatIsOver = function () {
     if (checkPlayerDefeated() || checkAllEnemyDefeated()) {
       setBattleOver(true);
       return;
     }
-
     if (!battleOver && turn !== 0) {
       // Iterate through each enemy and let them have a turn
-      let updatedEnemies = [];
-      for (let unit of enemy) {
-        // If an enemy is alive, allow them to act
-        if (unit.stats.currentWounds > 0) {
-          const enemyTurn = enemyTurnTactic(player, unit);
-          turnManager(enemyTurn.chosenOptionIndex, 0, unit, player);
-        }
-
-        // If an enemy is found not to be defeated, add them to the updatedEnemies array
-        if (unit.stats.currentWounds > 0) {
-          updatedEnemies.push(unit);
-        } else {
-          console.log("Removed from current Enemies:", unit);
-        }
-      }
-
+      const updatedEnemies = resolveEnemyTurnActions();
       // If an enemy was found to be removed reset the targeted enemy.
       if (updatedEnemies.length < enemy.length) {
         setTargetEnemy(0);
       }
-
       // Update the enemy state after processing all enemies
       setEnemy(updatedEnemies);
     }
@@ -89,7 +90,7 @@ function Combat() {
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    turnManager(
+    resolveAttackCycle(
       weaponIndex,
       1,
       player,
@@ -118,7 +119,12 @@ function Combat() {
   };
 
   // Manages the turn cycle
-  const turnManager = function (weaponIndex, targetID, attacker, defender) {
+  const resolveAttackCycle = function (
+    weaponIndex,
+    targetID,
+    attacker,
+    defender
+  ) {
     const newStats = attackRoll(weaponIndex, attacker, defender);
     updateStats(targetID, newStats);
   };
@@ -170,10 +176,9 @@ function Combat() {
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>
         Enemy Health:
-        {enemy.map((enemyUnit) => (
-          <div>
-            {" "}
-            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}{" "}
+        {enemy.map((enemyUnit, index) => (
+          <div key={index}>
+            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
           </div>
         ))}
       </div>
