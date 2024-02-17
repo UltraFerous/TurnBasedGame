@@ -14,7 +14,7 @@ import { useItem } from "../helpers/items.js";
 // May be fixed with the initative system when I do that
 function Combat() {
   const [turn, setTurn] = useState(0);
-  const [battleOver, setbattleOver] = useState(false);
+  const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
@@ -26,8 +26,9 @@ function Combat() {
   };
 
   const showState = function () {
+    console.log(targetEnemy);
     console.log(player);
-    console.log(enemy[targetEnemy]);
+    console.log(enemy);
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
@@ -35,16 +36,50 @@ function Combat() {
     turn === 0 ? setTurn(1) : setTurn(0);
   };
 
+  const checkAllEnemyDefeated = function () {
+    for (let unit of enemy) {
+      if (unit.stats.currentWounds > 0) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const checkPlayerDefeated = function () {
+    if (player.stats.currentWounds > 0) {
+      return false;
+    }
+    return true;
+  };
+
   // Will check if any entities have 0 or less health, if there are the combat ends
-  const checkIfCombatIsOver = function (attacker, defender) {
-    if (attacker.stats.currentWounds < 1 || defender.stats.currentWounds < 1) {
-      setbattleOver(true);
+  const checkIfCombatIsOver = function () {
+    if (checkPlayerDefeated() || checkAllEnemyDefeated()) {
+      setBattleOver(true);
       return;
     }
-    if (attacker.stats.currentWounds > 0 && !battleOver && turn !== 0) {
-      const enemyTurn = enemyTurnTactic(player, enemy[targetEnemy]);
-      turnManager(enemyTurn.chosenOptionIndex, 0, enemy[targetEnemy], player);
-      return;
+
+    if (!battleOver && turn !== 0) {
+      // Iterate through each enemy and let them have a turn
+      let updatedEnemies = [];
+      for (let unit of enemy) {
+        // If an enemy is alive, allow them to act
+        if (unit.stats.currentWounds > 0) {
+          const enemyTurn = enemyTurnTactic(player, unit);
+          turnManager(enemyTurn.chosenOptionIndex, 0, unit, player);
+        }
+
+        // If an enemy is found to be defeated, add them to the updatedEnemies array
+        if (unit.stats.currentWounds > 0) {
+          updatedEnemies.push(unit);
+        } else {
+          console.log("Removed from current Enemies:", unit);
+        }
+      }
+
+      // Update the enemy state after processing all enemies
+      setEnemy(updatedEnemies);
+      setTargetEnemy(0);
     }
   };
 
@@ -120,16 +155,19 @@ function Combat() {
         Select target:
         {!battleOver && (
           <select value={targetEnemy} onChange={handleSelectChange}>
-            {enemy.map((enemy, index) => (
+            {enemy.map((enemyUnit, index) => (
               <option value={index} key={index}>
-                {enemy.information.name}
+                {enemyUnit.information.name}
               </option>
             ))}
           </select>
         )}
       </div>
       <div>Player Health: {player.stats.currentWounds}</div>
-      <div>Enemy Health: {enemy[targetEnemy].stats.currentWounds}</div>
+      <div>
+        Enemy Health:{" "}
+        {enemy[targetEnemy] && enemy[targetEnemy].stats.currentWounds}
+      </div>
       {battleOver === false ? (
         <div>
           {/* Displaying the options for weapon attacks */}
