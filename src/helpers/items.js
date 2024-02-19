@@ -1,4 +1,5 @@
 import { rollXDiceD3 } from "./diceRolls";
+import { removeOverheal } from "./removeOverheal";
 
 const smallHealthPotion = function (user, enemy) {
   // Update the potion amount
@@ -17,19 +18,8 @@ const smallHealthPotion = function (user, enemy) {
     },
     items: updatedItems,
   };
-  // If the potion overheals then reset the health to maximum
-  if (updatedStats.stats.currentWounds > user.stats.wounds) {
-    updatedStats = {
-      ...updatedStats,
-      stats: {
-        ...user.stats,
-        currentWounds: updatedStats.stats.wounds,
-      },
-    };
-    console.log(user.information.name, "uses a potion, with overheal removed.");
-    return { combatTeam: 0, updatedStats, targetID: 0 };
-  }
   console.log(user.information.name, " uses a potion.");
+  updatedStats = removeOverheal(updatedStats, user);
   return { combatTeam: 0, updatedStats, targetID: 0 };
 };
 
