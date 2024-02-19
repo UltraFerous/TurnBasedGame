@@ -66,12 +66,13 @@ function Combat() {
   const handleEnemyPowers = function (
     powerIndex,
     currentEnemyUser,
+    currentPlayerTarget,
     currentEnemyIndex
   ) {
     const statsAfterPower = useEnemyPower(
       powerIndex,
       currentEnemyUser,
-      player,
+      currentPlayerTarget,
       currentEnemyIndex
     );
     return statsAfterPower;
@@ -99,16 +100,18 @@ function Combat() {
           // Since attacking only modifies the player health at this time, only need to update the player health
           tempPlayerStats = statsAfterEnemyAttack.updatedStats;
         }
-        // If Index is 0 it will use a power
+        // If Index is 1 it will use a power
         if (enemyTurn.chosenTypeIndex === 1) {
           let statsAfterEnemyPower = handleEnemyPowers(
             enemyTurn.chosenOptionIndex,
             tempEnemyStats[i],
+            tempPlayerStats,
             i
           );
-          // If the power targets the player modify their stats, NOT TESTED
+          // If the power targets the player modify their stats
           if (statsAfterEnemyPower.combatTeam === 0) {
-            tempPlayerStats = statsAfterEnemyAttack.updatedStats;
+            tempPlayerStats = statsAfterEnemyPower.updatedStats;
+            console.log("PLAYER HEALTH", tempPlayerStats.stats.currentWounds);
           }
           // If he power targets the enemy side modify the target of the power
           if (statsAfterEnemyPower.combatTeam === 1) {

@@ -25,7 +25,7 @@ const enemyTurnTactic = function (player, enemy) {
 
   console.log(enemy.information.name, " casts with power ", chosenOptionIndex);
 
-  return { chosenTypeIndex: 0, chosenOptionIndex };
+  return { chosenTypeIndex: 1, chosenOptionIndex };
 };
 
 export { enemyTurnTactic };

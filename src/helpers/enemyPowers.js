@@ -13,7 +13,7 @@ const justDoDamage = function (user, target, targetIndex) {
     },
   };
   console.log(user.information.name, " does 3 damage.");
-  return { combatTeam: 1, updatedStats, targetID: targetIndex };
+  return { combatTeam: 0, updatedStats, targetID: 0 };
 };
 
 const justHealSelf = function (user, target, targetIndex) {
@@ -71,7 +71,7 @@ const activatePower = function (
 const useEnemyPower = function (power, user, enemy, targetIndex) {
   switch (power) {
     case 0:
-      return activatePower(user, enemy, targetIndex, justHealSelf, 2);
+      return activatePower(user, enemy, targetIndex, justDoDamage, 2);
     default:
       console.log(`Sorry power just didn't work.`);
   }
