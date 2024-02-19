@@ -23,9 +23,9 @@ const enemyTurnTactic = function (player, enemy) {
   // Need to subtract 1 to return an array index
   chosenOptionIndex -= 1;
 
-  console.log(enemy.information.name, " attacks with ", chosenOptionIndex);
+  console.log(enemy.information.name, " casts with power ", chosenOptionIndex);
 
-  return { chosenTypeIndex, chosenOptionIndex };
+  return { chosenTypeIndex: 0, chosenOptionIndex };
 };
 
 export { enemyTurnTactic };

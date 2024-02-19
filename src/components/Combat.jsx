@@ -6,6 +6,7 @@ import WeaponList from "./WeaponList";
 import PowerList from "./PowerList";
 import ItemList from "./ItemList.jsx";
 import { usePlayerPower } from "../helpers/playerPowers.js";
+import { useEnemyPower } from "../helpers/enemyPowers.js";
 import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
@@ -52,22 +53,80 @@ function Combat() {
     return true;
   };
 
+  const resolveEnemyAttackCycle = function (
+    combatTeam,
+    weaponIndex,
+    attacker,
+    defender
+  ) {
+    const updatedStats = attackRoll(weaponIndex, attacker, defender);
+    return { combatTeam, updatedStats };
+  };
+
+  const handleEnemyPowers = function (
+    powerIndex,
+    currentEnemyUser,
+    currentEnemyIndex
+  ) {
+    const statsAfterPower = useEnemyPower(
+      powerIndex,
+      currentEnemyUser,
+      player,
+      currentEnemyIndex
+    );
+    return statsAfterPower;
+  };
+
   const resolveEnemyTurnActions = function () {
-    let updatedEnemies = [];
-    for (let unit of enemy) {
+    // Makes a copy of the player and enemy states to operate on these rather then the direct state
+    let tempPlayerStats = { ...player };
+    let tempEnemyStats = [...enemy];
+
+    // Index matters, loops through the enemy array to do each of their turns.
+    for (let i = 0; i < tempEnemyStats.length; i++) {
       // If an enemy is alive, allow them to act
-      if (unit.stats.currentWounds > 0) {
-        const enemyTurn = enemyTurnTactic(player, unit);
-        resolveAttackCycle(0, enemyTurn.chosenOptionIndex, unit, player);
+      if (tempEnemyStats[i].stats.currentWounds > 0) {
+        // Calls the tactic function which returns an index and an option
+        const enemyTurn = enemyTurnTactic(player, tempEnemyStats[i]);
+        // If Index is 0 it will attack
+        if (enemyTurn.chosenTypeIndex === 0) {
+          let statsAfterEnemyAttack = resolveEnemyAttackCycle(
+            0,
+            enemyTurn.chosenOptionIndex,
+            tempEnemyStats[i],
+            tempPlayerStats
+          );
+          // Since attacking only modifies the player health at this time, only need to update the player health
+          tempPlayerStats = statsAfterEnemyAttack.updatedStats;
+        }
+        // If Index is 0 it will use a power
+        if (enemyTurn.chosenTypeIndex === 1) {
+          let statsAfterEnemyPower = handleEnemyPowers(
+            enemyTurn.chosenOptionIndex,
+            tempEnemyStats[i],
+            i
+          );
+          // If the power targets the player modify their stats, NOT TESTED
+          if (statsAfterEnemyPower.combatTeam === 0) {
+            tempPlayerStats = statsAfterEnemyAttack.updatedStats;
+          }
+          // If he power targets the enemy side modify the target of the power
+          if (statsAfterEnemyPower.combatTeam === 1) {
+            tempEnemyStats[statsAfterEnemyPower.targetID] =
+              statsAfterEnemyPower.updatedStats;
+          }
+        }
       }
-      // If an enemy is found not to be defeated, add them to the updatedEnemies array
-      if (unit.stats.currentWounds > 0) {
-        updatedEnemies.push(unit);
+      // If an enemy is found to be at 0 or less wounds remove them from the game
+      if (tempEnemyStats[i].stats.currentWounds <= 0) {
+        tempEnemyStats.splice(i, 1);
+        i--; // Decrement i to account for the removed element
       } else {
-        console.log("Removed from current Enemies:", unit);
+        console.log("Remaining enemy:", tempEnemyStats[i].information.name);
       }
     }
-    return updatedEnemies;
+
+    return { tempEnemyStats, tempPlayerStats };
   };
 
   // Will check if any entities have 0 or less health, if there are the combat ends
@@ -80,17 +139,18 @@ function Combat() {
       // Iterate through each enemy and let them have a turn
       const updatedEnemies = resolveEnemyTurnActions();
       // If an enemy was found to be removed reset the targeted enemy.
-      if (updatedEnemies.length < enemy.length) {
+      if (updatedEnemies.tempEnemyStats.length < enemy.length) {
         setTargetEnemy(0);
       }
       // Update the enemy state after processing all enemies
-      setEnemy(updatedEnemies);
+      setPlayer(updatedEnemies.tempPlayerStats);
+      setEnemy(updatedEnemies.tempEnemyStats);
     }
   };
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    resolveAttackCycle(1, weaponIndex, player, enemy[targetEnemy]); // The 1 is the target
+    resolveAttackCycle(1, weaponIndex, player, enemy[targetEnemy]); // The 1 is the enemy side
   };
 
   // This is the function that is called when a power button is clicked
@@ -101,7 +161,7 @@ function Combat() {
       enemy[targetEnemy],
       targetEnemy
     );
-    if (statsAfterPower.targetID >= 0) {
+    if (statsAfterPower.combatTeam >= 0) {
       updateStats(
         statsAfterPower.combatTeam,
         statsAfterPower.targetID,
