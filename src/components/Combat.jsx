@@ -53,7 +53,7 @@ function Combat() {
     return true;
   };
 
-  const resolveEnemyAttackCycle = function (
+  const resolveAttackCycle = function (
     combatTeam,
     weaponIndex,
     attacker,
@@ -90,7 +90,7 @@ function Combat() {
         const enemyTurn = enemyTurnTactic(player, tempEnemyStats[i]);
         // If Index is 0 it will attack
         if (enemyTurn.chosenTypeIndex === 0) {
-          let statsAfterEnemyAttack = resolveEnemyAttackCycle(
+          let statsAfterEnemyAttack = resolveAttackCycle(
             0,
             enemyTurn.chosenOptionIndex,
             tempEnemyStats[i],
@@ -150,11 +150,17 @@ function Combat() {
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    resolveAttackCycle(1, weaponIndex, player, enemy[targetEnemy]); // The 1 is the enemy side
+    const statsAfterAttack = resolveAttackCycle(
+      1,
+      weaponIndex,
+      player,
+      enemy[targetEnemy]
+    ); // The 1 is the enemy side
+    updateStats(1, targetEnemy, statsAfterAttack.updatedStats);
   };
 
   // This is the function that is called when a power button is clicked
-  const handlePlayerPowersOnClick = function (powerIndex) {
+  const handlePlayerPowers = function (powerIndex) {
     const statsAfterPower = usePlayerPower(
       powerIndex,
       player,
@@ -178,17 +184,6 @@ function Combat() {
       statsAfterItem.targetID,
       statsAfterItem.updatedStats
     );
-  };
-
-  // Manages the turn cycle
-  const resolveAttackCycle = function (
-    combatTeam,
-    weaponIndex,
-    attacker,
-    defender
-  ) {
-    const newStats = attackRoll(weaponIndex, attacker, defender);
-    updateStats(combatTeam, targetEnemy, newStats);
   };
 
   const updateEnemyStats = (index, newStats) => {
@@ -266,7 +261,7 @@ function Combat() {
                 key={power.id}
                 id={power.id}
                 name={power.name}
-                handlePowersOnClick={handlePlayerPowersOnClick}
+                handlePowersOnClick={handlePlayerPowers}
               />
             ))}
           </div>
