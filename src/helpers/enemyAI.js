@@ -14,18 +14,19 @@ const enemyTurnTactic = function (player, enemy) {
   // This isnt the most advanced option I just want to get it working
   chosenOptionIndex = Math.floor(Math.random() * totalOptions + 1); // The maximum is inclusive and the minimum is inclusive
 
-  // This determines if the number generated was a power or a weapon attack
+  // This determines if the number generated was a power
   if (chosenOptionIndex > enemyWeaponsOptions) {
     chosenOptionIndex -= enemyWeaponsOptions;
     chosenTypeIndex = 1;
+    console.log(enemy.information.name, " casts with power ", chosenOptionIndex);
+  } else {
+    console.log(enemy.information.name, " attacks with ", chosenOptionIndex);
   }
 
   // Need to subtract 1 to return an array index
   chosenOptionIndex -= 1;
 
-  console.log(enemy.information.name, " casts with power ", chosenOptionIndex);
-
-  return { chosenTypeIndex: 1, chosenOptionIndex };
+  return { chosenTypeIndex, chosenOptionIndex };
 };
 
 export { enemyTurnTactic };
