@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 
 npm run dev
 
-This is my current project. Work in progess.
+This is my current project. Work in progress.

@@ -6,6 +6,8 @@ import WeaponList from "./WeaponList";
 import PowerList from "./PowerList";
 import ItemList from "./ItemList.jsx";
 import { usePlayerPower } from "../helpers/playerPowers.js";
+import { useEnemyPower } from "../helpers/enemyPowers.js";
+import { useEnemyItem } from "../helpers/enemyItems.js";
 import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
@@ -52,71 +54,157 @@ function Combat() {
     return true;
   };
 
+  const resolveAttackCycle = function (
+    combatTeam,
+    weaponIndex,
+    attacker,
+    defender
+  ) {
+    const updatedStats = attackRoll(weaponIndex, attacker, defender);
+    return { combatTeam, updatedStats };
+  };
+
+  const handleEnemyPowers = function (
+    powerIndex,
+    currentEnemyUser,
+    currentPlayerTarget,
+    currentEnemyIndex
+  ) {
+    const statsAfterPower = useEnemyPower(
+      powerIndex,
+      currentEnemyUser,
+      currentPlayerTarget,
+      currentEnemyIndex
+    );
+    return statsAfterPower;
+  };
+
+  const resolveEnemyTurnActions = function () {
+    // Makes a copy of the player and enemy states to operate on these rather then the direct state
+    let tempPlayerStats = { ...player };
+    let tempEnemyStats = [...enemy];
+
+    // Index matters, loops through the enemy array to do each of their turns.
+    for (let i = 0; i < tempEnemyStats.length; i++) {
+      // If an enemy is alive, allow them to act
+      if (tempEnemyStats[i].stats.currentWounds > 0) {
+        // Calls the tactic function which returns an index and an option
+        const enemyTurn = enemyTurnTactic(tempEnemyStats[i], player);
+        // If Index is 1 it will attack
+        if (enemyTurn.chosenTypeIndex === 1) {
+          let statsAfterEnemyAttack = resolveAttackCycle(
+            0,
+            enemyTurn.chosenOptionIndex,
+            tempEnemyStats[i],
+            tempPlayerStats
+          );
+          // Since attacking only modifies the player health at this time, only need to update the player health
+          tempPlayerStats = statsAfterEnemyAttack.updatedStats;
+        }
+        // If Index is 2 it will use a power
+        if (enemyTurn.chosenTypeIndex === 2) {
+          let statsAfterEnemyPower = handleEnemyPowers(
+            enemyTurn.chosenOptionIndex,
+            tempEnemyStats[i],
+            tempPlayerStats,
+            i
+          );
+          // If the power targets the player modify their stats
+          if (statsAfterEnemyPower.combatTeam === 0) {
+            tempPlayerStats = statsAfterEnemyPower.updatedStats;
+          }
+          // If he power targets the enemy side modify the target of the power
+          if (statsAfterEnemyPower.combatTeam === 1) {
+            tempEnemyStats[statsAfterEnemyPower.targetID] =
+              statsAfterEnemyPower.updatedStats;
+          }
+        }
+        // If Index is 3 it will use an item
+        if (enemyTurn.chosenTypeIndex === 3) {
+          let statsAfterEnemyPower = useEnemyItem(
+            enemyTurn.chosenOptionIndex,
+            tempEnemyStats[i],
+            tempPlayerStats,
+            i
+          );
+          // If the item targets the player modify their stats
+          if (statsAfterEnemyPower.combatTeam === 0) {
+            tempPlayerStats = statsAfterEnemyPower.updatedStats;
+          }
+          // If he item targets the enemy side modify the target of the power
+          if (statsAfterEnemyPower.combatTeam === 1) {
+            tempEnemyStats[statsAfterEnemyPower.targetID] =
+              statsAfterEnemyPower.updatedStats;
+          }
+        }
+      }
+      // If an enemy is found to be at 0 or less wounds remove them from the game
+      if (tempEnemyStats[i].stats.currentWounds <= 0) {
+        tempEnemyStats.splice(i, 1);
+        i--; // Decrement i to account for the removed element
+      } else {
+        console.log("Remaining enemy:", tempEnemyStats[i].information.name);
+      }
+    }
+
+    return { tempEnemyStats, tempPlayerStats };
+  };
+
   // Will check if any entities have 0 or less health, if there are the combat ends
   const checkIfCombatIsOver = function () {
     if (checkPlayerDefeated() || checkAllEnemyDefeated()) {
       setBattleOver(true);
       return;
     }
-
     if (!battleOver && turn !== 0) {
       // Iterate through each enemy and let them have a turn
-      let updatedEnemies = [];
-      for (let unit of enemy) {
-        // If an enemy is alive, allow them to act
-        if (unit.stats.currentWounds > 0) {
-          const enemyTurn = enemyTurnTactic(player, unit);
-          turnManager(enemyTurn.chosenOptionIndex, 0, unit, player);
-        }
-
-        // If an enemy is found to be defeated, add them to the updatedEnemies array
-        if (unit.stats.currentWounds > 0) {
-          updatedEnemies.push(unit);
-        } else {
-          console.log("Removed from current Enemies:", unit);
-        }
+      const updatedEnemies = resolveEnemyTurnActions();
+      // If an enemy was found to be removed reset the targeted enemy.
+      if (updatedEnemies.tempEnemyStats.length < enemy.length) {
+        setTargetEnemy(0);
       }
-
       // Update the enemy state after processing all enemies
-      setEnemy(updatedEnemies);
-      setTargetEnemy(0);
+      setPlayer(updatedEnemies.tempPlayerStats);
+      setEnemy(updatedEnemies.tempEnemyStats);
     }
   };
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponIndex) {
-    turnManager(
-      weaponIndex,
+    const statsAfterAttack = resolveAttackCycle(
       1,
+      weaponIndex,
       player,
-      enemy[targetEnemy],
-      setPlayer,
-      setEnemy
-    ); // The 1 is the target
+      enemy[targetEnemy]
+    ); // The 1 is the enemy side
+    updateStats(1, targetEnemy, statsAfterAttack.updatedStats);
   };
 
   // This is the function that is called when a power button is clicked
-  const handlePlayerPowersOnClick = function (powerIndex) {
+  const handlePlayerPowers = function (powerIndex) {
     const statsAfterPower = usePlayerPower(
       powerIndex,
       player,
-      enemy[targetEnemy]
+      enemy[targetEnemy],
+      targetEnemy
     );
-    if (statsAfterPower.targetID >= 0) {
-      updateStats(statsAfterPower.targetID, statsAfterPower.updatedStats);
+    if (statsAfterPower.combatTeam >= 0) {
+      updateStats(
+        statsAfterPower.combatTeam,
+        statsAfterPower.targetID,
+        statsAfterPower.updatedStats
+      );
     }
   };
 
   // This is the function that is called when an item button is clicked
   const handleItemsOnClick = function (itemIndex) {
     const statsAfterItem = useItem(itemIndex, player, enemy[targetEnemy]);
-    updateStats(statsAfterItem.targetID, statsAfterItem.updatedStats);
-  };
-
-  // Manages the turn cycle
-  const turnManager = function (weaponIndex, targetID, attacker, defender) {
-    const newStats = attackRoll(weaponIndex, attacker, defender);
-    updateStats(targetID, newStats);
+    updateStats(
+      statsAfterItem.combatTeam,
+      statsAfterItem.targetID,
+      statsAfterItem.updatedStats
+    );
   };
 
   const updateEnemyStats = (index, newStats) => {
@@ -133,11 +221,11 @@ function Combat() {
     });
   };
 
-  const updateStats = function (targetID, newStats) {
-    if (targetID === 0) {
+  const updateStats = function (combatTeam, targetID, newStats) {
+    if (combatTeam === 0) {
       return setPlayer((prevPlayer) => ({ ...prevPlayer, ...newStats }));
     }
-    updateEnemyStats(targetEnemy, newStats);
+    updateEnemyStats(targetID, newStats);
     return;
   };
 
@@ -165,8 +253,12 @@ function Combat() {
       </div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>
-        Enemy Health:{" "}
-        {enemy[targetEnemy] && enemy[targetEnemy].stats.currentWounds}
+        Enemy Health:
+        {enemy.map((enemyUnit, index) => (
+          <div key={index}>
+            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
+          </div>
+        ))}
       </div>
       {battleOver === false ? (
         <div>
@@ -190,7 +282,7 @@ function Combat() {
                 key={power.id}
                 id={power.id}
                 name={power.name}
-                handlePowersOnClick={handlePlayerPowersOnClick}
+                handlePowersOnClick={handlePlayerPowers}
               />
             ))}
           </div>
