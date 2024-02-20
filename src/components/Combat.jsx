@@ -89,7 +89,7 @@ function Combat() {
       // If an enemy is alive, allow them to act
       if (tempEnemyStats[i].stats.currentWounds > 0) {
         // Calls the tactic function which returns an index and an option
-        const enemyTurn = enemyTurnTactic(player, tempEnemyStats[i]);
+        const enemyTurn = enemyTurnTactic(tempEnemyStats[i], player);
         // If Index is 1 it will attack
         if (enemyTurn.chosenTypeIndex === 1) {
           let statsAfterEnemyAttack = resolveAttackCycle(

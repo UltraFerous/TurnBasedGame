@@ -1,4 +1,4 @@
-const enemyTurnTactic = function (player, enemy) {
+const enemyTurnTactic = function (enemy, player) {
   const enemyWeapons = enemy.weapons;
   const enemyPowers = enemy.powers;
   const enemyItems = enemy.items;

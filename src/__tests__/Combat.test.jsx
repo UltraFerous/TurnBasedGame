@@ -208,7 +208,7 @@ describe("Enemy Tactic Generation", () => {
   });
   test("Generates proper numbers with 1 attack and 1 power", () => {
     for (let i = 0; i < 50; i++) {
-      let testTactic = enemyTurnTactic(testStats, testStats);
+      let testTactic = enemyTurnTactic(testStatsTwo, testStatsTwo);
       expect(testTactic.chosenTypeIndex).toBeGreaterThanOrEqual(1);
       expect(testTactic.chosenTypeIndex).toBeLessThanOrEqual(2);
       expect(testTactic.chosenOptionIndex).toBe(0);
@@ -216,7 +216,7 @@ describe("Enemy Tactic Generation", () => {
   });
   test("Generates proper numbers with 1 attack, 1 power and 1 power", () => {
     for (let i = 0; i < 50; i++) {
-      let testTactic = enemyTurnTactic(testStats, testStats);
+      let testTactic = enemyTurnTactic(testStatsThree, testStatsThree);
       expect(testTactic.chosenTypeIndex).toBeGreaterThanOrEqual(1);
       expect(testTactic.chosenTypeIndex).toBeLessThanOrEqual(3);
       expect(testTactic.chosenOptionIndex).toBe(0);
