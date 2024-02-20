@@ -33,6 +33,15 @@ function Combat() {
     console.log(enemy);
   };
 
+  const increasePlayerScore = function (currentPlayerStats, defeatedEnemy) {
+    const tempPlayer = currentPlayerStats;
+
+    tempPlayer.scores.points += defeatedEnemy.scores.points;
+    tempPlayer.scores.money += defeatedEnemy.scores.money;
+
+    return tempPlayer;
+  };
+
   // Will change the turn between player and enemy, will only work for 2 entities.
   const changeTurn = function () {
     turn === 0 ? setTurn(1) : setTurn(0);
@@ -140,6 +149,7 @@ function Combat() {
       }
       // If an enemy is found to be at 0 or less wounds remove them from the game
       if (tempEnemyStats[i].stats.currentWounds <= 0) {
+        tempPlayerStats = increasePlayerScore(tempPlayerStats, tempEnemyStats[i]);
         tempEnemyStats.splice(i, 1);
         i--; // Decrement i to account for the removed element
       } else {
@@ -202,7 +212,8 @@ function Combat() {
   };
 
   // This is the function that is called when an item button is clicked
-  const handleItemsOnClick = function (itemIndex) {
+  const handleItemsOnClick = function (itemID) {
+    const itemIndex = player.items.findIndex((item) => item.id === itemID);
     const statsAfterItem = useItem(itemIndex, player, enemy[targetEnemy]);
     updateStats(
       statsAfterItem.combatTeam,

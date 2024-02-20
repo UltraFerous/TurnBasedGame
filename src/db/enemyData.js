@@ -53,6 +53,10 @@ const enemyObj = [
         amount: 1,
       },
     ],
+    scores: {
+      money: 100,
+      points: 10,
+    },
   },
   {
     information: {
@@ -108,6 +112,10 @@ const enemyObj = [
         amount: 1,
       },
     ],
+    scores: {
+      money: 100,
+      points: 10,
+    },
   },
   {
     information: {
@@ -163,6 +171,10 @@ const enemyObj = [
         amount: 1,
       },
     ],
+    scores: {
+      money: 100,
+      points: 10,
+    },
   },
 ];
 
