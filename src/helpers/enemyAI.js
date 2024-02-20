@@ -14,8 +14,15 @@ const enemyTurnTactic = function (player, enemy) {
   // This isnt the most advanced option I just want to get it working
   chosenOptionIndex = Math.floor(Math.random() * totalOptions + 1); // The maximum is inclusive and the minimum is inclusive
 
+  // This determines if the number generated was an item
+  if (chosenOptionIndex > enemyPowerOptions + enemyWeaponsOptions) {
+    chosenOptionIndex =
+      chosenOptionIndex - (enemyPowerOptions + enemyWeaponsOptions);
+    chosenTypeIndex = 3;
+    console.log(enemy.information.name, " uses item ", chosenOptionIndex);
+  }
   // This determines if the number generated was a power
-  if (chosenOptionIndex > enemyWeaponsOptions) {
+  else if (chosenOptionIndex > enemyWeaponsOptions) {
     chosenOptionIndex -= enemyWeaponsOptions;
     chosenTypeIndex = 2;
     console.log(

@@ -9,7 +9,7 @@ const justDoDamage = function (user, target, targetIndex) {
     ...target,
     stats: {
       ...target.stats,
-      currentWounds: target.stats.currentWounds - 3,
+      currentWounds: target.stats.currentWounds - 1,
     },
   };
   console.log(user.information.name, " does 3 damage.");

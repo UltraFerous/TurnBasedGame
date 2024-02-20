@@ -46,7 +46,13 @@ const enemyObj = [
       shield: 0,
       ward: 7,
     },
-    items: [],
+    items: [
+      {
+        id: 0,
+        name: "Small Health Potion",
+        amount: 1,
+      },
+    ],
   },
   {
     information: {
@@ -95,7 +101,13 @@ const enemyObj = [
       shield: 0,
       ward: 7,
     },
-    items: [],
+    items: [
+      {
+        id: 0,
+        name: "Small Health Potion",
+        amount: 1,
+      },
+    ],
   },
   {
     information: {
@@ -144,7 +156,13 @@ const enemyObj = [
       shield: 0,
       ward: 7,
     },
-    items: [],
+    items: [
+      {
+        id: 0,
+        name: "Small Health Potion",
+        amount: 1,
+      },
+    ],
   },
 ];
 

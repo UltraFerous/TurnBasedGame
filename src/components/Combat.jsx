@@ -7,6 +7,7 @@ import PowerList from "./PowerList";
 import ItemList from "./ItemList.jsx";
 import { usePlayerPower } from "../helpers/playerPowers.js";
 import { useEnemyPower } from "../helpers/enemyPowers.js";
+import { useEnemyItem } from "../helpers/enemyItems.js";
 import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
@@ -89,7 +90,7 @@ function Combat() {
       if (tempEnemyStats[i].stats.currentWounds > 0) {
         // Calls the tactic function which returns an index and an option
         const enemyTurn = enemyTurnTactic(player, tempEnemyStats[i]);
-        // If Index is 0 it will attack
+        // If Index is 1 it will attack
         if (enemyTurn.chosenTypeIndex === 1) {
           let statsAfterEnemyAttack = resolveAttackCycle(
             0,
@@ -100,7 +101,7 @@ function Combat() {
           // Since attacking only modifies the player health at this time, only need to update the player health
           tempPlayerStats = statsAfterEnemyAttack.updatedStats;
         }
-        // If Index is 1 it will use a power
+        // If Index is 2 it will use a power
         if (enemyTurn.chosenTypeIndex === 2) {
           let statsAfterEnemyPower = handleEnemyPowers(
             enemyTurn.chosenOptionIndex,
@@ -111,9 +112,26 @@ function Combat() {
           // If the power targets the player modify their stats
           if (statsAfterEnemyPower.combatTeam === 0) {
             tempPlayerStats = statsAfterEnemyPower.updatedStats;
-            console.log("PLAYER HEALTH", tempPlayerStats.stats.currentWounds);
           }
           // If he power targets the enemy side modify the target of the power
+          if (statsAfterEnemyPower.combatTeam === 1) {
+            tempEnemyStats[statsAfterEnemyPower.targetID] =
+              statsAfterEnemyPower.updatedStats;
+          }
+        }
+        // If Index is 3 it will use an item
+        if (enemyTurn.chosenTypeIndex === 3) {
+          let statsAfterEnemyPower = useEnemyItem(
+            enemyTurn.chosenOptionIndex,
+            tempEnemyStats[i],
+            tempPlayerStats,
+            i
+          );
+          // If the item targets the player modify their stats
+          if (statsAfterEnemyPower.combatTeam === 0) {
+            tempPlayerStats = statsAfterEnemyPower.updatedStats;
+          }
+          // If he item targets the enemy side modify the target of the power
           if (statsAfterEnemyPower.combatTeam === 1) {
             tempEnemyStats[statsAfterEnemyPower.targetID] =
               statsAfterEnemyPower.updatedStats;
