@@ -2,11 +2,12 @@ import { useState, useContext } from "react";
 import "./App.css";
 import Combat from "./components/Combat";
 import CharacterSelect from "./components/CharacterSelect";
+import TitleScreen from "./components/TitleScreen";
 import { PlayerContextProvider } from "./context/playerContext";
 import { EnemyContextProvider } from "./context/enemyContext";
 
 function App() {
-  const [activeComponent, setActiveComponent] = useState(2);
+  const [activeComponent, setActiveComponent] = useState(3);
 
   const handleSelectChange = (e) => {
     setActiveComponent(Number(e.target.value));
@@ -21,15 +22,17 @@ function App() {
           value={activeComponent}
           onChange={handleSelectChange}
         >
-          <option value={1}>Character Select Screen</option>
-          <option value={2}>Combat Screen</option>
+          <option value={1}>Title Screen</option>
+          <option value={2}>Character Select Screen</option>
+          <option value={3}>Combat Screen</option>
         </select>
       </div>
 
       <PlayerContextProvider>
         <EnemyContextProvider>
-          {activeComponent === 1 && <CharacterSelect />}
-          {activeComponent === 2 && <Combat />}
+          {activeComponent === 1 && <TitleScreen />}
+          {activeComponent === 2 && <CharacterSelect />}
+          {activeComponent === 3 && <Combat />}
         </EnemyContextProvider>
       </PlayerContextProvider>
     </>
