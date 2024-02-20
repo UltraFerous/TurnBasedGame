@@ -251,6 +251,7 @@ function Combat() {
           </select>
         )}
       </div>
+      <div>You are playing as: {player.information.name}</div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>
         Enemy Health:
