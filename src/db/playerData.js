@@ -63,9 +63,14 @@ const playerObj = {
     {
       id: 0,
       name: "Small Health Potion",
+      description: "an small",
       amount: 1,
     },
   ],
+  scores: {
+    money: 100,
+    points: 0,
+  }
 };
 
 export default playerObj;

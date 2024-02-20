@@ -170,7 +170,10 @@ function Combat() {
   };
 
   // This is the function that is called when an attack button is clicked
-  const handleWeaponsOnClick = function (weaponIndex) {
+  const handleWeaponsOnClick = function (weaponID) {
+    const weaponIndex = player.weapons.findIndex(
+      (weapon) => weapon.id === weaponID
+    );
     const statsAfterAttack = resolveAttackCycle(
       1,
       weaponIndex,
@@ -181,7 +184,8 @@ function Combat() {
   };
 
   // This is the function that is called when a power button is clicked
-  const handlePlayerPowers = function (powerIndex) {
+  const handlePlayerPowers = function (powerID) {
+    const powerIndex = player.powers.findIndex((power) => power.id === powerID);
     const statsAfterPower = usePlayerPower(
       powerIndex,
       player,
