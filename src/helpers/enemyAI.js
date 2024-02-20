@@ -6,7 +6,7 @@ const enemyTurnTactic = function (player, enemy) {
   const enemyPowerOptions = enemyPowers.length;
   const enemyItemOptions = enemyItems.length;
   let chosenOptionIndex = 0;
-  let chosenTypeIndex = 0;
+  let chosenTypeIndex = 1;
 
   const totalOptions =
     enemyWeaponsOptions + enemyPowerOptions + enemyItemOptions;
@@ -17,8 +17,12 @@ const enemyTurnTactic = function (player, enemy) {
   // This determines if the number generated was a power
   if (chosenOptionIndex > enemyWeaponsOptions) {
     chosenOptionIndex -= enemyWeaponsOptions;
-    chosenTypeIndex = 1;
-    console.log(enemy.information.name, " casts with power ", chosenOptionIndex);
+    chosenTypeIndex = 2;
+    console.log(
+      enemy.information.name,
+      " casts with power ",
+      chosenOptionIndex
+    );
   } else {
     console.log(enemy.information.name, " attacks with ", chosenOptionIndex);
   }

@@ -16,6 +16,7 @@ import {
   roll2D6Dice,
 } from "../helpers/diceRolls";
 import Combat from "../components/Combat";
+import { enemyTurnTactic } from "../helpers/enemyAI";
 import { PlayerContextProvider } from "../context/playerContext";
 import { EnemyContextProvider } from "../context/enemyContext";
 
@@ -168,5 +169,57 @@ describe("Wound Comparison", () => {
   test("The Double Condition Exaggerated", () => {
     const comparisonResult = woundComparison(14, 4);
     expect(comparisonResult).toEqual(2);
+  });
+});
+
+describe("Enemy Tactic Generation", () => {
+  const testStats = {
+    information: {
+      name: "TEST",
+    },
+    weapons: [{}],
+    powers: [],
+    items: [],
+  };
+
+  const testStatsTwo = {
+    information: {
+      name: "TEST",
+    },
+    weapons: [{}],
+    powers: [{}],
+    items: [],
+  };
+
+  const testStatsThree = {
+    information: {
+      name: "TEST",
+    },
+    weapons: [{}],
+    powers: [{}],
+    items: [{}],
+  };
+  test("Generates proper numbers with only 1 attack", () => {
+    for (let i = 0; i < 50; i++) {
+      let testTactic = enemyTurnTactic(testStats, testStats);
+      expect(testTactic.chosenTypeIndex).toBe(1);
+      expect(testTactic.chosenOptionIndex).toBe(0);
+    }
+  });
+  test("Generates proper numbers with 1 attack and 1 power", () => {
+    for (let i = 0; i < 50; i++) {
+      let testTactic = enemyTurnTactic(testStats, testStats);
+      expect(testTactic.chosenTypeIndex).toBeGreaterThanOrEqual(1);
+      expect(testTactic.chosenTypeIndex).toBeLessThanOrEqual(2);
+      expect(testTactic.chosenOptionIndex).toBe(0);
+    }
+  });
+  test("Generates proper numbers with 1 attack, 1 power and 1 power", () => {
+    for (let i = 0; i < 50; i++) {
+      let testTactic = enemyTurnTactic(testStats, testStats);
+      expect(testTactic.chosenTypeIndex).toBeGreaterThanOrEqual(1);
+      expect(testTactic.chosenTypeIndex).toBeLessThanOrEqual(3);
+      expect(testTactic.chosenOptionIndex).toBe(0);
+    }
   });
 });

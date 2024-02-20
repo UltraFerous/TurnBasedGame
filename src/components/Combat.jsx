@@ -90,7 +90,7 @@ function Combat() {
         // Calls the tactic function which returns an index and an option
         const enemyTurn = enemyTurnTactic(player, tempEnemyStats[i]);
         // If Index is 0 it will attack
-        if (enemyTurn.chosenTypeIndex === 0) {
+        if (enemyTurn.chosenTypeIndex === 1) {
           let statsAfterEnemyAttack = resolveAttackCycle(
             0,
             enemyTurn.chosenOptionIndex,
@@ -101,7 +101,7 @@ function Combat() {
           tempPlayerStats = statsAfterEnemyAttack.updatedStats;
         }
         // If Index is 1 it will use a power
-        if (enemyTurn.chosenTypeIndex === 1) {
+        if (enemyTurn.chosenTypeIndex === 2) {
           let statsAfterEnemyPower = handleEnemyPowers(
             enemyTurn.chosenOptionIndex,
             tempEnemyStats[i],
