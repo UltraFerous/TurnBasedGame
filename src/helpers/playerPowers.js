@@ -88,7 +88,7 @@ const applyPowerHitCastBonus = function (user, target, enemyIndex) {
     ...user,
     statModifiers: {
       ...user.statModifiers,
-      castBonusMod: user.statModifiers.castBonusMod + 1,
+      powerActivationMod: user.statModifiers.powerActivationMod + 1,
       skillMod: user.statModifiers.skillMod + 1,
     },
   };
@@ -313,8 +313,8 @@ const activatePower = function (
   callbackPower,
   activationValue
 ) {
-  const totalCastBonus = user.statModifiers.castBonusMod + user.stats.castBonus;
-  const activationRoll = roll2D6Dice() + totalCastBonus;
+  const totalPowerBonus = user.statModifiers.powerActivationMod + user.stats.powerBonus;
+  const activationRoll = roll2D6Dice() + totalPowerBonus;
   if (activationRoll <= 2) {
     console.log("Oh No! Misactivation!");
     return { targetID: -1 };

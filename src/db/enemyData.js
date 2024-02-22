@@ -22,6 +22,11 @@ const enemyObj = [
       damageMod: 0,
       skillMod: 0,
       armourMod: 0,
+      bonusDamage: 0,
+      powerDamage: 0,
+      skillBonus: 0,
+      attacksBonus: 0,
+      armourBonus: 0,
     },
     weapons: [
       {
@@ -81,6 +86,11 @@ const enemyObj = [
       damageMod: 0,
       skillMod: 0,
       armourMod: 0,
+      bonusDamage: 0,
+      powerDamage: 0,
+      skillBonus: 0,
+      attacksBonus: 0,
+      armourBonus: 0,
     },
     weapons: [
       {
@@ -130,6 +140,11 @@ const enemyObj = [
       castBonus: 0,
       wounds: 2,
       currentWounds: 2,
+      bonusDamage: 0,
+      powerDamage: 0,
+      skillBonus: 0,
+      attacksBonus: 0,
+      armourBonus: 0,
     },
     statModifiers: {
       strengthMod: 0,
