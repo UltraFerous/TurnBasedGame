@@ -1,6 +1,6 @@
 import itemShopInventory from "../db/itemShopDatabase";
 
-const purchaseSmallHealthPotion = function (userStats, itemIndex) {
+const purchaseSmallHealthPotion = function (userStats, itemIndex, itemStats) {
   const updatedStats = { ...userStats };
   if (itemIndex >= 0) {
     updatedStats.items[itemIndex].amount++;
@@ -15,16 +15,16 @@ const purchaseSmallHealthPotion = function (userStats, itemIndex) {
   return { updatedStats, transaction: true };
 };
 
-const purchaseDragonSlayer = function (userStats, itemIndex) {
+const purchaseDragonSlayer = function (userStats, itemIndex, itemStats) {
   const updatedStats = { ...userStats };
   updatedStats.weapons.push({
-    id: 11,
-    name: "Dragon Slayer",
-    skill: 3,
-    strengthBonus: 4,
-    rend: 4,
-    damage: 4,
-    attacks: 1,
+    id: itemShopInventory[itemIndex].id,
+    name: itemShopInventory[itemIndex].name,
+    skill: itemStats.skill,
+    weaponStrength: itemStats.weaponStrength,
+    rend: itemStats.rend,
+    damage: itemStats.damage,
+    attacks: itemStats.attacks,
   });
   return { updatedStats, transaction: true };
 };
@@ -44,10 +44,11 @@ const moneyChecker = function (
   const tempStats = { ...userStats };
   tempStats.scores.money = updatedMoney;
   const itemIndex = itemShopInventory.findIndex((item) => item.id === itemID);
-  if (isRemoved) {
-    itemShopInventory.splice(itemIndex, 1);
-  }
-  return itemCallback(tempStats, itemIndex);
+  const itemStats = itemShopInventory[itemIndex].stats;
+  // if (isRemoved) {
+  //   itemShopInventory.splice(itemIndex, 1);
+  // }
+  return itemCallback(tempStats, itemIndex, itemStats);
 };
 
 const itemPurchase = function (userStats, itemID) {

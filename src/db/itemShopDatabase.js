@@ -8,6 +8,13 @@ const itemShopInventory = [
     id: 11,
     name: "Dragon Slayer",
     description: "Big Sword",
+    stats: {
+      skill: 3,
+      weaponStrength: 4,
+      rend: 4,
+      damage: 4,
+      attacks: 1,
+    },
   },
 ];
 

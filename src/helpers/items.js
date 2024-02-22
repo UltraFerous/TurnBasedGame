@@ -1,7 +1,9 @@
 import { rollXDiceD3 } from "./diceRolls";
 import { removeOverheal } from "./removeOverheal";
+import itemShopInventory from "../db/itemShopDatabase";
 
-const smallHealthPotion = function (user, enemy) {
+const smallMedKit = function(user, enemy) {
+  const healAmount = 2;
   // Update the potion amount
   const updatedPotion = {
     ...user.items[0],
@@ -14,7 +16,7 @@ const smallHealthPotion = function (user, enemy) {
     ...user,
     stats: {
       ...user.stats,
-      currentWounds: user.stats.currentWounds + 3,
+      currentWounds: user.stats.currentWounds + healAmount,
     },
     items: updatedItems,
   };
@@ -26,7 +28,7 @@ const smallHealthPotion = function (user, enemy) {
 const useItem = function (item, user, enemy) {
   switch (item) {
     case 0:
-      return smallHealthPotion(user, enemy);
+      return smallMedKit(user, enemy);
     default:
       console.log(`Sorry item just didn't work.`);
   }
