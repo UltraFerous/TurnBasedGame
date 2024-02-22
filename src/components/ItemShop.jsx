@@ -1,24 +1,53 @@
-import { React, useContext } from "react";
+import { React, useContext, useState, useEffect } from "react";
 import itemShopInventory from "../db/itemShopDatabase";
 import { itemPurchase } from "../helpers/itemPurchase";
 import PlayerContext from "../context/playerContext";
 
 function ItemShop() {
   const { player, setPlayer } = useContext(PlayerContext);
+  const [shop, setShop] = useState([]);
 
-  const handleItemPurchaseOnClick = function (index) {
-    const updatedStats = itemPurchase(player, index);
-    setPlayer(updatedStats);
+  const updateShop = function (shopIndex) {
+    const tempShop = shop;
+    tempShop.splice(shopIndex, 1);
+    setShop(tempShop);
   };
+
+  const handleItemPurchaseOnClick = function (itemIndex, shopIndex) {
+    const statsAfterPurchase = itemPurchase(player, itemIndex);
+    statsAfterPurchase.transaction && updateShop(shopIndex);
+    setPlayer(statsAfterPurchase.updatedStats);
+  };
+
+  const populateShop = function () {
+    const numberOfItems = 3;
+    const itemsInShop = [itemShopInventory[0]];
+    const minCeiled = Math.ceil(0);
+    const maxFloored = Math.floor(itemShopInventory.length - 1);
+    let randomNumber = 0;
+    for (let i = 0; i < numberOfItems; i++) {
+      randomNumber = Math.floor(
+        Math.random() * (maxFloored - minCeiled + 1) + minCeiled
+      );
+      console.log(randomNumber);
+      itemsInShop.push(itemShopInventory[randomNumber]);
+    }
+    return setShop(itemsInShop);
+  };
+
+  useEffect(() => {
+    setShop([]);
+    populateShop();
+  }, []);
 
   return (
     <div>
       Welcome to the shop
-      {itemShopInventory.map((item, index) => (
+      {shop.map((item, index) => (
         <button
-          key={item.id}
+          key={index}
           onClick={() => {
-            handleItemPurchaseOnClick(item.id);
+            handleItemPurchaseOnClick(item.id, index);
           }}
         >
           {item.name}

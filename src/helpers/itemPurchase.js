@@ -4,7 +4,7 @@ const purchaseSmallHealthPotion = function (userStats, itemIndex) {
   const updatedStats = { ...userStats };
   if (itemIndex >= 0) {
     updatedStats.items[itemIndex].amount++;
-    return updatedStats;
+    return { updatedStats, transaction: true };
   }
   updatedStats.items.push({
     id: 0,
@@ -12,7 +12,7 @@ const purchaseSmallHealthPotion = function (userStats, itemIndex) {
     description: "a small",
     amount: 1,
   });
-  return updatedStats;
+  return { updatedStats, transaction: true };
 };
 
 const purchaseDragonSlayer = function (userStats, itemIndex) {
@@ -26,7 +26,7 @@ const purchaseDragonSlayer = function (userStats, itemIndex) {
     damage: 4,
     attacks: 1,
   });
-  return updatedStats;
+  return { updatedStats, transaction: true };
 };
 
 const moneyChecker = function (
@@ -39,7 +39,7 @@ const moneyChecker = function (
   const currentMoney = userStats.scores.money;
   const updatedMoney = currentMoney - itemCost;
   if (updatedMoney < 0) {
-    return userStats;
+    return { updatedStats: userStats, transaction: false };
   }
   const tempStats = { ...userStats };
   tempStats.scores.money = updatedMoney;
