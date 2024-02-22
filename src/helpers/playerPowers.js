@@ -313,7 +313,7 @@ const activatePower = function (
   callbackPower,
   activationValue
 ) {
-  const totalPowerBonus = user.statModifiers.powerActivationMod + user.stats.powerBonus;
+  const totalPowerBonus = user.statModifiers.powerActivationMod + user.stats.power;
   const activationRoll = roll2D6Dice() + totalPowerBonus;
   if (activationRoll <= 2) {
     console.log("Oh No! Misactivation!");

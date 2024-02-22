@@ -47,6 +47,7 @@ const wardSaveRoll = function (index, user, target, rolls) {
 };
 
 const damageRoll = function (index, rolls, user) {
+  console.log(rolls * user.weapons[index].damage);
   return rolls * user.weapons[index].damage;
 };
 

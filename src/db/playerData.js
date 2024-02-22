@@ -5,19 +5,25 @@ const playerObj = {
     description: "Test",
   },
   stats: {
-    strength: 4,
+    strength: 3,
     toughness: 4,
-    initiative: 4,
-    castBonus: 1,
+    initiative: 3,
+    power: 0,
     wounds: 5,
     currentWounds: 5,
+    bonusDamage: 0,
+    bonusPowerDamage: 0,
+    skillBonus: 0,
+    attacksBonus: 0,
+    armourBonus: 0,
   },
   statModifiers: {
     strengthMod: 0,
     attacksMod: 0,
     toughnessMod: 0,
     initiativeMod: 0,
-    castBonusMod: 0,
+    powerActivationMod: 0,
+    powerDamageMod: 0,
     damageMod: 0,
     skillMod: 0,
     armourMod: 0,
@@ -70,7 +76,7 @@ const playerObj = {
   scores: {
     money: 100,
     points: 0,
-  }
+  },
 };
 
 export default playerObj;
