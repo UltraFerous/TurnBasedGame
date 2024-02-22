@@ -10,9 +10,11 @@ const playerObj = {
     initiative: 3,
     power: 0,
     wounds: 5,
-    currentWounds: 5,
-    bonusDamage: 0,
-    bonusPowerDamage: 0,
+    currentWounds: 5
+  },
+  statBonuses:{
+    damageBonus: 0,
+    powerDamageBonus: 0,
     skillBonus: 0,
     attacksBonus: 0,
     armourBonus: 0,
@@ -33,7 +35,7 @@ const playerObj = {
       id: 0,
       name: "Attack 1",
       skill: 4,
-      strengthBonus: 1,
+      weaponStrength: 1,
       rend: 1,
       damage: 1,
       attacks: 4,

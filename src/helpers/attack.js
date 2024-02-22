@@ -10,11 +10,11 @@ const hitRoll = function (index, user) {
   return filterDicePoolAbove(
     rollXDice(
       user.weapons[index].attacks +
-        user.stats.attacksBonus +
+        user.statBonuses.attacksBonus +
         user.statModifiers.attacksMod
     ),
     user.weapons[index].skill -
-      user.stats.skillBonus -
+      user.statBonuses.skillBonus -
       user.statModifiers.skillMod
   );
 };
@@ -24,7 +24,7 @@ const woundRoll = function (index, user, target, rolls) {
   const woundTargetNumber = woundComparison(
     user.stats.strength +
       user.statModifiers.strengthMod +
-      user.weapons[index].strengthBonus,
+      user.weapons[index].weaponStrength,
     target.stats.toughness + target.statModifiers.toughnessMod
   );
   return filterDicePoolAbove(rollXDice(rolls), woundTargetNumber);
@@ -36,7 +36,7 @@ const saveRoll = function (index, user, target, rolls) {
     rollXDice(rolls),
     target.save.armour -
       target.statModifiers.armourMod -
-      target.stats.armourBonus +
+      target.statBonuses.armourBonus +
       user.weapons[index].rend
   );
 };
@@ -69,7 +69,7 @@ const attackRoll = function (index, user, target) {
   //Reduce target wounds equal to the weapons damage
   const targetDamageResults =
     damageRoll(index, successfulRolls, user) +
-    user.stats.bonusDamage +
+    user.statBonuses.damageBonus +
     user.statModifiers.damageMod;
   console.log(user.information.name, " does ", targetDamageResults, " damage.");
 
