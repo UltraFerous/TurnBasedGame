@@ -218,7 +218,8 @@ function Combat() {
     updateStats(
       statsAfterItem.combatTeam,
       statsAfterItem.targetID,
-      statsAfterItem.updatedStats
+      statsAfterItem.updatedStats,
+      targetEnemy
     );
   };
 
