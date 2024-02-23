@@ -132,8 +132,11 @@ function Combat() {
         }
         // If Index is 3 it will use an item
         if (enemyTurn.chosenTypeIndex === 3) {
+          const enemyItemData =
+            tempEnemyStats[i].items[enemyTurn.chosenOptionIndex];
           let statsAfterEnemyPower = useEnemyItem(
             enemyTurn.chosenOptionIndex,
+            enemyItemData,
             tempEnemyStats[i],
             tempPlayerStats,
             i

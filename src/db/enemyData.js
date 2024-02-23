@@ -62,7 +62,7 @@ const enemyObj = [
         id: 0,
         name: "Standard MedKit",
         description: "A standard issue MedKit.",
-        amount: 1,
+        heal: 4,
       },
     ],
     scores: {
