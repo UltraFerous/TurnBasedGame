@@ -29,7 +29,6 @@ function ItemShop() {
       randomNumber = Math.floor(
         Math.random() * (maxFloored - minCeiled + 1) + minCeiled
       );
-      console.log(randomNumber);
       itemsInShop.push(itemShopInventory[randomNumber]);
     }
     return setShop(itemsInShop);

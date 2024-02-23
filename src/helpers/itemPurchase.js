@@ -54,28 +54,27 @@ const itemPurchase = function (userStats, itemID) {
 
   console.log(itemShopInventory[itemIndex]);
 
-  switch (true) {
-    case itemID === 0:
-      return moneyChecker(
-        userStats,
-        itemIndex,
-        itemInformation,
-        itemCost,
-        purchaseMedKitPotion,
-        false
-      );
-    case 12 <= itemID:
-      return moneyChecker(
-        userStats,
-        itemIndex,
-        itemInformation,
-        itemCost,
-        purchaseWeapon,
-        true
-      );
-    default:
-      console.log(`Sorry item just didn't work.`);
+  if (itemID === 0) {
+    return moneyChecker(
+      userStats,
+      itemIndex,
+      itemInformation,
+      itemCost,
+      purchaseMedKitPotion,
+      false
+    );
   }
+  if (12 <= itemID) {
+    return moneyChecker(
+      userStats,
+      itemIndex,
+      itemInformation,
+      itemCost,
+      purchaseWeapon,
+      true
+    );
+  }
+  console.log(`Sorry item just didn't work.`);
 };
 
 export { itemPurchase };
