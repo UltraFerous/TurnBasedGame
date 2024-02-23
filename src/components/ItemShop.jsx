@@ -13,9 +13,9 @@ function ItemShop() {
     setShop(tempShop);
   };
 
-  const handleItemPurchaseOnClick = function (itemIndex, shopIndex) {
-    const statsAfterPurchase = itemPurchase(player, itemIndex);
-    statsAfterPurchase.transaction && updateShop(shopIndex);
+  const handleItemPurchaseOnClick = function (itemID, tempShopIndex) {
+    const statsAfterPurchase = itemPurchase(player, itemID);
+    statsAfterPurchase.transaction && updateShop(tempShopIndex);
     setPlayer(statsAfterPurchase.updatedStats);
   };
 

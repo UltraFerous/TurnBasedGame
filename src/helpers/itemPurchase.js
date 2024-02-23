@@ -1,6 +1,6 @@
 import itemShopInventory from "../db/itemShopDatabase";
 
-const purchaseSmallHealthPotion = function (userStats, itemIndex, itemStats) {
+const purchaseMedKitPotion = function (userStats, itemIndex, itemStats) {
   const updatedStats = { ...userStats };
   if (itemIndex >= 0) {
     updatedStats.items[itemIndex].amount++;
@@ -8,30 +8,27 @@ const purchaseSmallHealthPotion = function (userStats, itemIndex, itemStats) {
   }
   updatedStats.items.push({
     id: 0,
-    name: "Small Health Potion",
-    description: "a small",
+    name: "Standard MedKit",
+    description: "A standard issue MedKit.",
     amount: 1,
   });
   return { updatedStats, transaction: true };
 };
 
-const purchaseDragonSlayer = function (userStats, itemIndex, itemStats) {
+const purchaseWeapon = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
   updatedStats.weapons.push({
-    id: itemShopInventory[itemIndex].id,
-    name: itemShopInventory[itemIndex].name,
-    skill: itemStats.skill,
-    weaponStrength: itemStats.weaponStrength,
-    rend: itemStats.rend,
-    damage: itemStats.damage,
-    attacks: itemStats.attacks,
+    id: itemInformation.id,
+    name: itemInformation.name,
+    ...itemInformation.stats,
   });
   return { updatedStats, transaction: true };
 };
 
 const moneyChecker = function (
   userStats,
-  itemID,
+  itemIndex,
+  itemInformation,
   itemCost,
   itemCallback,
   isRemoved
@@ -43,26 +40,39 @@ const moneyChecker = function (
   }
   const tempStats = { ...userStats };
   tempStats.scores.money = updatedMoney;
-  const itemIndex = itemShopInventory.findIndex((item) => item.id === itemID);
-  const itemStats = itemShopInventory[itemIndex].stats;
-  // if (isRemoved) {
-  //   itemShopInventory.splice(itemIndex, 1);
-  // }
-  return itemCallback(tempStats, itemIndex, itemStats);
+  if (isRemoved) {
+    itemShopInventory.splice(itemIndex, 1);
+    itemIndex--;
+  }
+  return itemCallback(tempStats, itemIndex, itemInformation);
 };
 
 const itemPurchase = function (userStats, itemID) {
-  switch (itemID) {
-    case 0:
+  const itemIndex = itemShopInventory.findIndex((item) => item.id === itemID);
+  const itemInformation = itemShopInventory[itemIndex];
+  const itemCost = itemShopInventory[itemIndex].cost;
+
+  console.log(itemShopInventory[itemIndex]);
+
+  switch (true) {
+    case itemID === 0:
       return moneyChecker(
         userStats,
-        itemID,
-        10,
-        purchaseSmallHealthPotion,
+        itemIndex,
+        itemInformation,
+        itemCost,
+        purchaseMedKitPotion,
         false
       );
-    case 11:
-      return moneyChecker(userStats, itemID, 100, purchaseDragonSlayer, true);
+    case 12 <= itemID:
+      return moneyChecker(
+        userStats,
+        itemIndex,
+        itemInformation,
+        itemCost,
+        purchaseWeapon,
+        true
+      );
     default:
       console.log(`Sorry item just didn't work.`);
   }

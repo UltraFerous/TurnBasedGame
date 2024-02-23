@@ -57,7 +57,8 @@ const enemyObj = [
     items: [
       {
         id: 0,
-        name: "Small Health Potion",
+        name: "Standard MedKit",
+        description: "A standard issue MedKit.",
         amount: 1,
       },
     ],

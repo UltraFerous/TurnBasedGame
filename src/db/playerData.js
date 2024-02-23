@@ -70,8 +70,8 @@ const playerObj = {
   items: [
     {
       id: 0,
-      name: "Small Health Potion",
-      description: "an small",
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
       amount: 1,
     },
   ],

@@ -3,7 +3,7 @@ import { removeOverheal } from "./removeOverheal";
 import itemShopInventory from "../db/itemShopDatabase";
 
 const smallMedKit = function(user, enemy) {
-  const healAmount = 2;
+  const healAmount = 4;
   // Update the potion amount
   const updatedPotion = {
     ...user.items[0],
