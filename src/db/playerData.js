@@ -57,7 +57,7 @@ const playerObj = {
       description: "",
       activationValue: 4,
       type: 3,
-      stat: 3
+      damage: 3
     },
   ],
   save: {

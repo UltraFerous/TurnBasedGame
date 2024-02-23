@@ -4,15 +4,15 @@ import { attackRoll } from "./attack";
 // I have changed the setting of this game and thus the power names. It is too much to change right now, so some of the names are from the old setting.
 // This stuff needs to be refactored
 
-const justDoDamage = function (user, target, targetIndex) {
+const justDoDamage = function (user, target, targetIndex, powerData) {
+  const damageAmount = powerData.damage;
   const updatedStats = {
     ...target,
     stats: {
       ...target.stats,
-      currentWounds: target.stats.currentWounds - 1,
+      currentWounds: target.stats.currentWounds - damageAmount,
     },
   };
-  console.log(user.information.name, " does 3 damage.");
   return { combatTeam: 0, updatedStats, targetID: 0 };
 };
 
@@ -53,9 +53,10 @@ const activatePower = function (
   user,
   enemy,
   enemyIndex,
-  callbackPower,
-  activationValue
+  powerData,
+  powerCallback
 ) {
+  const activationValue = powerData.activationValue;
   const totalCastBonus = user.statModifiers.castBonusMod + user.stats.castBonus;
   const activationRoll = roll2D6Dice() + totalCastBonus;
   if (activationRoll <= 2) {
@@ -65,15 +66,13 @@ const activatePower = function (
     console.log("The power was not activated!");
     return { combatTeam: 1, updatedStats: user, targetID: enemyIndex };
   }
-  return callbackPower(user, enemy, enemyIndex);
+  return powerCallback(user, enemy, enemyIndex, powerData);
 };
 
-const useEnemyPower = function (power, user, enemy, targetIndex) {
-  switch (power) {
-    case 0:
-      return activatePower(user, enemy, targetIndex, justDoDamage, 2);
-    default:
-      console.log(`Sorry power just didn't work.`);
+const useEnemyPower = function (powerData, user, enemy, enemyIndex) {
+  if (powerData.type === 3) {
+    console.log(powerData);
+    return activatePower(user, enemy, enemyIndex, powerData, justDoDamage);
   }
 };
 

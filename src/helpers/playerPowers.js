@@ -5,7 +5,7 @@ import { attackRoll } from "./attack";
 // This stuff needs to be refactored
 
 const justDoDamage = function (user, target, enemyIndex, powerData) {
-  const damageAmount = powerData.stat;
+  const damageAmount = powerData.damage;
   const updatedStats = {
     ...target,
     stats: {
@@ -70,7 +70,7 @@ const activatePower = function (
   return powerCallback(user, enemy, enemyIndex, powerData);
 };
 
-const usePlayerPower = function (power, powerData, user, enemy, enemyIndex) {
+const usePlayerPower = function (powerData, user, enemy, enemyIndex) {
   if (powerData.type === 3) {
     return activatePower(user, enemy, enemyIndex, powerData, justDoDamage);
   }

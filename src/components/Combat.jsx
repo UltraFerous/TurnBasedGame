@@ -112,8 +112,10 @@ function Combat() {
         }
         // If Index is 2 it will use a power
         if (enemyTurn.chosenTypeIndex === 2) {
+          const enemyPowerData =
+            tempEnemyStats[i].powers[enemyTurn.chosenOptionIndex];
           let statsAfterEnemyPower = handleEnemyPowers(
-            enemyTurn.chosenOptionIndex,
+            enemyPowerData,
             tempEnemyStats[i],
             tempPlayerStats,
             i
@@ -201,7 +203,6 @@ function Combat() {
     const powerIndex = player.powers.findIndex((power) => power.id === powerID);
     const powerData = player.powers[powerIndex];
     const statsAfterPower = usePlayerPower(
-      powerIndex,
       powerData,
       player,
       enemy[targetEnemy],

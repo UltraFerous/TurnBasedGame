@@ -45,8 +45,11 @@ const enemyObj = [
     powers: [
       {
         id: 0,
-        name: "name",
+        name: "Damage Spell",
         description: "",
+        activationValue: 4,
+        type: 3,
+        damage: 2,
       },
     ],
     save: {
