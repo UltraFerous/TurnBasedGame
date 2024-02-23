@@ -149,7 +149,10 @@ function Combat() {
       }
       // If an enemy is found to be at 0 or less wounds remove them from the game
       if (tempEnemyStats[i].stats.currentWounds <= 0) {
-        tempPlayerStats = increasePlayerScore(tempPlayerStats, tempEnemyStats[i]);
+        tempPlayerStats = increasePlayerScore(
+          tempPlayerStats,
+          tempEnemyStats[i]
+        );
         tempEnemyStats.splice(i, 1);
         i--; // Decrement i to account for the removed element
       } else {
@@ -196,8 +199,10 @@ function Combat() {
   // This is the function that is called when a power button is clicked
   const handlePlayerPowers = function (powerID) {
     const powerIndex = player.powers.findIndex((power) => power.id === powerID);
+    const powerData = player.powers[powerIndex];
     const statsAfterPower = usePlayerPower(
       powerIndex,
+      powerData,
       player,
       enemy[targetEnemy],
       targetEnemy
