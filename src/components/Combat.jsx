@@ -220,7 +220,13 @@ function Combat() {
   // This is the function that is called when an item button is clicked
   const handleItemsOnClick = function (itemID) {
     const itemIndex = player.items.findIndex((item) => item.id === itemID);
-    const statsAfterItem = useItem(itemIndex, player, enemy[targetEnemy]);
+    const itemData = player.items[itemIndex];
+    const statsAfterItem = useItem(
+      itemIndex,
+      itemData,
+      player,
+      enemy[targetEnemy]
+    );
     updateStats(
       statsAfterItem.combatTeam,
       statsAfterItem.targetID,
@@ -290,7 +296,7 @@ function Combat() {
             <strong>Weapons:</strong>
             {player.weapons.map((item, index) => (
               <WeaponList
-                key={player.weapons[index].id}
+                key={index}
                 id={player.weapons[index].id}
                 name={player.weapons[index].name}
                 handleWeaponsOnClick={handleWeaponsOnClick}
@@ -302,7 +308,7 @@ function Combat() {
             <strong>Powers:</strong>
             {player.powers.map((power, index) => (
               <PowerList
-                key={power.id}
+                key={index}
                 id={power.id}
                 name={power.name}
                 handlePowersOnClick={handlePlayerPowers}
@@ -314,7 +320,7 @@ function Combat() {
             <strong>Items:</strong>
             {player.items.map((item, index) => (
               <ItemList
-                key={item.id}
+                key={index}
                 id={item.id}
                 name={item.name}
                 amount={item.amount}

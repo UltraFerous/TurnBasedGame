@@ -2,15 +2,11 @@ import itemShopInventory from "../db/itemShopDatabase";
 
 const purchaseMedKitPotion = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
-  if (itemIndex >= 0) {
-    updatedStats.items[itemIndex].amount++;
-    return { updatedStats, transaction: true };
-  }
   updatedStats.items.push({
     id: 0,
     name: "Standard MedKit",
     description: "A standard issue MedKit.",
-    amount: 1,
+    heal: 4,
   });
   return { updatedStats, transaction: true };
 };
