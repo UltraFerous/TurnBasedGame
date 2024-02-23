@@ -1,6 +1,6 @@
 import itemShopInventory from "../db/itemShopDatabase";
 
-const purchaseMedKitPotion = function (userStats, itemIndex, itemStats) {
+const purchaseMedKitPotion = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
   if (itemIndex >= 0) {
     updatedStats.items[itemIndex].amount++;
@@ -12,6 +12,29 @@ const purchaseMedKitPotion = function (userStats, itemIndex, itemStats) {
     description: "A standard issue MedKit.",
     amount: 1,
   });
+  return { updatedStats, transaction: true };
+};
+
+const purchaseStatUpgrade = function (userStats, itemIndex, itemInformation) {
+  const updatedStats = { ...userStats };
+  if (updatedStats.stats.hasOwnProperty(itemInformation.stat)) {
+    updatedStats.stats[itemInformation.stat]++;
+  } else if (updatedStats.statBonuses.hasOwnProperty(itemInformation.stat)) {
+    updatedStats.statBonuses[itemInformation.stat]++;
+  } else {
+    console.error(
+      `Stat ${itemInformation.stat} not found in userStats object.`
+    );
+  }
+  console.log(updatedStats);
+  return { updatedStats, transaction: true };
+};
+
+const purchaseArmour = function (userStats, itemIndex, itemInformation) {
+  const updatedStats = { ...userStats };
+  updatedStats.armour = {
+    ...itemInformation.stats,
+  };
   return { updatedStats, transaction: true };
 };
 
@@ -49,12 +72,31 @@ const moneyChecker = function (
 
 const itemPurchase = function (userStats, itemID) {
   const itemIndex = itemShopInventory.findIndex((item) => item.id === itemID);
+  const itemType = itemShopInventory[itemIndex].type;
   const itemInformation = itemShopInventory[itemIndex];
   const itemCost = itemShopInventory[itemIndex].cost;
 
-  console.log(itemShopInventory[itemIndex]);
-
-  if (itemID === 0) {
+  if (itemType === 3) {
+    return moneyChecker(
+      userStats,
+      itemIndex,
+      itemInformation,
+      itemCost,
+      purchaseArmour,
+      true
+    );
+  }
+  if (itemType === 2) {
+    return moneyChecker(
+      userStats,
+      itemIndex,
+      itemInformation,
+      itemCost,
+      purchaseWeapon,
+      true
+    );
+  }
+  if (itemType === 1) {
     return moneyChecker(
       userStats,
       itemIndex,
@@ -64,14 +106,14 @@ const itemPurchase = function (userStats, itemID) {
       false
     );
   }
-  if (12 <= itemID) {
+  if (itemType === 4) {
     return moneyChecker(
       userStats,
       itemIndex,
       itemInformation,
       itemCost,
-      purchaseWeapon,
-      true
+      purchaseStatUpgrade,
+      false
     );
   }
   console.log(`Sorry item just didn't work.`);
