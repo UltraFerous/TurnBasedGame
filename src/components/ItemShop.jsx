@@ -20,7 +20,7 @@ function ItemShop() {
   };
 
   const populateShop = function () {
-    const numberOfItems = 25;
+    const numberOfItems = 3;
     const itemsInShop = [itemShopInventory[0]];
     const minCeiled = Math.ceil(0);
     const maxFloored = Math.floor(itemShopInventory.length - 1);

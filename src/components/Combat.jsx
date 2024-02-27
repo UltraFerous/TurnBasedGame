@@ -283,17 +283,19 @@ function Combat() {
           </select>
         )}
       </div>
+      <div>You are playing as: {player.information.name}</div>
+      <div>Player Health: {player.stats.currentWounds}</div>
+      <div>
+        Enemy Health:
+        {enemy.map((enemyUnit, index) => (
+          <div key={index}>
+            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
+          </div>
+        ))}
+      </div>
       <div className="battleDisplay">
-        <div>You are playing as: {player.information.name}</div>
-        <div>Player Health: {player.stats.currentWounds}</div>
-        <div>
-          Enemy Health:
-          {enemy.map((enemyUnit, index) => (
-            <div key={index}>
-              {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
-            </div>
-          ))}
-        </div>
+        <div className="playerSprite"></div>
+        <div className="enemySprites"></div>
       </div>
       {battleOver === false ? (
         <div>

@@ -1,9 +1,26 @@
 #root {
   .battleDisplay {
-    height: 512px;
+    height: 704px;
     width: 1024px;
     border: 5px solid aqua;
+    display: flex; /* Use flexbox for positioning */
+    justify-content: space-around; /* Align content to the start of the container (left) */
+    align-items: center; /* Center vertically within the parent */
+    flex-direction: row;
+
+    .playerSprite {
+      min-height: 128px;
+      min-width: 128px;
+      background: white;
+    }
+
+    .enemySprites {
+      min-height: 384px;
+      min-width: 384px;
+      background: black;
+    }
   }
+
   .weaponList {
     display: flex;
     flex-direction: row;
