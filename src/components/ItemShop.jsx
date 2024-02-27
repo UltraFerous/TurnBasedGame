@@ -2,6 +2,7 @@ import { React, useContext, useState, useEffect } from "react";
 import itemShopInventory from "../db/itemShopDatabase";
 import { itemPurchase } from "../helpers/itemPurchase";
 import PlayerContext from "../context/playerContext";
+import "../styles/ItemShop.scss";
 
 function ItemShop() {
   const { player, setPlayer } = useContext(PlayerContext);
@@ -43,14 +44,19 @@ function ItemShop() {
     <div>
       Welcome to the shop
       {shop.map((item, index) => (
-        <button
-          key={index}
-          onClick={() => {
-            handleItemPurchaseOnClick(item.id, index);
-          }}
-        >
+        <div>
           {item.name}
-        </button>
+          {item.cost}
+          {item.description}
+          <button
+            key={index}
+            onClick={() => {
+              handleItemPurchaseOnClick(item.id, index);
+            }}
+          >
+            Purchase
+          </button>
+        </div>
       ))}
     </div>
   );

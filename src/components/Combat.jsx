@@ -44,6 +44,19 @@ function Combat() {
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
+  const setNextRound = function () {
+    const newHealth = Math.floor(Math.random() * 12 + 1);
+    let tempNewEnemyStats = enemy[0];
+
+    tempNewEnemyStats.stats.wounds = newHealth;
+    tempNewEnemyStats.stats.currentWounds = newHealth;
+
+    setTurn(0);
+    setBattleOver(false);
+    setEnemy([tempNewEnemyStats]);
+  };
+
+  // Will change the turn between player and enemy, will only work for 2 entities.
   const changeTurn = function () {
     turn === 0 ? setTurn(1) : setTurn(0);
   };
@@ -338,7 +351,9 @@ function Combat() {
           </div>
         </div>
       ) : (
-        <div>Battle Over!</div>
+        player.stats.currentWounds > 0 && (
+          <button onClick={() => setNextRound()}>Next Round!</button>
+        )
       )}
     </div>
   );

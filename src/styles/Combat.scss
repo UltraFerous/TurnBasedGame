@@ -3,7 +3,7 @@
     height: 704px;
     width: 1024px;
     border: 5px solid aqua;
-    display: flex; /* Use flexbox for positioning */
+    display: none; /* Use flexbox for positioning */
     justify-content: space-around; /* Align content to the start of the container (left) */
     align-items: center; /* Center vertically within the parent */
     flex-direction: row;
