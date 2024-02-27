@@ -15,7 +15,7 @@ describe("Testing the stat modifing powers different powers", () => {
       attacksMod: 0,
       toughnessMod: 0,
       initiativeMod: 0,
-      castBonusMod: 0,
+      powerActivationMod: 0,
       damageMod: 0,
       skillMod: 0,
       armourMod: 0,
@@ -37,9 +37,9 @@ describe("Testing the stat modifing powers different powers", () => {
   test("Test applyPowerHitCastBonus", () => {
     const buffHitCast = usePlayerPower(4, testStats, testStats);
     expect(buffHitCast.updatedStats.statModifiers.skillMod).toBeGreaterThan(0);
-    expect(buffHitCast.updatedStats.statModifiers.castBonusMod).toBeGreaterThan(
-      0
-    );
+    expect(
+      buffHitCast.updatedStats.statModifiers.powerActivationMod
+    ).toBeGreaterThan(0);
   });
 
   test("Test applyPowerWeakenEnemyArmour", () => {

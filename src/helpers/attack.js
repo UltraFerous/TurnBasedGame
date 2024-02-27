@@ -8,8 +8,14 @@ import {
 // Rolls the dice to hit, looking for results above or equal to the weapon skill
 const hitRoll = function (index, user) {
   return filterDicePoolAbove(
-    rollXDice(user.weapons[index].attacks + user.statModifiers.attacksMod),
-    user.weapons[index].skill - user.statModifiers.skillMod
+    rollXDice(
+      user.weapons[index].attacks +
+        user.statBonuses.attacksBonus +
+        user.statModifiers.attacksMod
+    ),
+    user.weapons[index].skill -
+      user.statBonuses.skillBonus -
+      user.statModifiers.skillMod
   );
 };
 
@@ -18,7 +24,7 @@ const woundRoll = function (index, user, target, rolls) {
   const woundTargetNumber = woundComparison(
     user.stats.strength +
       user.statModifiers.strengthMod +
-      user.weapons[index].strengthBonus,
+      user.weapons[index].weaponStrength,
     target.stats.toughness + target.statModifiers.toughnessMod
   );
   return filterDicePoolAbove(rollXDice(rolls), woundTargetNumber);
@@ -30,7 +36,7 @@ const saveRoll = function (index, user, target, rolls) {
     rollXDice(rolls),
     target.save.armour -
       target.statModifiers.armourMod -
-      target.save.shield +
+      target.statBonuses.armourBonus +
       user.weapons[index].rend
   );
 };
@@ -41,6 +47,7 @@ const wardSaveRoll = function (index, user, target, rolls) {
 };
 
 const damageRoll = function (index, rolls, user) {
+  console.log(rolls * user.weapons[index].damage);
   return rolls * user.weapons[index].damage;
 };
 
@@ -61,7 +68,9 @@ const attackRoll = function (index, user, target) {
 
   //Reduce target wounds equal to the weapons damage
   const targetDamageResults =
-    damageRoll(index, successfulRolls, user) + user.statModifiers.damageMod;
+    damageRoll(index, successfulRolls, user) +
+    user.statBonuses.damageBonus +
+    user.statModifiers.damageMod;
   console.log(user.information.name, " does ", targetDamageResults, " damage.");
 
   //Rolls for Ward Save after damage has been calculated. note most units do not have ward saves, ie = 7

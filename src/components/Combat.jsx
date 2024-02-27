@@ -33,6 +33,15 @@ function Combat() {
     console.log(enemy);
   };
 
+  const increasePlayerScore = function (currentPlayerStats, defeatedEnemy) {
+    const tempPlayer = currentPlayerStats;
+
+    tempPlayer.scores.points += defeatedEnemy.scores.points;
+    tempPlayer.scores.money += defeatedEnemy.scores.money;
+
+    return tempPlayer;
+  };
+
   // Will change the turn between player and enemy, will only work for 2 entities.
   const changeTurn = function () {
     turn === 0 ? setTurn(1) : setTurn(0);
@@ -103,8 +112,10 @@ function Combat() {
         }
         // If Index is 2 it will use a power
         if (enemyTurn.chosenTypeIndex === 2) {
+          const enemyPowerData =
+            tempEnemyStats[i].powers[enemyTurn.chosenOptionIndex];
           let statsAfterEnemyPower = handleEnemyPowers(
-            enemyTurn.chosenOptionIndex,
+            enemyPowerData,
             tempEnemyStats[i],
             tempPlayerStats,
             i
@@ -121,8 +132,11 @@ function Combat() {
         }
         // If Index is 3 it will use an item
         if (enemyTurn.chosenTypeIndex === 3) {
+          const enemyItemData =
+            tempEnemyStats[i].items[enemyTurn.chosenOptionIndex];
           let statsAfterEnemyPower = useEnemyItem(
             enemyTurn.chosenOptionIndex,
+            enemyItemData,
             tempEnemyStats[i],
             tempPlayerStats,
             i
@@ -140,6 +154,10 @@ function Combat() {
       }
       // If an enemy is found to be at 0 or less wounds remove them from the game
       if (tempEnemyStats[i].stats.currentWounds <= 0) {
+        tempPlayerStats = increasePlayerScore(
+          tempPlayerStats,
+          tempEnemyStats[i]
+        );
         tempEnemyStats.splice(i, 1);
         i--; // Decrement i to account for the removed element
       } else {
@@ -170,7 +188,10 @@ function Combat() {
   };
 
   // This is the function that is called when an attack button is clicked
-  const handleWeaponsOnClick = function (weaponIndex) {
+  const handleWeaponsOnClick = function (weaponID) {
+    const weaponIndex = player.weapons.findIndex(
+      (weapon) => weapon.id === weaponID
+    );
     const statsAfterAttack = resolveAttackCycle(
       1,
       weaponIndex,
@@ -181,9 +202,11 @@ function Combat() {
   };
 
   // This is the function that is called when a power button is clicked
-  const handlePlayerPowers = function (powerIndex) {
+  const handlePlayerPowers = function (powerID) {
+    const powerIndex = player.powers.findIndex((power) => power.id === powerID);
+    const powerData = player.powers[powerIndex];
     const statsAfterPower = usePlayerPower(
-      powerIndex,
+      powerData,
       player,
       enemy[targetEnemy],
       targetEnemy
@@ -198,12 +221,20 @@ function Combat() {
   };
 
   // This is the function that is called when an item button is clicked
-  const handleItemsOnClick = function (itemIndex) {
-    const statsAfterItem = useItem(itemIndex, player, enemy[targetEnemy]);
+  const handleItemsOnClick = function (itemID) {
+    const itemIndex = player.items.findIndex((item) => item.id === itemID);
+    const itemData = player.items[itemIndex];
+    const statsAfterItem = useItem(
+      itemIndex,
+      itemData,
+      player,
+      enemy[targetEnemy]
+    );
     updateStats(
       statsAfterItem.combatTeam,
       statsAfterItem.targetID,
-      statsAfterItem.updatedStats
+      statsAfterItem.updatedStats,
+      targetEnemy
     );
   };
 
@@ -268,7 +299,7 @@ function Combat() {
             <strong>Weapons:</strong>
             {player.weapons.map((item, index) => (
               <WeaponList
-                key={player.weapons[index].id}
+                key={index}
                 id={player.weapons[index].id}
                 name={player.weapons[index].name}
                 handleWeaponsOnClick={handleWeaponsOnClick}
@@ -280,7 +311,7 @@ function Combat() {
             <strong>Powers:</strong>
             {player.powers.map((power, index) => (
               <PowerList
-                key={power.id}
+                key={index}
                 id={power.id}
                 name={power.name}
                 handlePowersOnClick={handlePlayerPowers}
@@ -292,7 +323,7 @@ function Combat() {
             <strong>Items:</strong>
             {player.items.map((item, index) => (
               <ItemList
-                key={item.id}
+                key={index}
                 id={item.id}
                 name={item.name}
                 amount={item.amount}

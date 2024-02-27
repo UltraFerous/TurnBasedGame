@@ -5,19 +5,27 @@ const playerObj = {
     description: "Test",
   },
   stats: {
-    strength: 4,
+    strength: 3,
     toughness: 4,
-    initiative: 4,
-    castBonus: 1,
+    initiative: 3,
+    power: 0,
     wounds: 5,
-    currentWounds: 5,
+    currentWounds: 5
+  },
+  statBonuses:{
+    damageBonus: 0,
+    powerDamageBonus: 0,
+    skillBonus: 0,
+    attacksBonus: 0,
+    armourBonus: 0,
   },
   statModifiers: {
     strengthMod: 0,
     attacksMod: 0,
     toughnessMod: 0,
     initiativeMod: 0,
-    castBonusMod: 0,
+    powerActivationMod: 0,
+    powerDamageMod: 0,
     damageMod: 0,
     skillMod: 0,
     armourMod: 0,
@@ -27,7 +35,7 @@ const playerObj = {
       id: 0,
       name: "Attack 1",
       skill: 4,
-      strengthBonus: 1,
+      weaponStrength: 1,
       rend: 1,
       damage: 1,
       attacks: 4,
@@ -36,7 +44,7 @@ const playerObj = {
       id: 1,
       name: "NUKE",
       skill: 1,
-      strengthBonus: 10,
+      weaponStrength: 10,
       rend: 10,
       damage: 10,
       attacks: 10,
@@ -47,11 +55,9 @@ const playerObj = {
       id: 0,
       name: "Damage Spell",
       description: "",
-    },
-    {
-      id: 1,
-      name: "Damage Spell Self",
-      description: "",
+      activationValue: 4,
+      type: 3,
+      damage: 3
     },
   ],
   save: {
@@ -62,10 +68,15 @@ const playerObj = {
   items: [
     {
       id: 0,
-      name: "Small Health Potion",
-      amount: 1,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
     },
   ],
+  scores: {
+    money: 100,
+    points: 0,
+  },
 };
 
 export default playerObj;
