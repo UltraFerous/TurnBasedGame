@@ -11,6 +11,7 @@ import { useEnemyItem } from "../helpers/enemyItems.js";
 import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
+import enemyObj from "../db/enemyData.js";
 import "../styles/Combat.scss";
 
 // There is a bug where if the enemy defeats the player at the same time
@@ -36,17 +37,15 @@ function Combat() {
 
   const increasePlayerScore = function (currentPlayerStats, defeatedEnemy) {
     const tempPlayer = currentPlayerStats;
-
     tempPlayer.scores.points += defeatedEnemy.scores.points;
     tempPlayer.scores.money += defeatedEnemy.scores.money;
-
     return tempPlayer;
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
   const setNextRound = function () {
     const newHealth = Math.floor(Math.random() * 12 + 1);
-    let tempNewEnemyStats = enemy[0];
+    let tempNewEnemyStats = enemyObj[0];
 
     tempNewEnemyStats.stats.wounds = newHealth;
     tempNewEnemyStats.stats.currentWounds = newHealth;
@@ -62,10 +61,8 @@ function Combat() {
   };
 
   const checkAllEnemyDefeated = function () {
-    for (let unit of enemy) {
-      if (unit.stats.currentWounds > 0) {
-        return false;
-      }
+    if (enemy.length > 0) {
+      return false;
     }
     return true;
   };
