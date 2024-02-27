@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import "./App.css";
+import "./App.scss";
 import Combat from "./components/Combat";
 import CharacterSelect from "./components/CharacterSelect";
 import TitleScreen from "./components/TitleScreen";

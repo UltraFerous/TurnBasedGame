@@ -11,6 +11,7 @@ import { useEnemyItem } from "../helpers/enemyItems.js";
 import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
+import "../styles/Combat.scss";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
@@ -282,20 +283,22 @@ function Combat() {
           </select>
         )}
       </div>
-      <div>You are playing as: {player.information.name}</div>
-      <div>Player Health: {player.stats.currentWounds}</div>
-      <div>
-        Enemy Health:
-        {enemy.map((enemyUnit, index) => (
-          <div key={index}>
-            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
-          </div>
-        ))}
+      <div className="battleDisplay">
+        <div>You are playing as: {player.information.name}</div>
+        <div>Player Health: {player.stats.currentWounds}</div>
+        <div>
+          Enemy Health:
+          {enemy.map((enemyUnit, index) => (
+            <div key={index}>
+              {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
+            </div>
+          ))}
+        </div>
       </div>
       {battleOver === false ? (
         <div>
           {/* Displaying the options for weapon attacks */}
-          <div>
+          <div className="weaponList">
             <strong>Weapons:</strong>
             {player.weapons.map((item, index) => (
               <WeaponList
@@ -307,7 +310,7 @@ function Combat() {
             ))}
           </div>
           {/* Displaying the options for power attacks */}
-          <div>
+          <div className="powerList">
             <strong>Powers:</strong>
             {player.powers.map((power, index) => (
               <PowerList
@@ -319,7 +322,7 @@ function Combat() {
             ))}
           </div>
           {/* Displaying the options for item use */}
-          <div>
+          <div className="itemList">
             <strong>Items:</strong>
             {player.items.map((item, index) => (
               <ItemList

@@ -1,0 +1,22 @@
+#root {
+  .battleDisplay {
+    height: 512px;
+    width: 1024px;
+    border: 5px solid aqua;
+  }
+  .weaponList {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+  }
+  .powerList {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+  }
+  .itemList {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+  }
+}
