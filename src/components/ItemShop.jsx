@@ -44,12 +44,11 @@ function ItemShop() {
     <div>
       Welcome to the shop
       {shop.map((item, index) => (
-        <div>
+        <div key={index}>
           {item.name}
           {item.cost}
           {item.description}
           <button
-            key={index}
             onClick={() => {
               handleItemPurchaseOnClick(item.id, index);
             }}

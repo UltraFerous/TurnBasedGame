@@ -32,7 +32,7 @@ const playerObj = {
   },
   weapons: [
     {
-      id: 0,
+      id: 1000,
       name: "Attack 1",
       skill: 4,
       weaponStrength: 1,
@@ -41,7 +41,7 @@ const playerObj = {
       attacks: 4,
     },
     {
-      id: 1,
+      id: 1001,
       name: "NUKE",
       skill: 1,
       weaponStrength: 10,
