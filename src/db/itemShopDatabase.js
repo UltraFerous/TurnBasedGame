@@ -5,7 +5,8 @@ const itemShopInventory = [
     type: 1,
     name: "Standard MedKit",
     description: "A standard issue MedKit.",
-    heal: 4
+    cost: 50,
+    heal: 4,
   },
   {
     id: 1,

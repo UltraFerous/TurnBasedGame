@@ -20,6 +20,7 @@ function Combat() {
   const [turn, setTurn] = useState(0);
   const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
+  const [combatOption, setcombatOption] = useState(0);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
 
@@ -27,6 +28,12 @@ function Combat() {
   const handleSelectChange = (event) => {
     const selectedIndex = parseInt(event.target.value, 10);
     setTargetEnemy(selectedIndex);
+  };
+
+  // This is used to for the targeting drop down
+  const changeCombatOption = (event) => {
+    const selectedIndex = parseInt(event.target.value, 10);
+    setcombatOption(selectedIndex);
   };
 
   const showState = function () {
@@ -304,54 +311,68 @@ function Combat() {
         ))}
       </div>
       <div className="battleDisplay">
-        <div className="playerSprite"></div>
-        <div className="enemySprites"></div>
-      </div>
-      {battleOver === false ? (
-        <div>
-          {/* Displaying the options for weapon attacks */}
-          <div className="weaponList">
-            <strong>Weapons:</strong>
-            {player.weapons.map((item, index) => (
-              <WeaponList
-                key={index}
-                id={player.weapons[index].id}
-                name={player.weapons[index].name}
-                handleWeaponsOnClick={handleWeaponsOnClick}
-              />
-            ))}
-          </div>
-          {/* Displaying the options for power attacks */}
-          <div className="powerList">
-            <strong>Powers:</strong>
-            {player.powers.map((power, index) => (
-              <PowerList
-                key={index}
-                id={power.id}
-                name={power.name}
-                handlePowersOnClick={handlePlayerPowers}
-              />
-            ))}
-          </div>
-          {/* Displaying the options for item use */}
-          <div className="itemList">
-            <strong>Items:</strong>
-            {player.items.map((item, index) => (
-              <ItemList
-                key={index}
-                id={item.id}
-                name={item.name}
-                amount={item.amount}
-                handleItemsOnClick={handleItemsOnClick}
-              />
-            ))}
-          </div>
+        <div className="battleSprites">
+          <div className="playerSprite"></div>
+          <div className="enemySprites"></div>
         </div>
-      ) : (
-        player.stats.currentWounds > 0 && (
-          <button onClick={() => setNextRound()}>Next Round!</button>
-        )
-      )}
+        {battleOver === false ? (
+          <div className="combatOptions">
+            <select
+              id="dropdown"
+              value={combatOption}
+              onChange={changeCombatOption}
+            >
+              <option value={0}></option>
+              <option value={1}>Attack</option>
+              <option value={2}>Power</option>
+              <option value={3}>Item</option>
+            </select>
+            <div className="combatButtons">
+              {/* Displaying the options for weapon attacks */}
+              <div className="weaponList">
+                {combatOption === 1 &&
+                  player.weapons.map((item, index) => (
+                    <WeaponList
+                      key={index}
+                      id={player.weapons[index].id}
+                      name={player.weapons[index].name}
+                      handleWeaponsOnClick={handleWeaponsOnClick}
+                    />
+                  ))}
+              </div>
+              {/* Displaying the options for power attacks */}
+              <div className="powerList">
+                {combatOption === 2 &&
+                  player.powers.map((power, index) => (
+                    <PowerList
+                      key={index}
+                      id={power.id}
+                      name={power.name}
+                      handlePowersOnClick={handlePlayerPowers}
+                    />
+                  ))}
+              </div>
+              {/* Displaying the options for item use */}
+              <div className="itemList">
+                {combatOption === 3 &&
+                  player.items.map((item, index) => (
+                    <ItemList
+                      key={index}
+                      id={item.id}
+                      name={item.name}
+                      amount={item.amount}
+                      handleItemsOnClick={handleItemsOnClick}
+                    />
+                  ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          player.stats.currentWounds > 0 && (
+            <button onClick={() => setNextRound()}>Next Round!</button>
+          )
+        )}
+      </div>
     </div>
   );
 }

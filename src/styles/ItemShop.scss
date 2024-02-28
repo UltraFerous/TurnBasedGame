@@ -1,24 +1,25 @@
 #root {
   .itemShop {
     border: 5px solid blue;
-    height: 704px;
+    height: 768px;
     width: 1024px;
     display: flex;
     flex-direction: row;
+    position: relative;
     align-items: center;
     .itemCards {
       padding: 8px;
       display: flex;
-      flex-wrap: wrap; /* Wrap items onto multiple lines */
-      flex-flow: column wrap;
-      margin-bottom: auto;
+      flex-wrap: wrap; /* Allow items to wrap to the next row */
+      justify-content: space-between; /* Distribute space evenly between items */
       .itemCard {
         border: 5px solid aqua;
-        flex: 0 0 calc(50% - 10px); /* Two items per row, accounting for borders and spacing */
+        flex: 0 0 calc(48% - 10px); /* Two items per row, accounting for borders and spacing */
         display: flex; /* Set display to flex */
         flex-direction: column; /* Stack children vertically */
         justify-content: space-between; /* Distribute space evenly between children */
         height: 180px; /* Set a specific height for all item cards */
+        width: 48%; /* Set a specific width for all item cards */
         margin-bottom: 4px;
       }
     }
