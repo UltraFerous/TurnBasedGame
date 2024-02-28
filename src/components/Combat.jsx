@@ -32,8 +32,7 @@ function Combat() {
 
   // This is used to for the targeting drop down
   const changeCombatOption = (event) => {
-    const selectedIndex = parseInt(event.target.value, 10);
-    setcombatOption(selectedIndex);
+    setcombatOption(event);
   };
 
   const showState = function () {
@@ -317,16 +316,20 @@ function Combat() {
         </div>
         {battleOver === false ? (
           <div className="combatOptions">
-            <select
-              id="dropdown"
-              value={combatOption}
-              onChange={changeCombatOption}
-            >
-              <option value={0}></option>
-              <option value={1}>Attack</option>
-              <option value={2}>Power</option>
-              <option value={3}>Item</option>
-            </select>
+            <ul className="optionList">
+              <li onClick={() => changeCombatOption(1)}>
+                {" "}
+                {combatOption === 1 && "> "}Attacks
+              </li>
+              <li onClick={() => changeCombatOption(2)}>
+                {" "}
+                {combatOption === 2 && "> "}Powers
+              </li>
+              <li onClick={() => changeCombatOption(3)}>
+                {" "}
+                {combatOption === 3 && "> "}Items
+              </li>
+            </ul>
             <div className="combatButtons">
               {/* Displaying the options for weapon attacks */}
               <div className="weaponList">
@@ -369,7 +372,9 @@ function Combat() {
           </div>
         ) : (
           player.stats.currentWounds > 0 && (
-            <button onClick={() => setNextRound()}>Next Round!</button>
+            <button className="nextRoundButton" onClick={() => setNextRound()}>
+              Next Round!
+            </button>
           )
         )}
       </div>
