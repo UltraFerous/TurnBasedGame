@@ -1,0 +1,33 @@
+#root {
+  .itemShop {
+    border: 5px solid blue;
+    height: 704px;
+    width: 1024px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .itemCards {
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap; /* Wrap items onto multiple lines */
+      flex-flow: column wrap;
+      margin-bottom: auto;
+      .itemCard {
+        border: 5px solid aqua;
+        flex: 0 0 calc(50% - 10px); /* Two items per row, accounting for borders and spacing */
+        display: flex; /* Set display to flex */
+        flex-direction: column; /* Stack children vertically */
+        justify-content: space-between; /* Distribute space evenly between children */
+        height: 180px; /* Set a specific height for all item cards */
+        margin-bottom: 4px;
+      }
+    }
+    .shopKeeper {
+      background-color: aliceblue;
+      min-height: 320px;
+      min-width: 320px;
+      margin-top: auto; /* Push shop keeper to the bottom */
+      margin-left: auto; /* Push shop keeper to the right */
+    }
+  }
+}

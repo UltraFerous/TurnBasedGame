@@ -41,22 +41,24 @@ function ItemShop() {
   }, []);
 
   return (
-    <div>
-      Welcome to the shop
-      {shop.map((item, index) => (
-        <div key={index}>
-          {item.name}
-          {item.cost}
-          {item.description}
-          <button
-            onClick={() => {
-              handleItemPurchaseOnClick(item.id, index);
-            }}
-          >
-            Purchase
-          </button>
-        </div>
-      ))}
+    <div className="itemShop">
+      <div className="itemCards">
+        {shop.map((item, index) => (
+          <div key={index} className="itemCard">
+            <div> {item.name} </div>
+            <div> {item.cost} </div>
+            <div> {item.description} </div>
+            <button
+              onClick={() => {
+                handleItemPurchaseOnClick(item.id, index);
+              }}
+            >
+              Purchase
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="shopKeeper"> Welcome to the shop </div>
     </div>
   );
 }
