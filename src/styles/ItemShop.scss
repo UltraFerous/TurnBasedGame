@@ -18,8 +18,8 @@
         display: flex; /* Set display to flex */
         flex-direction: column; /* Stack children vertically */
         justify-content: space-between; /* Distribute space evenly between children */
-        height: 180px; /* Set a specific height for all item cards */
-        width: 48%; /* Set a specific width for all item cards */
+        min-height: 256px; /* Set a specific height for all item cards */
+        min-width: 32px; /* Set a specific width for all item cards */
         margin-bottom: 4px;
       }
     }

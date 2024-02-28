@@ -10,8 +10,8 @@ const enemyObj = [
       toughness: 2,
       initiative: 2,
       power: 0,
-      wounds: 2,
-      currentWounds: 2,
+      wounds: 6,
+      currentWounds: 6,
     },
     statBonuses: {
       damageBonus: 0,

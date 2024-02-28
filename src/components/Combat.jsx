@@ -52,12 +52,15 @@ function Combat() {
   const setNextRound = function () {
     const newHealth = Math.floor(Math.random() * 12 + 1);
     let tempNewEnemyStats = enemyObj[0];
-
+    let tempPlayerStats = player;
+    tempPlayerStats.scores.stage++;
+    
     tempNewEnemyStats.stats.wounds = newHealth;
     tempNewEnemyStats.stats.currentWounds = newHealth;
-
+    
     setTurn(0);
     setBattleOver(false);
+    setPlayer(tempPlayerStats);
     setEnemy([tempNewEnemyStats]);
   };
 

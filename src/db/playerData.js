@@ -10,9 +10,9 @@ const playerObj = {
     initiative: 3,
     power: 0,
     wounds: 5,
-    currentWounds: 5
+    currentWounds: 5,
   },
-  statBonuses:{
+  statBonuses: {
     damageBonus: 0,
     powerDamageBonus: 0,
     skillBonus: 0,
@@ -57,7 +57,7 @@ const playerObj = {
       description: "",
       activationValue: 4,
       type: 3,
-      damage: 3
+      damage: 3,
     },
   ],
   save: {
@@ -76,6 +76,7 @@ const playerObj = {
   scores: {
     money: 100,
     points: 0,
+    stage: 0,
   },
 };
 

@@ -4,6 +4,7 @@ import Combat from "./components/Combat";
 import CharacterSelect from "./components/CharacterSelect";
 import TitleScreen from "./components/TitleScreen";
 import ItemShop from "./components/ItemShop";
+import EndGame from "./components/EndGame";
 import { PlayerContextProvider } from "./context/playerContext";
 import { EnemyContextProvider } from "./context/enemyContext";
 
@@ -27,6 +28,7 @@ function App() {
           <option value={2}>Character Select Screen</option>
           <option value={3}>Combat Screen</option>
           <option value={4}>The Shop</option>
+          <option value={5}>End Game</option>
         </select>
       </div>
 
@@ -36,6 +38,7 @@ function App() {
           {activeComponent === 2 && <CharacterSelect />}
           {activeComponent === 3 && <Combat />}
           {activeComponent === 4 && <ItemShop />}
+          {activeComponent === 5 && <EndGame />}
         </EnemyContextProvider>
       </PlayerContextProvider>
     </>

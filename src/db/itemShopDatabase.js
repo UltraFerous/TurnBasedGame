@@ -135,11 +135,11 @@ const itemShopInventory = [
       "A sleek and elegant rapier with a cosmic edge, allowing for swift and precise attacks. ",
     cost: 100,
     stats: {
-      skill: 4,
-      weaponStrength: 3,
-      rend: 4,
-      damage: 5,
-      attacks: 1,
+      skill: 5,
+      weaponStrength: 2,
+      rend: 1,
+      damage: 2,
+      attacks: 4,
     },
   },
   {
