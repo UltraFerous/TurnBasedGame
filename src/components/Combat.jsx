@@ -12,6 +12,7 @@ import { enemyTurnTactic } from "../helpers/enemyAI.js";
 import ConsoleLogDisplay from "./ConsoleLogDisplay.jsx";
 import { useItem } from "../helpers/items.js";
 import enemyObj from "../db/enemyData.js";
+import beginnierEnemyDatabase from "../db/enemyDatabase.js";
 import "../styles/Combat.scss";
 
 // There is a bug where if the enemy defeats the player at the same time
@@ -49,15 +50,13 @@ function Combat() {
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
-  const setNextRound = function () {
-    const newHealth = Math.floor(Math.random() * 12 + 1);
-    let tempNewEnemyStats = enemyObj[0];
+  const setNextRound = function() {
+    const maxEnemyDBLength = beginnierEnemyDatabase.length;
+    const newEnemyIndex = Math.random() * (maxEnemyDBLength - 1);
+    const tempNewEnemyStats = beginnierEnemyDatabase[newEnemyIndex];
     let tempPlayerStats = player;
     tempPlayerStats.scores.stage++;
-    
-    tempNewEnemyStats.stats.wounds = newHealth;
-    tempNewEnemyStats.stats.currentWounds = newHealth;
-    
+        
     setTurn(0);
     setBattleOver(false);
     setPlayer(tempPlayerStats);

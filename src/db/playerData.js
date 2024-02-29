@@ -74,7 +74,7 @@ const playerObj = {
     },
   ],
   scores: {
-    money: 100,
+    money: 1000,
     points: 0,
     stage: 0,
   },
