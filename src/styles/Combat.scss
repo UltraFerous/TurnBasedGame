@@ -1,5 +1,6 @@
 #root {
   .battleDisplay {
+    overflow: hidden;
     position: relative;
     height: 768px;
     width: 1024px;
@@ -25,20 +26,60 @@
         background: black;
       }
     }
+
     .combatOptions {
       position: absolute; /* Set absolute positioning for combat options */
       bottom: 0; /* Align to the bottom of the container */
-      margin-left: 10%;
       display: flex;
-      justify-content: center;
       flex-direction: row;
+      min-height: 128px;
+      padding: 8px;
+      // min-width: 0%;
+      max-width: 100%;
+      box-sizing: border-box; /* Include padding and border in the width calculation */
       .optionList {
-        list-style-type: none;
-        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 128px;
+        min-width: 128px;
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          border: 1px solid red;
+          height: calc(128px / 3);
+          cursor: pointer;
+          // transition: color 0.3s ease; // Optional: Add a transition for a smooth color change
+          &:before {
+            content: ">";
+            position: absolute;
+            left: 16px;
+            opacity: 0;
+            color: wheat;
+            transition: opacity 0.3s ease; // Optional: Add a transition for a smooth effect
+          }
+          &.selected {
+            color: blue; // Change the text color as needed
+          }
+          &:hover:before {
+            opacity: 1;
+          }
+        }
       }
+
       .combatButtons {
+        overflow: scroll;
+        border: 1px solid red;
         display: flex;
         align-items: center;
+        flex-grow: 1; /* Make it grow and fill the available space */
+        button {
+          height: 96px;
+          width: 128px;
+
+          margin: 8px;
+        }
       }
     }
   }
@@ -54,6 +95,7 @@
     align-content: flex-end;
   }
   .itemList {
+    overflow: scroll;
     display: flex;
     flex-direction: row;
     align-content: flex-end;

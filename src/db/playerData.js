@@ -81,6 +81,48 @@ const playerObj = {
       description: "A standard issue MedKit.",
       heal: 4,
     },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
   ],
   scores: {
     money: 1000,

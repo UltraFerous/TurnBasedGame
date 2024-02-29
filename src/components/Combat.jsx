@@ -33,6 +33,9 @@ function Combat() {
 
   // This is used to for the targeting drop down
   const changeCombatOption = (event) => {
+    if (event === combatOption) {
+      return setcombatOption(0);
+    }
     setcombatOption(event);
   };
 
@@ -50,13 +53,13 @@ function Combat() {
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
-  const setNextRound = function() {
+  const setNextRound = function () {
     const maxEnemyDBLength = beginnierEnemyDatabase.length;
     const newEnemyIndex = Math.random() * (maxEnemyDBLength - 1);
     const tempNewEnemyStats = beginnierEnemyDatabase[newEnemyIndex];
     let tempPlayerStats = player;
     tempPlayerStats.scores.stage++;
-        
+
     setTurn(0);
     setBattleOver(false);
     setPlayer(tempPlayerStats);
@@ -318,20 +321,26 @@ function Combat() {
         </div>
         {battleOver === false ? (
           <div className="combatOptions">
-            <ul className="optionList">
-              <li onClick={() => changeCombatOption(1)}>
-                {" "}
-                {combatOption === 1 && "> "}Attacks
-              </li>
-              <li onClick={() => changeCombatOption(2)}>
-                {" "}
-                {combatOption === 2 && "> "}Powers
-              </li>
-              <li onClick={() => changeCombatOption(3)}>
-                {" "}
-                {combatOption === 3 && "> "}Items
-              </li>
-            </ul>
+            <div className="optionList">
+              <div
+                onClick={() => changeCombatOption(1)}
+                className={combatOption === 1 ? "selected" : ""}
+              >
+                Attacks
+              </div>
+              <div
+                onClick={() => changeCombatOption(2)}
+                className={combatOption === 2 ? "selected" : ""}
+              >
+                Powers
+              </div>
+              <div
+                onClick={() => changeCombatOption(3)}
+                className={combatOption === 3 ? "selected" : ""}
+              >
+                Items
+              </div>
+            </div>
             <div className="combatButtons">
               {/* Displaying the options for weapon attacks */}
               <div className="weaponList">
