@@ -1,0 +1,24 @@
+#root {
+  .titleScreen {
+    overflow: hidden;
+    position: relative;
+    height: 768px;
+    width: 1024px;
+    border: 5px solid red;
+  }
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .blinking-button {
+    animation: blink 2s infinite; /* Increase the duration to slow down */
+  }
+}

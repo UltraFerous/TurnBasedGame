@@ -292,29 +292,29 @@ function Combat() {
   return (
     <div>
       <button onClick={() => showState()}>SHOW STATE</button>
-      <div>
-        Select target:
-        {!battleOver && (
-          <select value={targetEnemy} onChange={handleSelectChange}>
-            {enemy.map((enemyUnit, index) => (
-              <option value={index} key={index}>
-                {enemyUnit.information.name}
-              </option>
-            ))}
-          </select>
-        )}
-      </div>
-      <div>You are playing as: {player.information.name}</div>
-      <div>Player Health: {player.stats.currentWounds}</div>
-      <div>
-        Enemy Health:
-        {enemy.map((enemyUnit, index) => (
-          <div key={index}>
-            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
-          </div>
-        ))}
-      </div>
       <div className="battleDisplay">
+        <div>
+          Select target:
+          {!battleOver && (
+            <select value={targetEnemy} onChange={handleSelectChange}>
+              {enemy.map((enemyUnit, index) => (
+                <option value={index} key={index}>
+                  {enemyUnit.information.name}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
+        <div>You are playing as: {player.information.name}</div>
+        <div>Player Health: {player.stats.currentWounds}</div>
+        <div>
+          Enemy Health:
+          {enemy.map((enemyUnit, index) => (
+            <div key={index}>
+              {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
+            </div>
+          ))}
+        </div>
         <div className="battleSprites">
           <div className="playerSprite"></div>
           <div className="enemySprites"></div>
