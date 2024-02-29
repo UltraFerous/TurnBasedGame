@@ -59,6 +59,15 @@ const playerObj = {
       type: 3,
       damage: 3,
     },
+    {
+      id: 1,
+      name: "Buff attacks",
+      description: "",
+      activationValue: 4,
+      type: 2,
+      stat: "attacksMod",
+      amount: 5,
+    },
   ],
   save: {
     armour: 3,
