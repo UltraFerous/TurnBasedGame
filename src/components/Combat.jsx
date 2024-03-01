@@ -323,7 +323,9 @@ function Combat() {
         <div className="battleDisplay">
           <div className="battleSprites">
             <div className="playerSprite"></div>
-            <div className="enemySprites"></div>
+            <div className="enemySprites">
+              
+            </div>
           </div>
           {battleOver === false ? (
             <div className="combatOptions">
