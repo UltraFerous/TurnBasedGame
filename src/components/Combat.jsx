@@ -15,6 +15,7 @@ import enemyObj from "../db/enemyData.js";
 import beginnierEnemyDatabase from "../db/enemyDatabase.js";
 import "../styles/Combat.scss";
 import StatDisplay from "./StatDisplay.jsx";
+import GameLog from "./GameLog.jsx";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
@@ -315,90 +316,98 @@ function Combat() {
           </div>
         ))}
       </div>
-      <div className="battleDisplay">
-        <div className="battleSprites">
-          <div className="playerSprite"></div>
-          <div className="enemySprites"></div>
+      <div className="combatScreen">
+        <div className="gameLog">
+          <GameLog />
         </div>
-        {battleOver === false ? (
-          <div className="combatOptions">
-            <div className="optionList">
-              <div
-                onClick={() => changeCombatOption(1)}
-                className={combatOption === 1 ? "selected" : ""}
-              >
-                Attacks
-              </div>
-              <div
-                onClick={() => changeCombatOption(2)}
-                className={combatOption === 2 ? "selected" : ""}
-              >
-                Powers
-              </div>
-              <div
-                onClick={() => changeCombatOption(3)}
-                className={combatOption === 3 ? "selected" : ""}
-              >
-                Items
-              </div>
-              <div
-                onClick={() => changeCombatOption(4)}
-                className={combatOption === 4 ? "selected" : ""}
-              >
-                Stats
-              </div>
-            </div>
-            <div className="combatButtons">
-              {/* Displaying the options for weapon attacks */}
-              <div className="weaponList">
-                {combatOption === 1 &&
-                  player.weapons.map((item, index) => (
-                    <WeaponList
-                      key={index}
-                      id={player.weapons[index].id}
-                      name={player.weapons[index].name}
-                      handleWeaponsOnClick={handleWeaponsOnClick}
-                    />
-                  ))}
-              </div>
-              {/* Displaying the options for power attacks */}
-              <div className="powerList">
-                {combatOption === 2 &&
-                  player.powers.map((power, index) => (
-                    <PowerList
-                      key={index}
-                      id={power.id}
-                      name={power.name}
-                      handlePowersOnClick={handlePlayerPowers}
-                    />
-                  ))}
-              </div>
-              {/* Displaying the options for item use */}
-              <div className="itemList">
-                {combatOption === 3 &&
-                  player.items.map((item, index) => (
-                    <ItemList
-                      key={index}
-                      id={item.id}
-                      name={item.name}
-                      amount={item.amount}
-                      handleItemsOnClick={handleItemsOnClick}
-                    />
-                  ))}
-              </div>
-              {/* Displaying stats */}
-              <div className="statList">
-                {combatOption === 4 && <StatDisplay />}
-              </div>
-            </div>
+        <div className="battleDisplay">
+          <div className="battleSprites">
+            <div className="playerSprite"></div>
+            <div className="enemySprites"></div>
           </div>
-        ) : (
-          player.stats.currentWounds > 0 && (
-            <button className="nextRoundButton" onClick={() => setNextRound()}>
-              Next Round!
-            </button>
-          )
-        )}
+          {battleOver === false ? (
+            <div className="combatOptions">
+              <div className="optionList">
+                <div
+                  onClick={() => changeCombatOption(1)}
+                  className={combatOption === 1 ? "selected" : ""}
+                >
+                  Attacks
+                </div>
+                <div
+                  onClick={() => changeCombatOption(2)}
+                  className={combatOption === 2 ? "selected" : ""}
+                >
+                  Powers
+                </div>
+                <div
+                  onClick={() => changeCombatOption(3)}
+                  className={combatOption === 3 ? "selected" : ""}
+                >
+                  Items
+                </div>
+                <div
+                  onClick={() => changeCombatOption(4)}
+                  className={combatOption === 4 ? "selected" : ""}
+                >
+                  Stats
+                </div>
+              </div>
+              <div className="combatButtons">
+                {/* Displaying the options for weapon attacks */}
+                <div className="weaponList">
+                  {combatOption === 1 &&
+                    player.weapons.map((item, index) => (
+                      <WeaponList
+                        key={index}
+                        id={player.weapons[index].id}
+                        name={player.weapons[index].name}
+                        handleWeaponsOnClick={handleWeaponsOnClick}
+                      />
+                    ))}
+                </div>
+                {/* Displaying the options for power attacks */}
+                <div className="powerList">
+                  {combatOption === 2 &&
+                    player.powers.map((power, index) => (
+                      <PowerList
+                        key={index}
+                        id={power.id}
+                        name={power.name}
+                        handlePowersOnClick={handlePlayerPowers}
+                      />
+                    ))}
+                </div>
+                {/* Displaying the options for item use */}
+                <div className="itemList">
+                  {combatOption === 3 &&
+                    player.items.map((item, index) => (
+                      <ItemList
+                        key={index}
+                        id={item.id}
+                        name={item.name}
+                        amount={item.amount}
+                        handleItemsOnClick={handleItemsOnClick}
+                      />
+                    ))}
+                </div>
+                {/* Displaying stats */}
+                <div className="statList">
+                  {combatOption === 4 && <StatDisplay />}
+                </div>
+              </div>
+            </div>
+          ) : (
+            player.stats.currentWounds > 0 && (
+              <button
+                className="nextRoundButton"
+                onClick={() => setNextRound()}
+              >
+                Next Round!
+              </button>
+            )
+          )}
+        </div>
       </div>
     </div>
   );

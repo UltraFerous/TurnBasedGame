@@ -2,6 +2,7 @@ import { React, useContext, useState, useEffect } from "react";
 import itemShopInventory from "../db/itemShopDatabase";
 import { itemPurchase } from "../helpers/itemPurchase";
 import PlayerContext from "../context/playerContext";
+import GameLog from "./GameLog";
 import "../styles/ItemShop.scss";
 
 function ItemShop() {
@@ -41,24 +42,29 @@ function ItemShop() {
   }, []);
 
   return (
-    <div className="itemShop">
-      <div className="itemCards">
-        {shop.map((item, index) => (
-          <div key={index} className="itemCard">
-            <div> {item.name} </div>
-            <div> {item.cost} </div>
-            <div> {item.description} </div>
-            <button
-              onClick={() => {
-                handleItemPurchaseOnClick(item.id, index);
-              }}
-            >
-              Purchase
-            </button>
-          </div>
-        ))}
+    <div className="itemScreen">
+      <div className="gameLog">
+        <GameLog />
       </div>
-      <div className="shopKeeper"> Welcome to the shop </div>
+      <div className="itemShop">
+        <div className="itemCards">
+          {shop.map((item, index) => (
+            <div key={index} className="itemCard">
+              <div> {item.name} </div>
+              <div> {item.cost} </div>
+              <div> {item.description} </div>
+              <button
+                onClick={() => {
+                  handleItemPurchaseOnClick(item.id, index);
+                }}
+              >
+                Purchase
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className="shopKeeper"> Welcome to the shop </div>
+      </div>
     </div>
   );
 }
