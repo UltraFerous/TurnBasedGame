@@ -48,7 +48,7 @@
           justify-content: center;
           position: relative;
           border: 1px solid red;
-          height: calc(128px / 3);
+          height: calc(128px / 4);
           cursor: pointer;
           // transition: color 0.3s ease; // Optional: Add a transition for a smooth color change
           &:before {
@@ -69,6 +69,7 @@
       }
 
       .combatButtons {
+        width: 1024px;
         overflow: scroll;
         border: 1px solid red;
         display: flex;
@@ -77,27 +78,34 @@
         button {
           height: 96px;
           width: 128px;
-
-          margin: 8px;
+          margin: 16px;
+        }
+        .weaponList {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+        }
+        .powerList {
+          display: flex;
+          flex-direction: row;
+          align-content: flex-end;
+        }
+        .itemList {
+          display: flex;
+          flex-direction: row;
+          align-content: flex-end;
+        }
+        .statList {
+          width: 1024px;
+          .statBlocks {
+            overflow: scroll;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
+            align-items: center;
+          }
         }
       }
     }
-  }
-
-  .weaponList {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  .powerList {
-    display: flex;
-    flex-direction: row;
-    align-content: flex-end;
-  }
-  .itemList {
-    overflow: scroll;
-    display: flex;
-    flex-direction: row;
-    align-content: flex-end;
   }
 }

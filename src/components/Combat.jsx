@@ -14,6 +14,7 @@ import { useItem } from "../helpers/items.js";
 import enemyObj from "../db/enemyData.js";
 import beginnierEnemyDatabase from "../db/enemyDatabase.js";
 import "../styles/Combat.scss";
+import StatDisplay from "./StatDisplay.jsx";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
@@ -21,7 +22,7 @@ function Combat() {
   const [turn, setTurn] = useState(0);
   const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
-  const [combatOption, setcombatOption] = useState(0);
+  const [combatOption, setcombatOption] = useState(4);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
 
@@ -292,29 +293,29 @@ function Combat() {
   return (
     <div>
       <button onClick={() => showState()}>SHOW STATE</button>
+      <div>
+        Select target:
+        {!battleOver && (
+          <select value={targetEnemy} onChange={handleSelectChange}>
+            {enemy.map((enemyUnit, index) => (
+              <option value={index} key={index}>
+                {enemyUnit.information.name}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
+      <div>You are playing as: {player.information.name}</div>
+      <div>Player Health: {player.stats.currentWounds}</div>
+      <div>
+        Enemy Health:
+        {enemy.map((enemyUnit, index) => (
+          <div key={index}>
+            {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
+          </div>
+        ))}
+      </div>
       <div className="battleDisplay">
-        <div>
-          Select target:
-          {!battleOver && (
-            <select value={targetEnemy} onChange={handleSelectChange}>
-              {enemy.map((enemyUnit, index) => (
-                <option value={index} key={index}>
-                  {enemyUnit.information.name}
-                </option>
-              ))}
-            </select>
-          )}
-        </div>
-        <div>You are playing as: {player.information.name}</div>
-        <div>Player Health: {player.stats.currentWounds}</div>
-        <div>
-          Enemy Health:
-          {enemy.map((enemyUnit, index) => (
-            <div key={index}>
-              {enemyUnit.information.name}: {enemyUnit.stats.currentWounds}
-            </div>
-          ))}
-        </div>
         <div className="battleSprites">
           <div className="playerSprite"></div>
           <div className="enemySprites"></div>
@@ -339,6 +340,12 @@ function Combat() {
                 className={combatOption === 3 ? "selected" : ""}
               >
                 Items
+              </div>
+              <div
+                onClick={() => changeCombatOption(4)}
+                className={combatOption === 4 ? "selected" : ""}
+              >
+                Stats
               </div>
             </div>
             <div className="combatButtons">
@@ -378,6 +385,10 @@ function Combat() {
                       handleItemsOnClick={handleItemsOnClick}
                     />
                   ))}
+              </div>
+              {/* Displaying stats */}
+              <div className="statList">
+                {combatOption === 4 && <StatDisplay />}
               </div>
             </div>
           </div>
