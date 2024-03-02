@@ -16,6 +16,7 @@ import beginnierEnemyDatabase from "../db/enemyDatabase.js";
 import "../styles/Combat.scss";
 import StatDisplay from "./StatDisplay.jsx";
 import GameLog from "./GameLog.jsx";
+import HealthBar from "./HealthBar";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
@@ -324,6 +325,15 @@ function Combat() {
           <GameLog />
         </div>
         <div className="battleDisplay">
+          <div className="healthBarDisplay">
+            {enemy[targetEnemy] && (
+              <HealthBar
+                targetEnemyName={enemy[targetEnemy].information.name}
+                currentHealth={enemy[targetEnemy].stats.currentWounds}
+                maxHealth={enemy[targetEnemy].stats.wounds}
+              />
+            )}
+          </div>
           <div className="battleSprites">
             <div className="playerSprite"></div>
             <div className="enemySprites">

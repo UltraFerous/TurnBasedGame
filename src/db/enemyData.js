@@ -73,7 +73,7 @@ const enemyObj = [
   },
   {
     information: {
-      name: "Te'st",
+      name: "Guy",
       class: "Test",
       description: "Test",
     },
