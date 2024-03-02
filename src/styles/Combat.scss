@@ -18,9 +18,11 @@
         justify-content: space-between; /* Ensure space between player and enemy sprites */
         flex-direction: row;
         min-height: 592px;
+        max-height: 592px;
+
         .playerSprite {
-          height: 128px;
-          width: 128px;
+          height: 96px;
+          width: 96px;
           background: white;
           align-self: center; /* Center vertically within its flex container */
           margin-left: auto; /* Center horizontally within its flex container */
@@ -32,11 +34,13 @@
           display: flex;
           flex-direction: column;
           border: 1px solid purple;
-          align-items: flex-end; /* Align enemy sprites to the right */
-          .enemySprite {
-            min-height: 192px; /* Adjust as needed */
-            min-width: 192px; /* Adjust as needed */
+          flex-wrap: wrap; /* Allow wrapping to the next row */
+          justify-content: center; /* Center vertically within enemySprites */
+          .enemyUnitSprite {
+            height: 224px; /* Adjust as needed */
+            width: 224px; /* Adjust as needed */
             margin-bottom: 16px; /* Adjust spacing between enemy sprites */
+            background-color: darkmagenta;
           }
         }
       }

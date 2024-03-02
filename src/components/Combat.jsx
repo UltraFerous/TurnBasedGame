@@ -324,7 +324,9 @@ function Combat() {
           <div className="battleSprites">
             <div className="playerSprite"></div>
             <div className="enemySprites">
-              
+              {enemy.map((enemyUnit, index) => {
+                return <div key={index} className="enemyUnitSprite"> </div>;
+              })}
             </div>
           </div>
           {battleOver === false ? (
