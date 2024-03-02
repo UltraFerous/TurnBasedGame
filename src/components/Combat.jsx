@@ -27,10 +27,25 @@ function Combat() {
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
 
-  // This is used to for the targeting drop down
-  const handleSelectChange = (event) => {
-    const selectedIndex = parseInt(event.target.value, 10);
-    setTargetEnemy(selectedIndex);
+  // This is used for the targeting drop down
+  const handleSelectChange = (index) => {
+    // Check if targetEnemy is not null and is a valid index
+    if (targetEnemy !== null && enemy[targetEnemy]) {
+      const previousTarget = enemy[targetEnemy];
+      // Remove targeted class from previously targeted enemy
+      if (previousTarget && previousTarget.classList) {
+        previousTarget.classList.remove("targeted", "enemyUnitSprite");
+      }
+    }
+
+    // Set the new targetEnemy index
+    setTargetEnemy(index);
+
+    // Apply the targeted class to the clicked enemy
+    const clickedEnemy = enemy[index];
+    if (clickedEnemy && clickedEnemy.classList) {
+      clickedEnemy.classList.add("targeted", "enemyUnitSprite");
+    }
   };
 
   // This is used to for the targeting drop down
@@ -294,18 +309,6 @@ function Combat() {
   return (
     <div>
       <button onClick={() => showState()}>SHOW STATE</button>
-      <div>
-        Select target:
-        {!battleOver && (
-          <select value={targetEnemy} onChange={handleSelectChange}>
-            {enemy.map((enemyUnit, index) => (
-              <option value={index} key={index}>
-                {enemyUnit.information.name}
-              </option>
-            ))}
-          </select>
-        )}
-      </div>
       <div>You are playing as: {player.information.name}</div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>
@@ -325,7 +328,15 @@ function Combat() {
             <div className="playerSprite"></div>
             <div className="enemySprites">
               {enemy.map((enemyUnit, index) => {
-                return <div key={index} className="enemyUnitSprite"> </div>;
+                return (
+                  <div
+                    key={index}
+                    className={`enemyUnitSprite ${
+                      index === targetEnemy ? "targeted" : ""
+                    }`}
+                    onClick={() => handleSelectChange(index)}
+                  ></div>
+                );
               })}
             </div>
           </div>

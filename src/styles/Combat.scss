@@ -41,6 +41,11 @@
             width: 224px; /* Adjust as needed */
             margin-bottom: 16px; /* Adjust spacing between enemy sprites */
             background-color: darkmagenta;
+            cursor: pointer;
+          }
+          .enemyUnitSprite.targeted {
+            border: 1px solid red; /* You can customize this styling */
+            /* Add other styling properties as needed */
           }
         }
       }
