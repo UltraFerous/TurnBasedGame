@@ -1,10 +1,14 @@
 #root {
   .titleScreen {
     overflow: hidden;
-    position: relative;
-    height: 768px;
-    width: 1024px;
+    min-height: 720px;
+    max-height: 720px;
+    min-width: 1280px; /* Set a maximum width */
+    max-width: 1280px; /* Set a maximum width */
     border: 5px solid red;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
   }
   @keyframes blink {
     0% {
