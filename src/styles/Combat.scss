@@ -37,8 +37,6 @@
           flex-wrap: wrap; /* Allow wrapping to the next row */
           justify-content: center; /* Center vertically within enemySprites */
           .enemyUnitSprite {
-            height: 224px; /* Adjust as needed */
-            width: 224px; /* Adjust as needed */
             margin-bottom: 16px; /* Adjust spacing between enemy sprites */
             background-color: darkmagenta;
             cursor: pointer;
@@ -46,6 +44,18 @@
           .enemyUnitSprite.targeted {
             border: 1px solid red; /* You can customize this styling */
             /* Add other styling properties as needed */
+          }
+          .small {
+            height: 96px; /* Adjust as needed */
+            width: 96px; /* Adjust as needed */
+          }
+          .medium {
+            height: 224px; /* Adjust as needed */
+            width: 224px; /* Adjust as needed */
+          }
+          .large {
+            height: 512px; /* Adjust as needed */
+            width: 512px; /* Adjust as needed */
           }
         }
       }

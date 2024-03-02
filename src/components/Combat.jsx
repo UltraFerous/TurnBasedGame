@@ -333,7 +333,7 @@ function Combat() {
                     key={index}
                     className={`enemyUnitSprite ${
                       index === targetEnemy ? "targeted" : ""
-                    }`}
+                    } ${enemyUnit.size}`}
                     onClick={() => handleSelectChange(index)}
                   ></div>
                 );
