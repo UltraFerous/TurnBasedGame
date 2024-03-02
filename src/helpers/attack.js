@@ -41,9 +41,9 @@ const saveRoll = function (index, user, target, rolls) {
   );
 };
 
-// Rolls the dice to save, looking for failed saves which are results less than the ward save armour
-const wardSaveRoll = function (index, user, target, rolls) {
-  return filterDicePoolBelow(rollXDice(rolls), target.save.ward);
+// Rolls the dice to save, looking for failed saves which are results less than the shield save armour
+const shieldSaveRoll = function (index, user, target, rolls) {
+  return filterDicePoolBelow(rollXDice(rolls), target.save.shield);
 };
 
 const damageRoll = function (index, rolls, user) {
@@ -73,8 +73,8 @@ const attackRoll = function (index, user, target) {
     user.statModifiers.damageMod;
   console.log(user.information.name, " does ", targetDamageResults, " damage.");
 
-  //Rolls for Ward Save after damage has been calculated. note most units do not have ward saves, ie = 7
-  const finalDamageResults = wardSaveRoll(
+  //Rolls for Shield Save after damage has been calculated. note most units do not have Shield saves, ie = 7
+  const finalDamageResults = shieldSaveRoll(
     index,
     user,
     target,

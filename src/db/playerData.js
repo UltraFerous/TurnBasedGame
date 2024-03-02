@@ -71,8 +71,7 @@ const playerObj = {
   ],
   save: {
     armour: 3,
-    shield: 0,
-    ward: 7,
+    shield: 7,
   },
   items: [
     {
