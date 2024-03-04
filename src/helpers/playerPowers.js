@@ -49,6 +49,19 @@ const testAttackSpell = function (user, target) {
   return { updatedStats, targetID: 1 };
 };
 
+const statIncrease = function (user, enemy, enemyIndex, powerData) {
+  const updatedStats = { ...user };
+  if (updatedStats.statModifiers.hasOwnProperty(powerData.stat)) {
+    updatedStats.statModifiers[powerData.stat] += powerData.amount;
+  } else {
+    console.error(
+      `Stat ${itemInformation.stat} not found in userStats object.`
+    );
+  }
+  console.log(updatedStats);
+  return { combatTeam: 0, updatedStats, targetID: 0 };
+};
+
 const activatePower = function (
   user,
   enemy,
@@ -71,6 +84,9 @@ const activatePower = function (
 };
 
 const usePlayerPower = function (powerData, user, enemy, enemyIndex) {
+  if (powerData.type === 2) {
+    return activatePower(user, enemy, enemyIndex, powerData, statIncrease);
+  }
   if (powerData.type === 3) {
     return activatePower(user, enemy, enemyIndex, powerData, justDoDamage);
   }

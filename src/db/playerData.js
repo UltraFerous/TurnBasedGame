@@ -10,9 +10,9 @@ const playerObj = {
     initiative: 3,
     power: 0,
     wounds: 5,
-    currentWounds: 5
+    currentWounds: 5,
   },
-  statBonuses:{
+  statBonuses: {
     damageBonus: 0,
     powerDamageBonus: 0,
     skillBonus: 0,
@@ -32,7 +32,7 @@ const playerObj = {
   },
   weapons: [
     {
-      id: 0,
+      id: 1000,
       name: "Attack 1",
       skill: 4,
       weaponStrength: 1,
@@ -41,7 +41,7 @@ const playerObj = {
       attacks: 4,
     },
     {
-      id: 1,
+      id: 1001,
       name: "NUKE",
       skill: 1,
       weaponStrength: 10,
@@ -57,13 +57,21 @@ const playerObj = {
       description: "",
       activationValue: 4,
       type: 3,
-      damage: 3
+      damage: 3,
+    },
+    {
+      id: 1,
+      name: "Buff attacks",
+      description: "",
+      activationValue: 4,
+      type: 2,
+      stat: "attacksMod",
+      amount: 5,
     },
   ],
   save: {
     armour: 3,
-    shield: 0,
-    ward: 7,
+    shield: 7,
   },
   items: [
     {
@@ -72,10 +80,53 @@ const playerObj = {
       description: "A standard issue MedKit.",
       heal: 4,
     },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
+    {
+      id: 0,
+      name: "Standard MedKit",
+      description: "A standard issue MedKit.",
+      heal: 4,
+    },
   ],
   scores: {
-    money: 100,
+    money: 1000,
     points: 0,
+    stage: 0,
   },
 };
 

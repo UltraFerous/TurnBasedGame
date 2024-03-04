@@ -1,11 +1,12 @@
-// 1 is for MedKit, 2 is for weapons, 3 is for armour
+// 1 is for MedKit, 2 is for weapons, 3 is for armour, 4 is for SINGLE stat buffs
 const itemShopInventory = [
   {
     id: 0,
     type: 1,
     name: "Standard MedKit",
     description: "A standard issue MedKit.",
-    heal: 4
+    cost: 50,
+    heal: 4,
   },
   {
     id: 1,
@@ -134,11 +135,11 @@ const itemShopInventory = [
       "A sleek and elegant rapier with a cosmic edge, allowing for swift and precise attacks. ",
     cost: 100,
     stats: {
-      skill: 4,
-      weaponStrength: 3,
-      rend: 4,
-      damage: 5,
-      attacks: 1,
+      skill: 5,
+      weaponStrength: 2,
+      rend: 1,
+      damage: 2,
+      attacks: 4,
     },
   },
   {
@@ -163,8 +164,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 2,
-      shield: 0,
-      ward: 5,
+      shield: 5,
     },
     id: 12,
     type: 3,
@@ -174,8 +174,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 4,
-      shield: 0,
-      ward: 7,
+      shield: 7,
     },
     id: 13,
     type: 3,
@@ -185,8 +184,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 3,
-      shield: 0,
-      ward: 6,
+      shield: 6,
     },
     id: 14,
     type: 3,
@@ -196,14 +194,14 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 2,
-      shield: 0,
-      ward: 4,
+      shield: 4,
     },
   },
   {
     id: 15,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Strength Augmenter",
     description:
       "A wristband infused with gravitic energy that enhances your physical strength.",
@@ -213,6 +211,7 @@ const itemShopInventory = [
     id: 16,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Toughhide Elixir",
     description:
       "A vial containing a mixture of rare plant extracts and minerals that toughen your skin and muscles.",
@@ -222,6 +221,7 @@ const itemShopInventory = [
     id: 17,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Initiative Amulet",
     description:
       "A mystical amulet adorned with a time-bending crystal that heightens your reflexes and quick thinking.",
@@ -231,6 +231,7 @@ const itemShopInventory = [
     id: 18,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Power Core Catalyst",
     description:
       "A small, radiant device that harnesses and channels pure energy. Activating it unleashes latent power within you.",
@@ -240,6 +241,7 @@ const itemShopInventory = [
     id: 19,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Vitality Band",
     description: "A band that enhances your body's natural healing processes.",
     stat: "wounds",
@@ -248,6 +250,7 @@ const itemShopInventory = [
     id: 20,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Brutal Force Module",
     description:
       "An upgrade module for your weaponry that adds a raw, brute force element.",
@@ -257,6 +260,7 @@ const itemShopInventory = [
     id: 21,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Energized Core Amplifier",
     description: "A device that amplifies the inherent power in your attacks.",
     stat: "powerDamageBonus",
@@ -265,6 +269,7 @@ const itemShopInventory = [
     id: 22,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Skill Matrix Enhancer",
     description:
       "An advanced neural interface that enhances your cognitive abilities.",
@@ -274,6 +279,7 @@ const itemShopInventory = [
     id: 23,
     type: 4,
     cost: 100,
+    amount: 1,
     name: "Multi-Strike Module",
     description:
       " An augmentation for your combat gear that enables faster and more precise attacks.",

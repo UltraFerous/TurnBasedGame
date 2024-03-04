@@ -1,0 +1,40 @@
+#root {
+  .itemScreen {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    .itemShop {
+      overflow: hidden;
+      border: 5px solid blue;
+      min-width: 1024px;
+      max-width: 1024px;
+      height: 720px;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      align-items: center;
+      .itemCards {
+        padding: 4px;
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap to the next row */
+        justify-content: space-evenly; /* Distribute space evenly between items */
+        .itemCard {
+          border: 5px solid aqua;
+          display: flex; /* Set display to flex */
+          flex-direction: column; /* Stack children vertically */
+          justify-content: space-between; /* Distribute space evenly between children */
+          min-height: 320px; /* Set a specific height for all item cards */
+          width: 320px; /* Set a specific width for all item cards */
+          margin: 8px;
+        }
+      }
+      .shopKeeper {
+        background-color: aliceblue;
+        min-height: 320px;
+        min-width: 320px;
+        margin-top: auto; /* Push shop keeper to the bottom */
+        margin-left: auto; /* Push shop keeper to the right */
+      }
+    }
+  }
+}

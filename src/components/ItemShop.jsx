@@ -2,6 +2,8 @@ import { React, useContext, useState, useEffect } from "react";
 import itemShopInventory from "../db/itemShopDatabase";
 import { itemPurchase } from "../helpers/itemPurchase";
 import PlayerContext from "../context/playerContext";
+import GameLog from "./GameLog";
+import "../styles/ItemShop.scss";
 
 function ItemShop() {
   const { player, setPlayer } = useContext(PlayerContext);
@@ -20,7 +22,7 @@ function ItemShop() {
   };
 
   const populateShop = function () {
-    const numberOfItems = 25;
+    const numberOfItems = 3;
     const itemsInShop = [itemShopInventory[0]];
     const minCeiled = Math.ceil(0);
     const maxFloored = Math.floor(itemShopInventory.length - 1);
@@ -40,18 +42,29 @@ function ItemShop() {
   }, []);
 
   return (
-    <div>
-      Welcome to the shop
-      {shop.map((item, index) => (
-        <button
-          key={index}
-          onClick={() => {
-            handleItemPurchaseOnClick(item.id, index);
-          }}
-        >
-          {item.name}
-        </button>
-      ))}
+    <div className="itemScreen">
+      <div className="gameLog">
+        <GameLog />
+      </div>
+      <div className="itemShop">
+        <div className="itemCards">
+          {shop.map((item, index) => (
+            <div key={index} className="itemCard">
+              <div> {item.name} </div>
+              <div> {item.cost} </div>
+              <div> {item.description} </div>
+              <button
+                onClick={() => {
+                  handleItemPurchaseOnClick(item.id, index);
+                }}
+              >
+                Purchase
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className="shopKeeper"> Welcome to the shop </div>
+      </div>
     </div>
   );
 }

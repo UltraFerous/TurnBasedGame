@@ -14,9 +14,9 @@ const purchaseMedKitPotion = function (userStats, itemIndex, itemInformation) {
 const purchaseStatUpgrade = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
   if (updatedStats.stats.hasOwnProperty(itemInformation.stat)) {
-    updatedStats.stats[itemInformation.stat]++;
+    updatedStats.stats[itemInformation.stat] += itemInformation.amount;
   } else if (updatedStats.statBonuses.hasOwnProperty(itemInformation.stat)) {
-    updatedStats.statBonuses[itemInformation.stat]++;
+    updatedStats.statBonuses[itemInformation.stat] += itemInformation.amount;
   } else {
     console.error(
       `Stat ${itemInformation.stat} not found in userStats object.`

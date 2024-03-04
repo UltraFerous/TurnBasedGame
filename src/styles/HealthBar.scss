@@ -1,0 +1,13 @@
+.healthBarContainer {
+  position: relative;
+}
+.healthEnemyName {
+  color: red;
+  height: 24px;
+}
+
+.healthBar {
+  height: 24px;
+  background-color: red;
+  transition: width 0.3s ease-in-out;
+}

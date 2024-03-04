@@ -1,0 +1,15 @@
+.gameLog {
+  border: 5px solid aqua;
+  min-width: 256px;
+  max-width: 256px;
+  display: flex;
+  flex-direction: column-reverse; /* Start at the bottom and push up */
+  .logEntry {
+    display: block;
+    text-align: left;
+    .logWords {
+      border: 1px solid #ccc; /* Add a border for better visibility */
+      padding: 10px; /* Add some padding for spacing */
+    }
+  }
+}

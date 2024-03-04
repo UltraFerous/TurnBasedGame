@@ -22,8 +22,7 @@ describe("Testing the stat modifing powers different powers", () => {
     },
     save: {
       armour: 10,
-      shield: 0,
-      ward: 7,
+      shield: 7,
     },
   };
 
@@ -101,8 +100,7 @@ describe("Testing the powers that are attacks", () => {
     },
     save: {
       armour: 10,
-      shield: 0,
-      ward: 7,
+      shield: 7,
     },
   };
 
