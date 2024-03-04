@@ -14,7 +14,9 @@
       position: relative;
       align-items: center;
       .itemCards {
-        padding: 4px;
+        overflow: scroll;
+        max-height: 720px;
+        max-width: 704px;
         display: flex;
         flex-wrap: wrap; /* Allow items to wrap to the next row */
         justify-content: space-evenly; /* Distribute space evenly between items */
@@ -23,9 +25,9 @@
           display: flex; /* Set display to flex */
           flex-direction: column; /* Stack children vertically */
           justify-content: space-between; /* Distribute space evenly between children */
-          min-height: 320px; /* Set a specific height for all item cards */
+          min-height: 336px; /* Set a specific height for all item cards */
+          max-height: 336px; /* Set a specific height for all item cards */
           width: 320px; /* Set a specific width for all item cards */
-          margin: 8px;
         }
       }
       .shopKeeper {

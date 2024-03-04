@@ -22,16 +22,22 @@ function ItemShop() {
   };
 
   const populateShop = function () {
-    const numberOfItems = 3;
+    const numberOfItems = 4;
     const itemsInShop = [itemShopInventory[0]];
     const minCeiled = Math.ceil(0);
     const maxFloored = Math.floor(itemShopInventory.length - 1);
+    const costChecker = true;
     let randomNumber = 0;
-    for (let i = 0; i < numberOfItems; i++) {
+    while (itemsInShop.length < numberOfItems) {
       randomNumber = Math.floor(
         Math.random() * (maxFloored - minCeiled + 1) + minCeiled
       );
-      itemsInShop.push(itemShopInventory[randomNumber]);
+      if (
+        costChecker &&
+        itemShopInventory[randomNumber].cost <= player.scores.money
+      ) {
+        itemsInShop.push(itemShopInventory[randomNumber]);
+      }
     }
     return setShop(itemsInShop);
   };

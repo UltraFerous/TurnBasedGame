@@ -1,6 +1,7 @@
 import { React, useContext } from "react";
 import PlayerContext from "../context/playerContext";
 import heroDatabase from "../db/heroDatabase";
+import "../styles/CharacterSelect.scss";
 
 function CharcterSelect() {
   const { player, setPlayer } = useContext(PlayerContext);
@@ -12,7 +13,7 @@ function CharcterSelect() {
   };
 
   return (
-    <div>
+    <div className="CharacterSelectScreen">
       Pick Character...
       <select onChange={handleSelectChange}>
         {heroDatabase.map((hero, index) => (

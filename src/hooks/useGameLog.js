@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 const useGameLog = () => {
-  const [log, setLog] = useState(['test', 'test', 'test']);
+  const [log, setLog] = useState(["test1", "test2", "test3"]);
 
   const addLogEntry = (entry) => {
     setLog((prevLog) => [...prevLog, entry]);
