@@ -20,6 +20,8 @@ function StatDisplay() {
         <div>
           Power: {player.stats.power + player.statModifiers.powerActivationMod}
         </div>
+      </div>
+      <div>
         <div>
           Wounds: {player.stats.currentWounds} / {player.stats.wounds}
         </div>
