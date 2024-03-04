@@ -55,7 +55,7 @@ const playerObj = {
       id: 0,
       name: "Damage Spell",
       description: "",
-      activationValue: 4,
+      activationValue: 2,
       type: 3,
       damage: 3,
     },

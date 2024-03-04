@@ -2,7 +2,7 @@ import {
   rollXDice,
   filterDicePoolAbove,
   filterDicePoolBelow,
-  woundComparison,
+  diceComparison,
 } from "../helpers/diceRolls";
 
 // Rolls the dice to hit, looking for results above or equal to the weapon skill
@@ -21,7 +21,7 @@ const hitRoll = function (index, user) {
 
 // Rolls the dice to wound, looking for results above or equal to the comparison result
 const woundRoll = function (index, user, target, rolls) {
-  const woundTargetNumber = woundComparison(
+  const woundTargetNumber = diceComparison(
     user.stats.strength +
       user.statModifiers.strengthMod +
       user.weapons[index].weaponStrength,
@@ -32,13 +32,13 @@ const woundRoll = function (index, user, target, rolls) {
 
 // Rolls the dice to save, looking for failed saves which are results less than the modified armour
 const saveRoll = function (index, user, target, rolls) {
-  return filterDicePoolBelow(
-    rollXDice(rolls),
+  const armourTargetNumber = diceComparison(
     target.save.armour -
-      target.statModifiers.armourMod -
-      target.statBonuses.armourBonus +
-      user.weapons[index].rend
+      target.statModifiers.armourMod +
+      target.statBonuses.armourBonus,
+    user.weapons[index].rend
   );
+  return filterDicePoolBelow(rollXDice(armourTargetNumber));
 };
 
 // Rolls the dice to save, looking for failed saves which are results less than the shield save armour

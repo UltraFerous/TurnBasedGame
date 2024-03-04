@@ -2,36 +2,16 @@
 const rollXDice = function (amount) {
   const diceResults = [];
   for (let i = 0; i < amount; i++) {
-    let roll = Math.floor(Math.random() * 6 + 1);
+    let roll = Math.floor(Math.random() * 10 + 1);
     diceResults.push(roll);
   }
   return diceResults;
-};
-
-// Rolls X amount of D3 dice
-const rollXDiceD3 = function (amount) {
-  const diceResults = [];
-  for (let i = 0; i < amount; i++) {
-    let roll = Math.floor(Math.random() * 3 + 1);
-    diceResults.push(roll);
-  }
-  return diceResults;
-};
-
-// Rolls X amount of D3 dice
-const roll2D6Dice = function (amount) {
-  const twoRolls = rollXDice(2);
-  const sumRolls = twoRolls.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
-  return sumRolls;
 };
 
 // Filters dice to only successfull results
 const filterDicePoolAbove = function (rolls, target) {
   const filterDiceResults = rolls.filter(
-    (roll) => roll >= target || roll === 6
+    (roll) => roll >= target || roll === 10
   );
   return filterDiceResults;
 };
@@ -42,28 +22,17 @@ const filterDicePoolBelow = function (rolls, target) {
   return filterDiceResults;
 };
 
-// Finds which hit roll is needed.
-const woundComparison = function (user, target) {
-  if (user === target) {
-    return 4;
+// Finds which roll is needed.
+const diceComparison = function (user, target) {
+  const skillDifference = user - target;
+  let targetNumber = 6 - skillDifference;
+  if (targetNumber < 1) {
+    targetNumber = 1;
   }
-  if (user >= target * 2) {
-    return 2;
+  if (targetNumber > 10) {
+    targetNumber = 10;
   }
-  if (user > target) {
-    return 3;
-  }
-  if (user <= target / 2) {
-    return 6;
-  }
-  return 5;
+  return targetNumber;
 };
 
-export {
-  rollXDice,
-  rollXDiceD3,
-  roll2D6Dice,
-  filterDicePoolAbove,
-  filterDicePoolBelow,
-  woundComparison,
-};
+export { rollXDice, filterDicePoolAbove, filterDicePoolBelow, diceComparison };
