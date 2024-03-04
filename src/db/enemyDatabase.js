@@ -54,8 +54,7 @@ const beginnierEnemyDatabase = [
     ],
     save: {
       armour: 4,
-      shield: 0,
-      ward: 7,
+      shield: 7,
     },
     items: [
       {

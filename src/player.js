@@ -31,6 +31,5 @@ const playerObj = {
     armour: 0,
     armourBonus: 0,
     shield: 0,
-    ward: 0,
   },
 };
