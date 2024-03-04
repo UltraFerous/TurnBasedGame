@@ -1,4 +1,3 @@
-import { rollXDiceD3 } from "./diceRolls";
 import { removeOverheal } from "./removeOverheal";
 
 const smallMedKit = function (user, enemy, itemData, itemIndex, targetIndex) {

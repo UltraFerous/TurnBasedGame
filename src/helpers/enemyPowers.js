@@ -1,4 +1,4 @@
-import { rollXDiceD3, roll2D6Dice } from "./diceRolls";
+import { rollXDice } from "./diceRolls";
 import { attackRoll } from "./attack";
 
 // I have changed the setting of this game and thus the power names. It is too much to change right now, so some of the names are from the old setting.
@@ -57,9 +57,9 @@ const activatePower = function (
   powerCallback
 ) {
   const activationValue = powerData.activationValue;
-  const totalCastBonus = user.statModifiers.castBonusMod + user.stats.castBonus;
-  const activationRoll = roll2D6Dice() + totalCastBonus;
-  if (activationRoll <= 2) {
+  const totalPowerBonus = user.statModifiers.castBonusMod + user.stats.castBonus;
+  const activationRoll = rollXDice(1)[0] + totalPowerBonus;
+  if (activationRoll <= 1) {
     console.log("Oh No! Misactivation!");
     return { combatTeam: 1, updatedStats: user, targetID: enemyIndex };
   } else if (activationRoll < activationValue) {
