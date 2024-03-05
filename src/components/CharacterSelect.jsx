@@ -7,21 +7,31 @@ function CharcterSelect() {
   const { player, setPlayer } = useContext(PlayerContext);
 
   const handleSelectChange = (event) => {
-    const selectedIndex = parseInt(event.target.value, 10);
+    const selectedIndex = event.target.value;
     console.log("Changed character to:", heroDatabase[selectedIndex]);
     setPlayer(heroDatabase[selectedIndex]);
   };
 
   return (
     <div className="CharacterSelectScreen">
-      Pick Character...
-      <select onChange={handleSelectChange}>
+      <div className="CharacterInformation">
+        <div className="CharacterDescription"></div>
+        <div className="CharacterImage"></div>
+      </div>
+      <div className="CharacterCards">
         {heroDatabase.map((hero, index) => (
-          <option value={index} key={index}>
+          <button
+            onClick={() => {
+              handleSelectChange(index);
+            }}
+            value={index}
+            key={index}
+            className="CharacterCard"
+          >
             {hero.information.name}
-          </option>
+          </button>
         ))}
-      </select>
+      </div>
     </div>
   );
 }
