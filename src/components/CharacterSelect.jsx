@@ -7,9 +7,8 @@ function CharcterSelect() {
   const { player, setPlayer } = useContext(PlayerContext);
 
   const handleSelectChange = (event) => {
-    const selectedIndex = event.target.value;
-    console.log("Changed character to:", heroDatabase[selectedIndex]);
-    setPlayer(heroDatabase[selectedIndex]);
+    console.log("Changed character to:", event);
+    setPlayer(heroDatabase[event]);
   };
 
   return (
