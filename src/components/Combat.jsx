@@ -17,18 +17,16 @@ import "../styles/Combat.scss";
 import StatDisplay from "./StatDisplay.jsx";
 import GameLog from "./GameLog.jsx";
 import HealthBar from "./HealthBar";
-import useGameLog from "../hooks/useGameLog";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
-function Combat() {
+function Combat({log, addLogEntry}) {
   const [turn, setTurn] = useState(0);
   const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
   const [combatOption, setcombatOption] = useState(4);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
-  const { log, addLogEntry } = useGameLog();
 
   // This is used for the targeting drop down
   const handleSelectChange = (index) => {

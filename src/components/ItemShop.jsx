@@ -6,10 +6,9 @@ import GameLog from "./GameLog";
 import useGameLog from "../hooks/useGameLog";
 import "../styles/ItemShop.scss";
 
-function ItemShop() {
+function ItemShop({ log, addLogEntry }) {
   const { player, setPlayer } = useContext(PlayerContext);
   const [shop, setShop] = useState([]);
-  const { log, addLogEntry } = useGameLog();
 
   const updateShop = function (shopIndex) {
     const tempShop = shop;
