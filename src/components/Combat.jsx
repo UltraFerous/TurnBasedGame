@@ -20,7 +20,7 @@ import HealthBar from "./HealthBar";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
-function Combat({log, addLogEntry}) {
+function Combat({ log, addLogEntry }) {
   const [turn, setTurn] = useState(0);
   const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
@@ -109,7 +109,9 @@ function Combat({log, addLogEntry}) {
     attacker,
     defender
   ) {
-    const updatedStats = attackRoll(weaponIndex, attacker, defender);
+    const statsAfterAttack = attackRoll(weaponIndex, attacker, defender);
+    const updatedStats = statsAfterAttack.updatedTargetStats;
+    addLogEntry(statsAfterAttack.attackLog);
     return { combatTeam, updatedStats };
   };
 
@@ -238,7 +240,6 @@ function Combat({log, addLogEntry}) {
       player,
       enemy[targetEnemy]
     ); // The 1 is the enemy side
-    addLogEntry("W");
     updateStats(1, targetEnemy, statsAfterAttack.updatedStats);
   };
 

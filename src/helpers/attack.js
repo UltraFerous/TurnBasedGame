@@ -53,25 +53,46 @@ const damageRoll = function (index, rolls, user) {
 
 const attackRoll = function (index, user, target) {
   let successfulRolls = 0;
+  const attackLog = [
+    `${user.information.name} declares an attack against ${target.information.name}.`,
+  ];
   // Index is the select weapon
+  attackLog.push(
+    `${user.information.name} makes ${
+      user.weapons[index].attacks +
+      user.statBonuses.attacksBonus +
+      user.statModifiers.attacksMod
+    } attacks with ${user.weapons[index].name}.`
+  );
   // Roll to hit, roll amount of attacks above or equal to skill
   const hitRollResults = hitRoll(index, user);
   successfulRolls = hitRollResults.length;
+  attackLog.push(
+    `${user.information.name} hits ${successfulRolls} attacks successfully.`
+  );
 
   // Roll to wound, roll above comparison, unit strength + weapon vs target toughness
   const woundRollResults = woundRoll(index, user, target, successfulRolls);
   successfulRolls = woundRollResults.length;
+  attackLog.push(
+    `${user.information.name} wounds with ${successfulRolls} of those hits.`
+  );
 
   //Target rolls to save, armour + rend, roll above or equal to target
   const saveRollResults = saveRoll(index, user, target, successfulRolls);
   successfulRolls = saveRollResults.length;
+  attackLog.push(
+    `${target.information.name} saves, reduce that to ${successfulRolls} successful wounds.`
+  );
 
   //Reduce target wounds equal to the weapons damage
   const targetDamageResults =
     damageRoll(index, successfulRolls, user) +
     user.statBonuses.damageBonus +
     user.statModifiers.damageMod;
-  console.log(user.information.name, " does ", targetDamageResults, " damage.");
+  attackLog.push(
+    `${target.information.name} suffers ${targetDamageResults} damage.`
+  );
 
   //Rolls for Shield Save after damage has been calculated. note most units do not have Shield saves, ie = 7
   const finalDamageResults = shieldSaveRoll(
@@ -80,6 +101,12 @@ const attackRoll = function (index, user, target) {
     target,
     targetDamageResults
   ).length;
+
+  targetDamageResults > 0 &&
+    target.save.shield < 11 &&
+    attackLog.push(
+      `${target.information.name} attempts shield saves, reducing the damage to ${targetDamageResults} damage.`
+    );
 
   //Returns the new health of the target
   const newCurrentWounds = target.stats.currentWounds - finalDamageResults;
@@ -92,7 +119,8 @@ const attackRoll = function (index, user, target) {
     },
   };
 
-  return updatedTargetStats;
+  attackLog.push(`${user.information.name}'s attack cycle ends.`);
+  return { updatedTargetStats, attackLog };
 };
 
 export { attackRoll };
