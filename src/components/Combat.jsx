@@ -17,6 +17,7 @@ import "../styles/Combat.scss";
 import StatDisplay from "./StatDisplay.jsx";
 import GameLog from "./GameLog.jsx";
 import HealthBar from "./HealthBar";
+import useGameLog from "../hooks/useGameLog";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
@@ -27,6 +28,7 @@ function Combat() {
   const [combatOption, setcombatOption] = useState(4);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
+  const { log, addLogEntry } = useGameLog();
 
   // This is used for the targeting drop down
   const handleSelectChange = (index) => {
@@ -58,7 +60,7 @@ function Combat() {
   };
 
   const showState = function () {
-    console.log(targetEnemy);
+    console.log(log);
     console.log(player);
     console.log(enemy);
   };
@@ -238,6 +240,7 @@ function Combat() {
       player,
       enemy[targetEnemy]
     ); // The 1 is the enemy side
+    addLogEntry("W");
     updateStats(1, targetEnemy, statsAfterAttack.updatedStats);
   };
 
@@ -322,7 +325,7 @@ function Combat() {
       </div>
       <div className="combatScreen">
         <div className="gameLog">
-          <GameLog />
+          <GameLog log={log} />
         </div>
         <div className="battleDisplay">
           <div className="healthBarDisplay">

@@ -3,11 +3,13 @@ import itemShopInventory from "../db/itemShopDatabase";
 import { itemPurchase } from "../helpers/itemPurchase";
 import PlayerContext from "../context/playerContext";
 import GameLog from "./GameLog";
+import useGameLog from "../hooks/useGameLog";
 import "../styles/ItemShop.scss";
 
 function ItemShop() {
   const { player, setPlayer } = useContext(PlayerContext);
   const [shop, setShop] = useState([]);
+  const { log, addLogEntry } = useGameLog();
 
   const updateShop = function (shopIndex) {
     const tempShop = shop;
@@ -50,7 +52,7 @@ function ItemShop() {
   return (
     <div className="itemScreen">
       <div className="gameLog">
-        <GameLog />
+        <GameLog log={log} />
       </div>
       <div className="itemShop">
         <div className="itemCards">

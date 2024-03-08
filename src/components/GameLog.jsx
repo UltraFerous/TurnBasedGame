@@ -1,16 +1,16 @@
-import { React } from "react";
+import { React, useState, useEffect } from "react";
 import useGameLog from "../hooks/useGameLog";
 import "../styles/GameLog.scss";
 
-function GameLog() {
-  const { log } = useGameLog();
+function GameLog(props) {
+  // const { log, addLogEntry, clearLog } = useGameLog();
+
   return (
     <div className="logEntry">
-      {log.map((entry, index) => {
+      {props.log.map((entry, index) => {
         return (
           <div key={index} className="logWords">
-            {" "}
-            {entry}{" "}
+            {entry}
           </div>
         );
       })}
