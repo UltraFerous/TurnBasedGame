@@ -4,7 +4,13 @@ import { attackRoll } from "./attack";
 // I have changed the setting of this game and thus the power names. It is too much to change right now, so some of the names are from the old setting.
 // This stuff needs to be refactored
 
-const justDoDamage = function (user, target, targetIndex, powerData) {
+const justDoDamage = function (
+  user,
+  target,
+  targetIndex,
+  powerData,
+  enemyPowerLog
+) {
   const damageAmount = powerData.damage;
   const updatedStats = {
     ...target,
@@ -13,7 +19,11 @@ const justDoDamage = function (user, target, targetIndex, powerData) {
       currentWounds: target.stats.currentWounds - damageAmount,
     },
   };
-  return { combatTeam: 0, updatedStats, targetID: 0 };
+  enemyPowerLog.push(
+    `${target.information.name}'s power deals ${damageAmount} to ${user.information.name}`,
+    `${user.information.name}'s power cycle ends.`
+  );
+  return { combatTeam: 0, updatedStats, targetID: 0, enemyPowerLog };
 };
 
 const justHealSelf = function (user, target, targetIndex) {
@@ -57,16 +67,39 @@ const activatePower = function (
   powerCallback
 ) {
   const activationValue = powerData.activationValue;
-  const totalPowerBonus = user.statModifiers.castBonusMod + user.stats.castBonus;
+  const enemyPowerLog = [
+    `${user.information.name} attempts to activate power ${powerData.name}`,
+  ];
+  const totalPowerBonus =
+    user.statModifiers.powerActivationMod + user.stats.power;
   const activationRoll = rollXDice(1)[0] + totalPowerBonus;
   if (activationRoll <= 1) {
-    console.log("Oh No! Misactivation!");
-    return { combatTeam: 1, updatedStats: user, targetID: enemyIndex };
+    enemyPowerLog.push(
+      `Oh No! A ${activationRoll}, the power critically failured.`,
+      `${user.information.name}'s power cycle ends.`
+    );
+    return {
+      combatTeam: 1,
+      updatedStats: user,
+      targetID: enemyIndex,
+      enemyPowerLog,
+    };
   } else if (activationRoll < activationValue) {
-    console.log("The power was not activated!");
-    return { combatTeam: 1, updatedStats: user, targetID: enemyIndex };
+    enemyPowerLog.push(
+      `A ${activationRoll}, the power was not activated.`,
+      `${user.information.name}'s power cycle ends.`
+    );
+    return {
+      combatTeam: 1,
+      updatedStats: user,
+      targetID: enemyIndex,
+      enemyPowerLog,
+    };
   }
-  return powerCallback(user, enemy, enemyIndex, powerData);
+  enemyPowerLog.push(
+    `A ${activationRoll}, the power was successfully activated.`
+  );
+  return powerCallback(user, enemy, enemyIndex, powerData, enemyPowerLog);
 };
 
 const useEnemyPower = function (powerData, user, enemy, enemyIndex) {

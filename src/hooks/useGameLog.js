@@ -5,7 +5,7 @@ const useGameLog = () => {
   const [log, setLog] = useState(["test1", "test2", "test3"]);
 
   const addLogEntry = (entry) => {
-    setLog((prevLog) => prevLog.concat(entry));
+    setLog((prevLog) => prevLog.concat(entry.flat()));
   };
 
   const clearLog = () => {

@@ -111,8 +111,8 @@ function Combat({ log, addLogEntry }) {
   ) {
     const statsAfterAttack = attackRoll(weaponIndex, attacker, defender);
     const updatedStats = statsAfterAttack.updatedTargetStats;
-    addLogEntry(statsAfterAttack.attackLog);
-    return { combatTeam, updatedStats };
+    const attackCycleLog = statsAfterAttack.attackLog;
+    return { combatTeam, updatedStats, attackCycleLog };
   };
 
   const handleEnemyPowers = function (
@@ -134,6 +134,7 @@ function Combat({ log, addLogEntry }) {
     // Makes a copy of the player and enemy states to operate on these rather then the direct state
     let tempPlayerStats = { ...player };
     let tempEnemyStats = [...enemy];
+    const enemyTurnLog = [];
 
     // Index matters, loops through the enemy array to do each of their turns.
     for (let i = 0; i < tempEnemyStats.length; i++) {
@@ -151,7 +152,9 @@ function Combat({ log, addLogEntry }) {
           );
           // Since attacking only modifies the player health at this time, only need to update the player health
           tempPlayerStats = statsAfterEnemyAttack.updatedStats;
+          enemyTurnLog.push(statsAfterEnemyAttack.attackCycleLog);
         }
+
         // If Index is 2 it will use a power
         if (enemyTurn.chosenTypeIndex === 2) {
           const enemyPowerData =
@@ -162,6 +165,8 @@ function Combat({ log, addLogEntry }) {
             tempPlayerStats,
             i
           );
+          enemyTurnLog.push(statsAfterEnemyPower.enemyPowerLog);
+
           // If the power targets the player modify their stats
           if (statsAfterEnemyPower.combatTeam === 0) {
             tempPlayerStats = statsAfterEnemyPower.updatedStats;
@@ -207,7 +212,7 @@ function Combat({ log, addLogEntry }) {
       }
     }
 
-    return { tempEnemyStats, tempPlayerStats };
+    return { tempEnemyStats, tempPlayerStats, enemyTurnLog };
   };
 
   // Will check if any entities have 0 or less health, if there are the combat ends
@@ -226,6 +231,9 @@ function Combat({ log, addLogEntry }) {
       // Update the enemy state after processing all enemies
       setPlayer(updatedEnemies.tempPlayerStats);
       setEnemy(updatedEnemies.tempEnemyStats);
+
+      // Add all the new log entries at once
+      addLogEntry(updatedEnemies.enemyTurnLog);
     }
   };
 
@@ -240,6 +248,7 @@ function Combat({ log, addLogEntry }) {
       player,
       enemy[targetEnemy]
     ); // The 1 is the enemy side
+    addLogEntry(statsAfterAttack.attackCycleLog);
     updateStats(1, targetEnemy, statsAfterAttack.updatedStats);
   };
 
