@@ -45,7 +45,7 @@ const playerObj = {
       name: "NUKE",
       skill: 1,
       weaponStrength: 10,
-      rend: 10,
+      rend: 3,
       damage: 10,
       attacks: 10,
     },

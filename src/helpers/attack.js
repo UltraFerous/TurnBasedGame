@@ -33,12 +33,12 @@ const woundRoll = function (index, user, target, rolls) {
 // Rolls the dice to save, looking for failed saves which are results less than the modified armour
 const saveRoll = function (index, user, target, rolls) {
   const armourTargetNumber = diceComparison(
-    target.save.armour -
+    target.save.armour +
       target.statModifiers.armourMod +
       target.statBonuses.armourBonus,
     user.weapons[index].rend
   );
-  return filterDicePoolBelow(rollXDice(armourTargetNumber));
+  return filterDicePoolBelow(rollXDice(rolls), armourTargetNumber);
 };
 
 // Rolls the dice to save, looking for failed saves which are results less than the shield save armour
@@ -80,6 +80,7 @@ const attackRoll = function (index, user, target) {
 
   //Target rolls to save, armour + rend, roll above or equal to target
   const saveRollResults = saveRoll(index, user, target, successfulRolls);
+
   successfulRolls = saveRollResults.length;
   attackLog.push(
     `${target.information.name} saves, reduce that to ${successfulRolls} successful wounds.`

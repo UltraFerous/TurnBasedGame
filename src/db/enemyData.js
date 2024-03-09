@@ -124,7 +124,7 @@ const enemyObj = [
       },
     ],
     save: {
-      armour: 4,
+      armour: 3,
       shield: 11,
     },
     items: [

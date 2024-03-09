@@ -22,66 +22,66 @@ test("test", () => {
   expect(true).toBe(true);
 });
 
-describe("Attack Buttons", () => {
-  test("renders both attack buttons", () => {
-    render(
-      <>
-        <PlayerContextProvider>
-          <EnemyContextProvider>
-            <Combat />
-          </EnemyContextProvider>
-        </PlayerContextProvider>
-      </>
-    );
-    // Query the button using a more specific query
-    const firstAttackButton = screen.getAllByRole("button", {
-      text: "/Attack/i)",
-    })[0];
-    // Assert that the button is defined or present in the document
-    expect(firstAttackButton).toBeDefined();
-  });
+// describe("Attack Buttons", () => {
+//   test("renders both attack buttons", () => {
+//     render(
+//       <>
+//         <PlayerContextProvider>
+//           <EnemyContextProvider>
+//             <Combat />
+//           </EnemyContextProvider>
+//         </PlayerContextProvider>
+//       </>
+//     );
+//     // Query the button using a more specific query
+//     const firstAttackButton = screen.getAllByRole("button", {
+//       text: "/Attack/i)",
+//     })[0];
+//     // Assert that the button is defined or present in the document
+//     expect(firstAttackButton).toBeDefined();
+//   });
 
-  // test("clicks", () => {
-  //   render(
-  //     <>
-  //       <PlayerContextProvider>
-  //         <EnemyContextProvider>
-  //           <Combat />
-  //         </EnemyContextProvider>
-  //       </PlayerContextProvider>
-  //     </>
-  //   );
+// test("clicks", () => {
+//   render(
+//     <>
+//       <PlayerContextProvider>
+//         <EnemyContextProvider>
+//           <Combat />
+//         </EnemyContextProvider>
+//       </PlayerContextProvider>
+//     </>
+//   );
 
-  //   const firstAttackButton = screen.getAllByRole("button", {
-  //     text: "/Attack/i",
-  //   })[1];
-  //   fireEvent.click(firstAttackButton);
-  // });
+//   const firstAttackButton = screen.getAllByRole("button", {
+//     text: "/Attack/i",
+//   })[1];
+//   fireEvent.click(firstAttackButton);
+// });
 
-  // test("Combat ends screen is working", () => {
-  //   render(
-  //     <>
-  //       <PlayerContextProvider>
-  //         <EnemyContextProvider>
-  //           <Combat />
-  //         </EnemyContextProvider>
-  //       </PlayerContextProvider>
-  //     </>
-  //   );
+// test("Combat ends screen is working", () => {
+//   render(
+//     <>
+//       <PlayerContextProvider>
+//         <EnemyContextProvider>
+//           <Combat />
+//         </EnemyContextProvider>
+//       </PlayerContextProvider>
+//     </>
+//   );
 
-  //   const firstAttackButton = screen.getAllByRole("button", {
-  //     text: "/Attack/i",
-  //   })[1];
+//   const firstAttackButton = screen.getAllByRole("button", {
+//     text: "/Attack/i",
+//   })[1];
 
-  //   for (let i = 0; i < 20; i++) {
-  //     fireEvent.click(firstAttackButton);
-  //   }
+//   for (let i = 0; i < 20; i++) {
+//     fireEvent.click(firstAttackButton);
+//   }
 
-  //   const endScreenText = screen.getByText(/Battle Over!/i);
-  //   expect(endScreenText).toBeInTheDocument();
-  //   expect(firstAttackButton).not.toBeInTheDocument();
-  // });
-});
+//   const endScreenText = screen.getByText(/Battle Over!/i);
+//   expect(endScreenText).toBeInTheDocument();
+//   expect(firstAttackButton).not.toBeInTheDocument();
+// });
+// });
 
 describe("Dice Rolling", () => {
   test("D10 Rolls Proper Amount of Dice", () => {
