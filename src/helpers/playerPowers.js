@@ -4,7 +4,13 @@ import { attackRoll } from "./attack";
 // I have changed the setting of this game and thus the power names. It is too much to change right now, so some of the names are from the old setting.
 // This stuff needs to be refactored
 
-const justDoDamage = function (user, target, enemyIndex, powerData) {
+const justDoDamage = function (
+  user,
+  target,
+  enemyIndex,
+  powerData,
+  playerPowerLog
+) {
   const damageAmount = powerData.damage;
   const updatedStats = {
     ...target,
@@ -13,7 +19,11 @@ const justDoDamage = function (user, target, enemyIndex, powerData) {
       currentWounds: target.stats.currentWounds - damageAmount,
     },
   };
-  return { combatTeam: 1, updatedStats, targetID: enemyIndex };
+  playerPowerLog.push(
+    `${user.information.name}'s power deals ${damageAmount} to ${target.information.name}.`,
+    `${user.information.name}'s power cycle ends.`
+  );
+  return { combatTeam: 1, updatedStats, targetID: enemyIndex, playerPowerLog };
 };
 
 const justDoDamageSelf = function (user, target, enemyIndex) {
@@ -49,7 +59,13 @@ const testAttackSpell = function (user, target) {
   return { updatedStats, targetID: 1 };
 };
 
-const statIncrease = function (user, enemy, enemyIndex, powerData) {
+const statIncrease = function (
+  user,
+  enemy,
+  enemyIndex,
+  powerData,
+  playerPowerLog
+) {
   const updatedStats = { ...user };
   if (updatedStats.statModifiers.hasOwnProperty(powerData.stat)) {
     updatedStats.statModifiers[powerData.stat] += powerData.amount;
@@ -58,8 +74,12 @@ const statIncrease = function (user, enemy, enemyIndex, powerData) {
       `Stat ${itemInformation.stat} not found in userStats object.`
     );
   }
+  playerPowerLog.push(
+    `${user.information.name} increases their ${powerData.stat} by ${powerData.amount}.`,
+    `${user.information.name}'s power cycle ends.`
+  );
   console.log(updatedStats);
-  return { combatTeam: 0, updatedStats, targetID: 0 };
+  return { combatTeam: 0, updatedStats, targetID: 0, playerPowerLog };
 };
 
 const activatePower = function (
@@ -70,18 +90,33 @@ const activatePower = function (
   powerCallback
 ) {
   const activationValue = powerData.activationValue;
+  const playerPowerLog = [
+    `${user.information.name} attempts to activate power ${powerData.name}.`,
+  ];
   const totalPowerBonus =
     user.statModifiers.powerActivationMod + user.stats.power;
   const activationRoll = rollXDice(1)[0] + totalPowerBonus;
   console.log(activationRoll);
   if (activationRoll <= 1) {
-    console.log("Oh No! Misactivation!");
-    return { targetID: -1 };
+    playerPowerLog.push(
+      `Oh No! A ${activationRoll}, the power critically failured.`,
+      `${user.information.name}'s power cycle ends.`
+    );
+    return { targetID: -1, playerPowerLog };
   } else if (activationRoll < activationValue) {
-    console.log("The power was not activated!");
-    return { targetID: -1 };
+    playerPowerLog.push(
+      `A ${activationRoll}, the power was not activated.`,
+      `${user.information.name}'s power cycle ends.`
+    );
+    playerPowerLog.push(
+      `A ${activationRoll}, the power was successfully activated.`
+    );
+    return { targetID: -1, playerPowerLog };
   }
-  return powerCallback(user, enemy, enemyIndex, powerData);
+  playerPowerLog.push(
+    `A ${activationRoll}, the power was successfully activated.`
+  );
+  return powerCallback(user, enemy, enemyIndex, powerData, playerPowerLog);
 };
 
 const usePlayerPower = function (powerData, user, enemy, enemyIndex) {

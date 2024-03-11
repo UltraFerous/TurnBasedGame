@@ -20,7 +20,7 @@ const justDoDamage = function (
     },
   };
   enemyPowerLog.push(
-    `${target.information.name}'s power deals ${damageAmount} to ${user.information.name}`,
+    `${user.information.name} deals ${damageAmount} to ${target.information.name}.`,
     `${user.information.name}'s power cycle ends.`
   );
   return { combatTeam: 0, updatedStats, targetID: 0, enemyPowerLog };
@@ -68,7 +68,7 @@ const activatePower = function (
 ) {
   const activationValue = powerData.activationValue;
   const enemyPowerLog = [
-    `${user.information.name} attempts to activate power ${powerData.name}`,
+    `${user.information.name} attempts to activate power ${powerData.name}.`,
   ];
   const totalPowerBonus =
     user.statModifiers.powerActivationMod + user.stats.power;
