@@ -41,6 +41,7 @@
           border: 1px solid purple;
           flex-wrap: wrap; /* Allow wrapping to the next row */
           justify-content: center; /* Center vertically within enemySprites */
+          align-content: center;
           .enemyUnitSprite {
             margin-bottom: 16px; /* Adjust spacing between enemy sprites */
             background-color: darkmagenta;
@@ -146,4 +147,12 @@
       }
     }
   }
+}
+
+.moveLeft {
+  transform: translateX(-128px); // Adjust the distance to the left as needed
+}
+
+.moveRight {
+  transform: translateX(128px); // Adjust the distance to the right as needed
 }

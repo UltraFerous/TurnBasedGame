@@ -27,8 +27,9 @@ function Combat({ log, addLogEntry }) {
   const [combatOption, setcombatOption] = useState(4);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
+  const [playerAnimation, setPlayerAnimation] = useState(false);
+  const [enemyAnimation, setEnemyAnimation] = useState(false);
 
-  // This is used for the targeting drop down
   const handleSelectChange = (index) => {
     // Check if targetEnemy is not null and is a valid index
     if (targetEnemy !== null && enemy[targetEnemy]) {
@@ -85,6 +86,21 @@ function Combat({ log, addLogEntry }) {
     addLogEntry([`Round ${player.scores.stage} begins!`]);
   };
 
+  const handleCharacterMoveAnimation = (direction) => {
+    // Simulate the animation delay (adjust as needed)
+    const delay = 500;
+    if (direction === "player") {
+      setPlayerAnimation(true);
+      setTimeout(() => {
+        setPlayerAnimation(false);
+      }, delay);
+    } else if (direction === "enemy") {
+      setEnemyAnimation(true);
+      setTimeout(() => {
+        setEnemyAnimation(false);
+      }, delay);
+    }
+  };
   // Will change the turn between player and enemy, will only work for 2 entities.
   const changeTurn = function () {
     turn === 0 ? setTurn(1) : setTurn(0);
@@ -136,7 +152,7 @@ function Combat({ log, addLogEntry }) {
     let tempPlayerStats = { ...player };
     let tempEnemyStats = [...enemy];
     const enemyTurnLog = [];
-
+    handleCharacterMoveAnimation("enemy")
     // Index matters, loops through the enemy array to do each of their turns.
     for (let i = 0; i < tempEnemyStats.length; i++) {
       // If an enemy is alive, allow them to act
@@ -240,6 +256,7 @@ function Combat({ log, addLogEntry }) {
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponID) {
+    handleCharacterMoveAnimation("player");
     const weaponIndex = player.weapons.findIndex(
       (weapon) => weapon.id === weaponID
     );
@@ -347,15 +364,18 @@ function Combat({ log, addLogEntry }) {
             )}
           </div>
           <div className="battleSprites">
-            <div className="playerSprite"></div>
+            <div
+              className={`playerSprite ${playerAnimation && "moveRight"}`}
+            ></div>
             <div className="enemySprites">
               {enemy.map((enemyUnit, index) => {
                 return (
                   <div
                     key={index}
-                    className={`enemyUnitSprite ${
-                      index === targetEnemy ? "targeted" : ""
-                    } ${enemyUnit.size}`}
+                    className={`enemyUnitSprite ${enemyAnimation && "moveLeft"} 
+                    ${index === targetEnemy ? "targeted" : ""} ${
+                      enemyUnit.size
+                    }`}
                     onClick={() => handleSelectChange(index)}
                   ></div>
                 );
