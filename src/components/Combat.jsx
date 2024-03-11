@@ -82,6 +82,7 @@ function Combat({ log, addLogEntry }) {
     setBattleOver(false);
     setPlayer(tempPlayerStats);
     setEnemy([tempNewEnemyStats]);
+    addLogEntry([`Round ${player.scores.stage} begins!`]);
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.

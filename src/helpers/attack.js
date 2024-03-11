@@ -83,7 +83,7 @@ const attackRoll = function (index, user, target) {
 
   successfulRolls = saveRollResults.length;
   attackLog.push(
-    `${target.information.name} saves, reduce that to ${successfulRolls} successful wounds.`
+    `${target.information.name} saves, ${successfulRolls} wounds are successful.`
   );
 
   //Reduce target wounds equal to the weapons damage
@@ -106,7 +106,7 @@ const attackRoll = function (index, user, target) {
   targetDamageResults > 0 &&
     target.save.shield < 11 &&
     attackLog.push(
-      `${target.information.name} attempts shield saves, reducing the damage to ${targetDamageResults} damage.`
+      `${target.information.name} attempts shield saves, ${target.information.name} suffers ${targetDamageResults} damage.`
     );
 
   //Returns the new health of the target
