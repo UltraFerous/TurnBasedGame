@@ -96,23 +96,21 @@ const activatePower = function (
   const totalPowerBonus =
     user.statModifiers.powerActivationMod + user.stats.power;
   const activationRoll = rollXDice(1)[0] + totalPowerBonus;
-  console.log(activationRoll);
+
   if (activationRoll <= 1) {
     playerPowerLog.push(
       `Oh No! A ${activationRoll}, the power critically failured.`,
       `${user.information.name}'s power cycle ends.`
     );
-    return { targetID: -1, playerPowerLog };
+    return { targetID: -1, combatTeam: 0, playerPowerLog };
   } else if (activationRoll < activationValue) {
     playerPowerLog.push(
       `A ${activationRoll}, the power was not activated.`,
       `${user.information.name}'s power cycle ends.`
     );
-    playerPowerLog.push(
-      `A ${activationRoll}, the power was successfully activated.`
-    );
-    return { targetID: -1, playerPowerLog };
+    return { targetID: -1, combatTeam: 0, playerPowerLog };
   }
+
   playerPowerLog.push(
     `A ${activationRoll}, the power was successfully activated.`
   );

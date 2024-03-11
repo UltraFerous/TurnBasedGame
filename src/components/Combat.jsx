@@ -282,8 +282,8 @@ function Combat({ log, addLogEntry }) {
       enemy[targetEnemy],
       targetEnemy
     );
+    addLogEntry(statsAfterPower.playerPowerLog);
     if (statsAfterPower.combatTeam >= 0) {
-      addLogEntry(statsAfterPower.playerPowerLog);
       updateStats(
         statsAfterPower.combatTeam,
         statsAfterPower.targetID,

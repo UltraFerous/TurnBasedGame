@@ -149,10 +149,16 @@
   }
 }
 
+$move-amount: 128px;
+
 .moveLeft {
-  transform: translateX(-128px); // Adjust the distance to the left as needed
+  transform: translateX(
+    -$move-amount
+  ); // Adjust the distance to the left as needed
 }
 
 .moveRight {
-  transform: translateX(128px); // Adjust the distance to the right as needed
+  transform: translateX(
+    $move-amount
+  ); // Adjust the distance to the right as needed
 }
