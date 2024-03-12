@@ -34,7 +34,6 @@ const justHealSelf = function (user, target, targetIndex) {
       currentWounds: user.stats.currentWounds + 3,
     },
   };
-  console.log(user.information.name, " heals 3 damage.");
   return { combatTeam: 1, updatedStats, targetID: targetIndex };
 };
 
@@ -104,7 +103,6 @@ const activatePower = function (
 
 const useEnemyPower = function (powerData, user, enemy, enemyIndex) {
   if (powerData.type === 3) {
-    console.log(powerData);
     return activatePower(user, enemy, enemyIndex, powerData, justDoDamage);
   }
 };

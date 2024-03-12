@@ -12,13 +12,6 @@ const useGameLog = () => {
     setLog([]);
   };
 
-  useEffect(() => {
-    console.log("Component mounted");
-    return () => {
-      console.log("Component will unmount");
-    };
-  }, []);
-
   return { log, addLogEntry, clearLog };
 };
 

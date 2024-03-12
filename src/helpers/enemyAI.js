@@ -19,19 +19,12 @@ const enemyTurnTactic = function (enemy, player) {
     chosenOptionIndex =
       chosenOptionIndex - (enemyPowerOptions + enemyWeaponsOptions);
     chosenTypeIndex = 3;
-    console.log(enemy.information.name, " uses item ", chosenOptionIndex);
   }
   // This determines if the number generated was a power
   else if (chosenOptionIndex > enemyWeaponsOptions) {
     chosenOptionIndex -= enemyWeaponsOptions;
     chosenTypeIndex = 2;
-    console.log(
-      enemy.information.name,
-      " casts with power ",
-      chosenOptionIndex
-    );
   } else {
-    console.log(enemy.information.name, " attacks with ", chosenOptionIndex);
   }
 
   // Need to subtract 1 to return an array index
