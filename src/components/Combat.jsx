@@ -199,21 +199,22 @@ function Combat({ log, addLogEntry }) {
         if (enemyTurn.chosenTypeIndex === 3) {
           const enemyItemData =
             tempEnemyStats[i].items[enemyTurn.chosenOptionIndex];
-          let statsAfterEnemyPower = useEnemyItem(
+          let statsAfterEnemyItem = useEnemyItem(
             enemyTurn.chosenOptionIndex,
             enemyItemData,
             tempEnemyStats[i],
             tempPlayerStats,
             i
           );
+          enemyTurnLog.push(statsAfterEnemyItem.enemyItemLog);
           // If the item targets the player modify their stats
-          if (statsAfterEnemyPower.combatTeam === 0) {
-            tempPlayerStats = statsAfterEnemyPower.updatedStats;
+          if (statsAfterEnemyItem.combatTeam === 0) {
+            tempPlayerStats = statsAfterEnemyItem.updatedStats;
           }
-          // If he item targets the enemy side modify the target of the power
-          if (statsAfterEnemyPower.combatTeam === 1) {
-            tempEnemyStats[statsAfterEnemyPower.targetID] =
-              statsAfterEnemyPower.updatedStats;
+          // If the item targets the enemy side modify the target of the power
+          if (statsAfterEnemyItem.combatTeam === 1) {
+            tempEnemyStats[statsAfterEnemyItem.targetID] =
+              statsAfterEnemyItem.updatedStats;
           }
         }
       }
@@ -303,6 +304,7 @@ function Combat({ log, addLogEntry }) {
       player,
       enemy[targetEnemy]
     );
+    addLogEntry(statsAfterItem.playerItemLog);
     updateStats(
       statsAfterItem.combatTeam,
       statsAfterItem.targetID,
