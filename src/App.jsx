@@ -7,9 +7,11 @@ import ItemShop from "./components/ItemShop";
 import EndGame from "./components/EndGame";
 import { PlayerContextProvider } from "./context/playerContext";
 import { EnemyContextProvider } from "./context/enemyContext";
+import useGameLog from "./hooks/useGameLog";
 
 function App() {
   const [activeComponent, setActiveComponent] = useState(3);
+  const { log, addLogEntry } = useGameLog();
 
   const handleSelectChange = (e) => {
     setActiveComponent(Number(e.target.value));
@@ -36,8 +38,12 @@ function App() {
         <EnemyContextProvider>
           {activeComponent === 1 && <TitleScreen />}
           {activeComponent === 2 && <CharacterSelect />}
-          {activeComponent === 3 && <Combat />}
-          {activeComponent === 4 && <ItemShop />}
+          {activeComponent === 3 && (
+            <Combat log={log} addLogEntry={addLogEntry} />
+          )}
+          {activeComponent === 4 && (
+            <ItemShop log={log} addLogEntry={addLogEntry} />
+          )}
           {activeComponent === 5 && <EndGame />}
         </EnemyContextProvider>
       </PlayerContextProvider>

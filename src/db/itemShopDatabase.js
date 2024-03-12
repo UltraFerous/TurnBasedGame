@@ -164,7 +164,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 2,
-      shield: 5,
+      shield: 8,
     },
     id: 12,
     type: 3,
@@ -174,7 +174,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 4,
-      shield: 7,
+      shield: 11,
     },
     id: 13,
     type: 3,
@@ -184,7 +184,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 3,
-      shield: 6,
+      shield: 10,
     },
     id: 14,
     type: 3,
@@ -194,7 +194,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       armor: 2,
-      shield: 4,
+      shield: 6,
     },
   },
   {

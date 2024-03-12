@@ -1,11 +1,11 @@
 // useGameLog.js
-import { useState } from "react";
+import { react, useState, useEffect } from "react";
 
 const useGameLog = () => {
-  const [log, setLog] = useState(['test', 'test', 'test']);
+  const [log, setLog] = useState([]);
 
   const addLogEntry = (entry) => {
-    setLog((prevLog) => [...prevLog, entry]);
+    setLog((prevLog) => prevLog.concat(entry.flat()));
   };
 
   const clearLog = () => {

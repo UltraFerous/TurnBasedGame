@@ -3,9 +3,10 @@ import itemShopInventory from "../db/itemShopDatabase";
 import { itemPurchase } from "../helpers/itemPurchase";
 import PlayerContext from "../context/playerContext";
 import GameLog from "./GameLog";
+import useGameLog from "../hooks/useGameLog";
 import "../styles/ItemShop.scss";
 
-function ItemShop() {
+function ItemShop({ log, addLogEntry }) {
   const { player, setPlayer } = useContext(PlayerContext);
   const [shop, setShop] = useState([]);
 
@@ -22,16 +23,22 @@ function ItemShop() {
   };
 
   const populateShop = function () {
-    const numberOfItems = 3;
+    const numberOfItems = 4;
     const itemsInShop = [itemShopInventory[0]];
     const minCeiled = Math.ceil(0);
     const maxFloored = Math.floor(itemShopInventory.length - 1);
+    const costChecker = true;
     let randomNumber = 0;
-    for (let i = 0; i < numberOfItems; i++) {
+    while (itemsInShop.length < numberOfItems) {
       randomNumber = Math.floor(
         Math.random() * (maxFloored - minCeiled + 1) + minCeiled
       );
-      itemsInShop.push(itemShopInventory[randomNumber]);
+      if (
+        costChecker &&
+        itemShopInventory[randomNumber].cost <= player.scores.money
+      ) {
+        itemsInShop.push(itemShopInventory[randomNumber]);
+      }
     }
     return setShop(itemsInShop);
   };
@@ -44,7 +51,7 @@ function ItemShop() {
   return (
     <div className="itemScreen">
       <div className="gameLog">
-        <GameLog />
+        <GameLog log={log} />
       </div>
       <div className="itemShop">
         <div className="itemCards">

@@ -1,26 +1,36 @@
 import { React, useContext } from "react";
 import PlayerContext from "../context/playerContext";
 import heroDatabase from "../db/heroDatabase";
+import "../styles/CharacterSelect.scss";
 
 function CharcterSelect() {
   const { player, setPlayer } = useContext(PlayerContext);
 
   const handleSelectChange = (event) => {
-    const selectedIndex = parseInt(event.target.value, 10);
-    console.log("Changed character to:", heroDatabase[selectedIndex]);
-    setPlayer(heroDatabase[selectedIndex]);
+    console.log("Changed character to:", event);
+    setPlayer(heroDatabase[event]);
   };
 
   return (
-    <div>
-      Pick Character...
-      <select onChange={handleSelectChange}>
+    <div className="CharacterSelectScreen">
+      <div className="CharacterInformation">
+        <div className="CharacterDescription"></div>
+        <div className="CharacterImage"></div>
+      </div>
+      <div className="CharacterCards">
         {heroDatabase.map((hero, index) => (
-          <option value={index} key={index}>
+          <button
+            onClick={() => {
+              handleSelectChange(index);
+            }}
+            value={index}
+            key={index}
+            className="CharacterCard"
+          >
             {hero.information.name}
-          </option>
+          </button>
         ))}
-      </select>
+      </div>
     </div>
   );
 }

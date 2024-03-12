@@ -20,15 +20,16 @@ import HealthBar from "./HealthBar";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
-function Combat() {
+function Combat({ log, addLogEntry }) {
   const [turn, setTurn] = useState(0);
   const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
   const [combatOption, setcombatOption] = useState(4);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
+  const [playerAnimation, setPlayerAnimation] = useState(false);
+  const [enemyAnimation, setEnemyAnimation] = useState(false);
 
-  // This is used for the targeting drop down
   const handleSelectChange = (index) => {
     // Check if targetEnemy is not null and is a valid index
     if (targetEnemy !== null && enemy[targetEnemy]) {
@@ -58,7 +59,7 @@ function Combat() {
   };
 
   const showState = function () {
-    console.log(targetEnemy);
+    console.log(log);
     console.log(player);
     console.log(enemy);
   };
@@ -82,6 +83,23 @@ function Combat() {
     setBattleOver(false);
     setPlayer(tempPlayerStats);
     setEnemy([tempNewEnemyStats]);
+    addLogEntry([`Round ${player.scores.stage} begins!`]);
+  };
+
+  const handleCharacterMoveAnimation = function (direction) {
+    // Simulate the animation delay (adjust as needed)
+    const delay = 400;
+    if (direction === "player") {
+      setPlayerAnimation(true);
+      setTimeout(() => {
+        setPlayerAnimation(false);
+      }, delay);
+    } else if (direction === "enemy") {
+      setEnemyAnimation(true);
+      setTimeout(() => {
+        setEnemyAnimation(false);
+      }, delay);
+    }
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
@@ -109,8 +127,10 @@ function Combat() {
     attacker,
     defender
   ) {
-    const updatedStats = attackRoll(weaponIndex, attacker, defender);
-    return { combatTeam, updatedStats };
+    const statsAfterAttack = attackRoll(weaponIndex, attacker, defender);
+    const updatedStats = statsAfterAttack.updatedTargetStats;
+    const attackCycleLog = statsAfterAttack.attackLog;
+    return { combatTeam, updatedStats, attackCycleLog };
   };
 
   const handleEnemyPowers = function (
@@ -132,7 +152,8 @@ function Combat() {
     // Makes a copy of the player and enemy states to operate on these rather then the direct state
     let tempPlayerStats = { ...player };
     let tempEnemyStats = [...enemy];
-
+    const enemyTurnLog = [];
+    handleCharacterMoveAnimation("enemy");
     // Index matters, loops through the enemy array to do each of their turns.
     for (let i = 0; i < tempEnemyStats.length; i++) {
       // If an enemy is alive, allow them to act
@@ -149,7 +170,9 @@ function Combat() {
           );
           // Since attacking only modifies the player health at this time, only need to update the player health
           tempPlayerStats = statsAfterEnemyAttack.updatedStats;
+          enemyTurnLog.push(statsAfterEnemyAttack.attackCycleLog);
         }
+
         // If Index is 2 it will use a power
         if (enemyTurn.chosenTypeIndex === 2) {
           const enemyPowerData =
@@ -160,6 +183,8 @@ function Combat() {
             tempPlayerStats,
             i
           );
+          enemyTurnLog.push(statsAfterEnemyPower.enemyPowerLog);
+
           // If the power targets the player modify their stats
           if (statsAfterEnemyPower.combatTeam === 0) {
             tempPlayerStats = statsAfterEnemyPower.updatedStats;
@@ -174,21 +199,22 @@ function Combat() {
         if (enemyTurn.chosenTypeIndex === 3) {
           const enemyItemData =
             tempEnemyStats[i].items[enemyTurn.chosenOptionIndex];
-          let statsAfterEnemyPower = useEnemyItem(
+          let statsAfterEnemyItem = useEnemyItem(
             enemyTurn.chosenOptionIndex,
             enemyItemData,
             tempEnemyStats[i],
             tempPlayerStats,
             i
           );
+          enemyTurnLog.push(statsAfterEnemyItem.enemyItemLog);
           // If the item targets the player modify their stats
-          if (statsAfterEnemyPower.combatTeam === 0) {
-            tempPlayerStats = statsAfterEnemyPower.updatedStats;
+          if (statsAfterEnemyItem.combatTeam === 0) {
+            tempPlayerStats = statsAfterEnemyItem.updatedStats;
           }
-          // If he item targets the enemy side modify the target of the power
-          if (statsAfterEnemyPower.combatTeam === 1) {
-            tempEnemyStats[statsAfterEnemyPower.targetID] =
-              statsAfterEnemyPower.updatedStats;
+          // If the item targets the enemy side modify the target of the power
+          if (statsAfterEnemyItem.combatTeam === 1) {
+            tempEnemyStats[statsAfterEnemyItem.targetID] =
+              statsAfterEnemyItem.updatedStats;
           }
         }
       }
@@ -205,7 +231,7 @@ function Combat() {
       }
     }
 
-    return { tempEnemyStats, tempPlayerStats };
+    return { tempEnemyStats, tempPlayerStats, enemyTurnLog };
   };
 
   // Will check if any entities have 0 or less health, if there are the combat ends
@@ -224,11 +250,15 @@ function Combat() {
       // Update the enemy state after processing all enemies
       setPlayer(updatedEnemies.tempPlayerStats);
       setEnemy(updatedEnemies.tempEnemyStats);
+
+      // Add all the new log entries at once
+      addLogEntry(updatedEnemies.enemyTurnLog);
     }
   };
 
   // This is the function that is called when an attack button is clicked
   const handleWeaponsOnClick = function (weaponID) {
+    handleCharacterMoveAnimation("player");
     const weaponIndex = player.weapons.findIndex(
       (weapon) => weapon.id === weaponID
     );
@@ -238,11 +268,13 @@ function Combat() {
       player,
       enemy[targetEnemy]
     ); // The 1 is the enemy side
+    addLogEntry(statsAfterAttack.attackCycleLog);
     updateStats(1, targetEnemy, statsAfterAttack.updatedStats);
   };
 
   // This is the function that is called when a power button is clicked
   const handlePlayerPowers = function (powerID) {
+    handleCharacterMoveAnimation("player");
     const powerIndex = player.powers.findIndex((power) => power.id === powerID);
     const powerData = player.powers[powerIndex];
     const statsAfterPower = usePlayerPower(
@@ -251,6 +283,7 @@ function Combat() {
       enemy[targetEnemy],
       targetEnemy
     );
+    addLogEntry(statsAfterPower.playerPowerLog);
     if (statsAfterPower.combatTeam >= 0) {
       updateStats(
         statsAfterPower.combatTeam,
@@ -262,6 +295,7 @@ function Combat() {
 
   // This is the function that is called when an item button is clicked
   const handleItemsOnClick = function (itemID) {
+    handleCharacterMoveAnimation("player");
     const itemIndex = player.items.findIndex((item) => item.id === itemID);
     const itemData = player.items[itemIndex];
     const statsAfterItem = useItem(
@@ -270,6 +304,7 @@ function Combat() {
       player,
       enemy[targetEnemy]
     );
+    addLogEntry(statsAfterItem.playerItemLog);
     updateStats(
       statsAfterItem.combatTeam,
       statsAfterItem.targetID,
@@ -322,7 +357,7 @@ function Combat() {
       </div>
       <div className="combatScreen">
         <div className="gameLog">
-          <GameLog />
+          <GameLog log={log} />
         </div>
         <div className="battleDisplay">
           <div className="healthBarDisplay">
@@ -335,15 +370,18 @@ function Combat() {
             )}
           </div>
           <div className="battleSprites">
-            <div className="playerSprite"></div>
+            <div
+              className={`playerSprite ${playerAnimation && "moveRight"}`}
+            ></div>
             <div className="enemySprites">
               {enemy.map((enemyUnit, index) => {
                 return (
                   <div
                     key={index}
-                    className={`enemyUnitSprite ${
-                      index === targetEnemy ? "targeted" : ""
-                    } ${enemyUnit.size}`}
+                    className={`enemyUnitSprite ${enemyAnimation && "moveLeft"} 
+                    ${index === targetEnemy ? "targeted" : ""} ${
+                      enemyUnit.size
+                    }`}
                     onClick={() => handleSelectChange(index)}
                   ></div>
                 );

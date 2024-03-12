@@ -22,7 +22,6 @@ const purchaseStatUpgrade = function (userStats, itemIndex, itemInformation) {
       `Stat ${itemInformation.stat} not found in userStats object.`
     );
   }
-  console.log(updatedStats);
   return { updatedStats, transaction: true };
 };
 
@@ -112,7 +111,7 @@ const itemPurchase = function (userStats, itemID) {
       false
     );
   }
-  console.log(`Sorry item just didn't work.`);
+  console.error(`Sorry item just didn't work.`);
 };
 
 export { itemPurchase };

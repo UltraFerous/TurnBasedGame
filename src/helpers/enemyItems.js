@@ -2,7 +2,7 @@ import { removeOverheal } from "./removeOverheal";
 
 const smallMedKit = function (user, enemy, itemData, itemIndex, targetIndex) {
   const healAmount = itemData.heal;
-
+  const enemyItemLog = [];
   // Create a new items array with the updated potion
   const updatedItems = user.items;
   updatedItems.splice(itemIndex, 1);
@@ -15,9 +15,11 @@ const smallMedKit = function (user, enemy, itemData, itemIndex, targetIndex) {
     },
     items: updatedItems,
   };
-  console.log(user.information.name, " uses a MedKit.");
+  enemyItemLog.push(
+    `${user.information.name} uses a Medkit to restore 4 wounds.`
+  );
   updatedStats = removeOverheal(updatedStats, user);
-  return { combatTeam: 1, updatedStats, targetID: targetIndex };
+  return { combatTeam: 1, updatedStats, targetID: targetIndex, enemyItemLog };
 };
 
 const useEnemyItem = function (itemIndex, itemData, user, enemy, targetIndex) {
