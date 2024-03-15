@@ -11,7 +11,7 @@ import useGameLog from "./hooks/useGameLog";
 
 function App() {
   const [activeComponent, setActiveComponent] = useState(3);
-  const { log, addLogEntry } = useGameLog();
+  const { log, addLogEntry, clearLog, removeLatestEntry  } = useGameLog();
 
   const handleSelectChange = (e) => {
     setActiveComponent(Number(e.target.value));
@@ -39,10 +39,15 @@ function App() {
           {activeComponent === 1 && <TitleScreen />}
           {activeComponent === 2 && <CharacterSelect />}
           {activeComponent === 3 && (
-            <Combat log={log} addLogEntry={addLogEntry} />
+            <Combat
+              log={log}
+              addLogEntry={addLogEntry}
+              clearLog={clearLog}
+              removeLatestEntry={removeLatestEntry}
+            />
           )}
           {activeComponent === 4 && (
-            <ItemShop log={log} addLogEntry={addLogEntry} />
+            <ItemShop log={log} addLogEntry={addLogEntry} clearLog={clearLog} />
           )}
           {activeComponent === 5 && <EndGame />}
         </EnemyContextProvider>

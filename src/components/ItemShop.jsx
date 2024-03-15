@@ -6,7 +6,7 @@ import GameLog from "./GameLog";
 import useGameLog from "../hooks/useGameLog";
 import "../styles/ItemShop.scss";
 
-function ItemShop({ log, addLogEntry }) {
+function ItemShop({ log, addLogEntry, clearLog }) {
   const { player, setPlayer } = useContext(PlayerContext);
   const [shop, setShop] = useState([]);
 
@@ -51,7 +51,7 @@ function ItemShop({ log, addLogEntry }) {
   return (
     <div className="itemScreen">
       <div className="gameLog">
-        <GameLog log={log} />
+        <GameLog log={log} clearLog={clearLog} />
       </div>
       <div className="itemShop">
         <div className="itemCards">

@@ -12,7 +12,15 @@ const useGameLog = () => {
     setLog([]);
   };
 
-  return { log, addLogEntry, clearLog };
+  const removeLatestEntry = () => {
+    setLog((prevLog) => {
+      const updatedLog = [...prevLog];
+      updatedLog.pop(); // Remove the last entry
+      return updatedLog;
+    });
+  };
+
+  return { log, addLogEntry, clearLog, removeLatestEntry  };
 };
 
 export default useGameLog;

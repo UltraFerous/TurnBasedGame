@@ -20,7 +20,7 @@ import HealthBar from "./HealthBar";
 
 // There is a bug where if the enemy defeats the player at the same time
 // May be fixed with the initative system when I do that
-function Combat({ log, addLogEntry }) {
+function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
   const [turn, setTurn] = useState(0);
   const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
@@ -76,24 +76,31 @@ function Combat({ log, addLogEntry }) {
     let highestEnemyInitiative = 0;
     const coinFlip = Math.round(Math.random());
 
-    for (let unit of enemy) {
-      if (unit.stats.initiative > highestEnemyInitiative) {
-        highestEnemyInitiative = unit.stats.initiative;
+    if (surprised === true) {
+      for (let unit of enemy) {
+        if (unit.stats.initiative > highestEnemyInitiative) {
+          highestEnemyInitiative = unit.stats.initiative;
+        }
       }
-    }
 
-    if (player.stats.initiative === highestEnemyInitiative) {
-      if (coinFlip === 0) {
-        console.log("lose");
-      } else if (coinFlip === 1) {
-        console.log("win");
+      if (player.stats.initiative === highestEnemyInitiative) {
+        if (coinFlip === 0) {
+          removeLatestEntry();
+          addLogEntry(["The initiatives are tied, but you lost the coinflip."]);
+        } else if (coinFlip === 1) {
+          removeLatestEntry();
+          addLogEntry(["The initiatives are tied, but you won the coinflip."]);
+          setSurprised(false);
+        }
+      } else if (player.stats.initiative > highestEnemyInitiative) {
+        removeLatestEntry();
+        removeLatestEntry();
+        addLogEntry(["You have the initiative."]);
         setSurprised(false);
+      } else if (player.stats.initiative < highestEnemyInitiative) {
+        removeLatestEntry();
+        addLogEntry(["The enemy have the initiative."]);
       }
-    } else if (player.stats.initiative > highestEnemyInitiative) {
-      console.log("win");
-      setSurprised(false);
-    } else if (player.stats.initiative < highestEnemyInitiative) {
-      console.log("lose");
     }
   };
 
@@ -388,7 +395,7 @@ function Combat({ log, addLogEntry }) {
       </div>
       <div className="combatScreen">
         <div className="gameLog">
-          <GameLog log={log} />
+          <GameLog log={log} clearLog={clearLog} />
         </div>
         <div className="battleDisplay">
           <div className="healthBarDisplay">
@@ -501,7 +508,6 @@ function Combat({ log, addLogEntry }) {
             <button
               className="bottomButton"
               onClick={() => {
-                addLogEntry(["The enemy has the iniative"]);
                 checkIfCombatIsOver(player, enemy[0]);
                 setSurprised(false);
                 setTurn(0);
