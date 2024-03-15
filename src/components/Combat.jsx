@@ -105,6 +105,7 @@ function Combat({ log, addLogEntry }) {
   };
 
   // Will change the turn between player and enemy, will only work for 2 entities.
+  // This may be broken
   const changeTurn = function () {
     turn === 0 ? setTurn(1) : setTurn(0);
   };
@@ -349,19 +350,6 @@ function Combat({ log, addLogEntry }) {
   return (
     <div>
       <button onClick={() => showState()}>SHOW STATE</button>
-      {surprised && (
-        <button
-          onClick={() => {
-            addLogEntry(["The enemy has the iniative"]);
-            checkIfCombatIsOver(player, enemy[0]);
-            setSurprised(false);
-            setTurn(0);
-          }}
-        >
-          Surprise
-        </button>
-      )}
-
       <div>You are playing as: {player.information.name}</div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>
@@ -405,7 +393,7 @@ function Combat({ log, addLogEntry }) {
               })}
             </div>
           </div>
-          {battleOver === false ? (
+          {!battleOver && !surprised && turn === 1 && (
             <div className="combatOptions">
               <div className="optionList">
                 <div
@@ -477,15 +465,23 @@ function Combat({ log, addLogEntry }) {
                 </div>
               </div>
             </div>
-          ) : (
-            player.stats.currentWounds > 0 && (
-              <button
-                className="nextRoundButton"
-                onClick={() => setNextRound()}
-              >
-                Next Round!
-              </button>
-            )
+          )}
+          {player.stats.currentWounds > 0 && battleOver && (
+            <button className="bottomButton" onClick={() => setNextRound()}>
+              Next Round!
+            </button>
+          )}
+          {surprised && !battleOver && (
+            <button className="bottomButton"
+              onClick={() => {
+                addLogEntry(["The enemy has the iniative"]);
+                checkIfCombatIsOver(player, enemy[0]);
+                setSurprised(false);
+                setTurn(0);
+              }}
+            >
+              Surprise
+            </button>
           )}
         </div>
       </div>

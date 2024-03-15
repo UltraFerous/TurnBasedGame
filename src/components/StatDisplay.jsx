@@ -25,7 +25,7 @@ function StatDisplay() {
         <div>
           Wounds: {player.stats.currentWounds} / {player.stats.wounds}
         </div>
-        <div>Save: {player.save.armour - player.statBonuses.armourBonus}+</div>
+        <div>Save: {player.save.armour - player.statBonuses.armourBonus}</div>
         {player.save.shield < 11 && <div>Shield: {player.save.shield}+</div>}
       </div>
       <div className="secondaryStats">
