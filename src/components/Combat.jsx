@@ -25,6 +25,7 @@ function Combat({ log, addLogEntry }) {
   const [battleOver, setBattleOver] = useState(false);
   const [targetEnemy, setTargetEnemy] = useState(0);
   const [combatOption, setcombatOption] = useState(4);
+  const [surprised, setSurprised] = useState(true);
   const { player, setPlayer } = useContext(PlayerContext);
   const { enemy, setEnemy } = useContext(EnemyContext);
   const [playerAnimation, setPlayerAnimation] = useState(false);
@@ -79,6 +80,7 @@ function Combat({ log, addLogEntry }) {
     let tempPlayerStats = player;
     tempPlayerStats.scores.stage++;
 
+    setSurprised(true);
     setTurn(0);
     setBattleOver(false);
     setPlayer(tempPlayerStats);
@@ -339,12 +341,27 @@ function Combat({ log, addLogEntry }) {
   // The end turn doesnt work for all enemies, right now I'll leave it to the main enemy
   useEffect(() => {
     changeTurn();
-    checkIfCombatIsOver(player, enemy[0]);
+    if (surprised === false) {
+      checkIfCombatIsOver(player, enemy[0]);
+    }
   }, [player, enemy]);
 
   return (
     <div>
       <button onClick={() => showState()}>SHOW STATE</button>
+      {surprised && (
+        <button
+          onClick={() => {
+            addLogEntry(["The enemy has the iniative"]);
+            checkIfCombatIsOver(player, enemy[0]);
+            setSurprised(false);
+            setTurn(0);
+          }}
+        >
+          Surprise
+        </button>
+      )}
+
       <div>You are playing as: {player.information.name}</div>
       <div>Player Health: {player.stats.currentWounds}</div>
       <div>
