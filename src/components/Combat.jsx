@@ -72,6 +72,31 @@ function Combat({ log, addLogEntry }) {
     return tempPlayer;
   };
 
+  const initiativeLogic = function () {
+    let highestEnemyInitiative = 0;
+    const coinFlip = Math.round(Math.random());
+
+    for (let unit of enemy) {
+      if (unit.stats.initiative > highestEnemyInitiative) {
+        highestEnemyInitiative = unit.stats.initiative;
+      }
+    }
+
+    if (player.stats.initiative === highestEnemyInitiative) {
+      if (coinFlip === 0) {
+        console.log("lose");
+      } else if (coinFlip === 1) {
+        console.log("win");
+        setSurprised(false);
+      }
+    } else if (player.stats.initiative > highestEnemyInitiative) {
+      console.log("win");
+      setSurprised(false);
+    } else if (player.stats.initiative < highestEnemyInitiative) {
+      console.log("lose");
+    }
+  };
+
   // Will change the turn between player and enemy, will only work for 2 entities.
   const setNextRound = function () {
     const maxEnemyDBLength = beginnierEnemyDatabase.length;
@@ -341,6 +366,7 @@ function Combat({ log, addLogEntry }) {
   // Constantly checks if combat is over
   // The end turn doesnt work for all enemies, right now I'll leave it to the main enemy
   useEffect(() => {
+    initiativeLogic();
     changeTurn();
     if (surprised === false) {
       checkIfCombatIsOver(player, enemy[0]);
@@ -472,7 +498,8 @@ function Combat({ log, addLogEntry }) {
             </button>
           )}
           {surprised && !battleOver && (
-            <button className="bottomButton"
+            <button
+              className="bottomButton"
               onClick={() => {
                 addLogEntry(["The enemy has the iniative"]);
                 checkIfCombatIsOver(player, enemy[0]);

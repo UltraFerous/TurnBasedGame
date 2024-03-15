@@ -8,7 +8,7 @@ const enemyObj = [
     stats: {
       strength: 2,
       toughness: 2,
-      initiative: 2,
+      initiative: 0,
       power: 0,
       wounds: 6,
       currentWounds: 6,
