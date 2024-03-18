@@ -15,7 +15,9 @@ function CharcterSelect() {
     <div className="CharacterSelectScreen">
       <div className="CharacterInformation">
         <div className="CharacterDescription"></div>
-        <div className="CharacterImage"></div>
+        <div className="CharacterImage">
+          <button>READY</button>
+        </div>
       </div>
       <div className="CharacterCards">
         {heroDatabase.map((hero, index) => (
