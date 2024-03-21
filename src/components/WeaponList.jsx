@@ -9,7 +9,7 @@ const WeaponList = ({ id, name, handleWeaponsOnClick }) => {
           handleWeaponsOnClick(id);
         }}
       >
-        Attack with {name}
+        {name}
       </button>
     </div>
   );

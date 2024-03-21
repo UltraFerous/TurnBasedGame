@@ -9,7 +9,7 @@ const ItemList = ({ id, name, amount, handleItemsOnClick }) => {
           handleItemsOnClick(id);
         }}
       >
-        Uses {name}
+        {name}
       </button>
     </div>
   );

@@ -9,7 +9,7 @@ const PowerList = ({ id, name, handlePowersOnClick }) => {
           handlePowersOnClick(id);
         }}
       >
-        Attack with {name}
+        {name}
       </button>
     </div>
   );
