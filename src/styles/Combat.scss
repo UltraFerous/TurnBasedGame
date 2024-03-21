@@ -27,7 +27,6 @@
         flex-direction: row;
         min-height: 544px;
         max-height: 544px;
-
         .playerSprite {
           height: 224px;
           width: 224px;
@@ -37,13 +36,14 @@
         }
         .enemySprites {
           min-height: 100%; /* Adjust as needed */
-          width: 50%;
+          width: 66%;
           display: flex;
           flex-direction: column;
           border: 1px solid purple;
           flex-wrap: wrap; /* Allow wrapping to the next row */
           justify-content: center; /* Center vertically within enemySprites */
-          align-content: center;
+          align-content: safe center;
+          overflow: scroll;
           .enemyUnitSprite {
             margin-bottom: 16px; /* Adjust spacing between enemy sprites */
             cursor: pointer;
@@ -61,8 +61,8 @@
             width: 224px;
           }
           .large {
-            height: 320px;
-            width: 320px;
+            height: 512px;
+            width: 512px;
           }
         }
       }

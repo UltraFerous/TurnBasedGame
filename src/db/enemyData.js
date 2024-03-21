@@ -68,7 +68,7 @@ const enemyObj = [
       money: 100,
       points: 10,
     },
-    size: "medium",
+    size: "large",
   },
   {
     information: {
@@ -139,7 +139,7 @@ const enemyObj = [
       money: 100,
       points: 10,
     },
-    size: "medium",
+    size: "large",
   },
 ];
 
