@@ -408,9 +408,10 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
             )}
           </div>
           <div className="battleSprites">
-            <div
+            <img
               className={`playerSprite ${playerAnimation && "moveRight"}`}
-            ></div>
+              src="../public/PlayerTestSprite.png"
+            ></img>
             <div className="enemySprites">
               {enemy.map((enemyUnit, index) => {
                 return (
