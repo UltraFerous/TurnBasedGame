@@ -4,6 +4,9 @@
     flex-direction: row-reverse;
     justify-content: center;
     .battleDisplay {
+      background-image: url("/BackgroundTest.png");
+      background-size: cover; // or any other desired size
+      background-repeat: no-repeat; // or any other desired repeat behavior
       overflow: hidden;
       min-width: 1024px;
       max-width: 1024px;
@@ -43,7 +46,6 @@
           align-content: center;
           .enemyUnitSprite {
             margin-bottom: 16px; /* Adjust spacing between enemy sprites */
-            background-color: darkmagenta;
             cursor: pointer;
           }
           .enemyUnitSprite.targeted {

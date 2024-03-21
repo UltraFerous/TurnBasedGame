@@ -255,6 +255,9 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
       }
       // If an enemy is found to be at 0 or less wounds remove them from the game
       if (tempEnemyStats[i].stats.currentWounds <= 0) {
+        addLogEntry([
+          `${tempEnemyStats[i].information.name} has been defeated.`,
+        ]);
         tempPlayerStats = increasePlayerScore(
           tempPlayerStats,
           tempEnemyStats[i]
@@ -410,19 +413,20 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
           <div className="battleSprites">
             <img
               className={`playerSprite ${playerAnimation && "moveRight"}`}
-              src="../public/PlayerTestSprite.png"
+              src="/PlayerTestSprite2.png"
             ></img>
             <div className="enemySprites">
               {enemy.map((enemyUnit, index) => {
                 return (
-                  <div
+                  <img
                     key={index}
                     className={`enemyUnitSprite ${enemyAnimation && "moveLeft"} 
                     ${index === targetEnemy ? "targeted" : ""} ${
                       enemyUnit.size
                     }`}
                     onClick={() => handleSelectChange(index)}
-                  ></div>
+                    src="/EnemyTestSprite.png"
+                  ></img>
                 );
               })}
             </div>

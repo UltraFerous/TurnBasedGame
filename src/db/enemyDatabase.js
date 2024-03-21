@@ -1,5 +1,6 @@
 const beginnierEnemyDatabase = [
   {
+    size: "medium",
     information: {
       name: "Te'st",
       class: "Test",
