@@ -413,24 +413,25 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
           <div className="battleSprites">
             <img
               className={`playerSprite ${playerAnimation && "moveRight"}`}
-              src="/PlayerTestSprite2.png"
+              src="/testPlayerSprite.png"
             ></img>
-            <div className="enemySprites">
+            <div className={`enemySprites ${enemyAnimation && "moveLeft"} `}>
               {enemy.map((enemyUnit, index) => {
                 return (
                   <img
                     key={index}
-                    className={`enemyUnitSprite ${enemyAnimation && "moveLeft"} 
+                    className={`enemyUnitSprite 
                     ${index === targetEnemy ? "targeted" : ""} ${
                       enemyUnit.size
                     }`}
                     onClick={() => handleSelectChange(index)}
-                    src="/EnemyTestSprite.png"
+                    src="/testEnemySprite.png"
                   ></img>
                 );
               })}
             </div>
           </div>
+          <div className="bottomPlaceholder"></div>
           {!battleOver && !surprised && turn === 1 && (
             <div className="combatOptions">
               <div className="optionList">

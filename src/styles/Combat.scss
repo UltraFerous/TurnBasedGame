@@ -4,7 +4,7 @@
     flex-direction: row-reverse;
     justify-content: center;
     .battleDisplay {
-      background-image: url("/BackgroundTest.png");
+      background-image: url("/backgroundTestSprite.png");
       background-size: cover; // or any other desired size
       background-repeat: no-repeat; // or any other desired repeat behavior
       overflow: hidden;
@@ -20,30 +20,30 @@
         max-height: 48px;
       }
       .battleSprites {
-        margin-top: auto; /* Push to the bottom */
-        margin-bottom: auto; /* Push to the bottom */
         display: flex;
         justify-content: space-between; /* Ensure space between player and enemy sprites */
         flex-direction: row;
         min-height: 544px;
         max-height: 544px;
+        overflow: scroll;
         .playerSprite {
-          height: 224px;
+          min-height: 224px;
+          max-height: 224px;
           width: 224px;
           align-self: center; /* Center vertically within its flex container */
           margin-left: auto; /* Center horizontally within its flex container */
           margin-right: auto; /* Center horizontally within its flex container */
+          z-index: 1;
         }
         .enemySprites {
           min-height: 100%; /* Adjust as needed */
-          width: 66%;
+          min-width: 66%;
           display: flex;
           flex-direction: column;
           border: 1px solid purple;
           flex-wrap: wrap; /* Allow wrapping to the next row */
-          justify-content: center; /* Center vertically within enemySprites */
+          justify-content: safe center; /* Center vertically within enemySprites */
           align-content: safe center;
-          overflow: scroll;
           .enemyUnitSprite {
             margin-bottom: 16px; /* Adjust spacing between enemy sprites */
             cursor: pointer;
@@ -164,7 +164,15 @@ $move-amount: 128px;
   ); // Adjust the distance to the right as needed
 }
 
+.bottomPlaceholder {
+  display: none;
+  z-index: -1;
+  min-height: 128px;
+  max-width: 100%;
+  background-color: red;
+}
+
 .bottomButton {
-  width: 100%;
-  height: 100%;
+  min-height: 128px;
+  max-width: 100%;
 }
