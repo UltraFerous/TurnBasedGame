@@ -13,6 +13,10 @@ const beginnierEnemyDatabase = [
       power: 0,
       wounds: 6,
       currentWounds: 6,
+      skill: {
+        ranged: 5,
+        melee: 5,
+      },
     },
     statBonuses: {
       damageBonus: 0,
@@ -36,7 +40,10 @@ const beginnierEnemyDatabase = [
       {
         id: 0,
         name: "Attack 1",
-        skill: 3,
+        skill: {
+          type: "melee",
+          value: 2,
+        },
         weaponStrength: 2,
         rend: 1,
         damage: 2,

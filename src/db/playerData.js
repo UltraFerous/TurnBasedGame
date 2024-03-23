@@ -11,6 +11,10 @@ const playerObj = {
     power: 0,
     wounds: 5,
     currentWounds: 5,
+    skill: {
+      ranged: 5,
+      melee: 5,
+    },
   },
   statBonuses: {
     damageBonus: 0,
@@ -34,7 +38,10 @@ const playerObj = {
     {
       id: 1000,
       name: "Attack 1",
-      skill: 4,
+      skill: {
+        type: "melee",
+        value: 2,
+      },
       weaponStrength: 1,
       rend: 1,
       damage: 1,
@@ -43,7 +50,10 @@ const playerObj = {
     {
       id: 1001,
       name: "NUKE",
-      skill: 1,
+      skill: {
+        type: "melee",
+        value: 2,
+      },
       weaponStrength: 10,
       rend: 10,
       damage: 10,

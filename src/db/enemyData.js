@@ -12,6 +12,10 @@ const enemyObj = [
       power: 0,
       wounds: 6,
       currentWounds: 6,
+      skill: {
+        ranged: 5,
+        melee: 5,
+      },
     },
     statBonuses: {
       damageBonus: 0,
@@ -35,7 +39,10 @@ const enemyObj = [
       {
         id: 0,
         name: "Attack 1",
-        skill: 3,
+        skill: {
+          type: "melee",
+          value: 2,
+        },
         weaponStrength: 2,
         rend: 1,
         damage: 2,
@@ -68,7 +75,7 @@ const enemyObj = [
       money: 100,
       points: 10,
     },
-    size: "large",
+    size: "medium",
   },
   {
     information: {
@@ -83,6 +90,10 @@ const enemyObj = [
       power: 0,
       wounds: 6,
       currentWounds: 6,
+      skill: {
+        ranged: 5,
+        melee: 5,
+      },
     },
     statBonuses: {
       damageBonus: 0,
@@ -106,7 +117,10 @@ const enemyObj = [
       {
         id: 0,
         name: "Attack 1",
-        skill: 3,
+        skill: {
+          type: "melee",
+          value: 2,
+        },
         weaponStrength: 2,
         rend: 1,
         damage: 2,

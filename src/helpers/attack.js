@@ -7,15 +7,22 @@ import {
 
 // Rolls the dice to hit, looking for results above or equal to the weapon skill
 const hitRoll = function (index, user) {
+  const weaponType = user.weapons[index].skill.type;
+
+  const hitTargetNumber = diceComparison(
+    user.stats.skill[weaponType] +
+      user.statBonuses.skillBonus +
+      user.statModifiers.skillMod,
+    user.weapons[index].skill.value
+  );
+
   return filterDicePoolAbove(
     rollXDice(
       user.weapons[index].attacks +
         user.statBonuses.attacksBonus +
         user.statModifiers.attacksMod
     ),
-    user.weapons[index].skill -
-      user.statBonuses.skillBonus -
-      user.statModifiers.skillMod
+    hitTargetNumber
   );
 };
 
