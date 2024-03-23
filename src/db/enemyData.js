@@ -75,7 +75,7 @@ const enemyObj = [
       money: 100,
       points: 10,
     },
-    size: "medium",
+    size: "boss",
   },
   {
     information: {
