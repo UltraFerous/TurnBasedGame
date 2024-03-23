@@ -416,12 +416,13 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
               className={`playerSprite ${playerAnimation && "moveRight"}`}
               src="/testPlayerSprite.png"
             ></img>
-            <div className={`enemySprites ${enemyAnimation && "moveLeft"} `}>
+            <div className={`enemySprites`}>
               {enemy.map((enemyUnit, index) => {
                 return (
                   <img
                     key={index}
-                    className={`enemyUnitSprite 
+                    className={`enemyUnitSprite
+                    ${enemyAnimation && "moveLeft"} 
                     ${index === targetEnemy ? "targeted" : ""} ${
                       enemyUnit.size
                     }`}
