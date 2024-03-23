@@ -27,9 +27,9 @@
         max-height: 544px;
         overflow: scroll;
         .playerSprite {
-          min-height: 224px;
-          max-height: 224px;
-          width: 224px;
+          min-height: 256px;
+          max-height: 256px;
+          width: 256px;
           align-self: center; /* Center vertically within its flex container */
           margin-left: auto; /* Center horizontally within its flex container */
           margin-right: auto; /* Center horizontally within its flex container */
@@ -53,16 +53,20 @@
             /* Add other styling properties as needed */
           }
           .small {
-            height: 96px;
-            width: 96px;
+            height: 128px;
+            width: 128px;
           }
           .medium {
-            height: 224px;
-            width: 224px;
+            height: 256px;
+            width: 256px;
           }
           .large {
             height: 512px;
             width: 512px;
+          }
+          .boss {
+            height: 1024px;
+            width: 1024px;
           }
         }
       }
