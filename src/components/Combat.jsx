@@ -264,8 +264,6 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
         );
         tempEnemyStats.splice(i, 1);
         i--; // Decrement i to account for the removed element
-      } else {
-        console.log("Remaining enemy:", tempEnemyStats[i].information.name);
       }
     }
 
