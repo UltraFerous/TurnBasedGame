@@ -276,6 +276,9 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
   const checkIfCombatIsOver = function () {
     if (checkPlayerDefeated() || checkAllEnemyDefeated()) {
       setBattleOver(true);
+      if (checkPlayerDefeated()) {
+        addLogEntry([`${player.information.name} has been defeated...`]);
+      }
       return;
     }
     if (!battleOver && turn !== 0) {
