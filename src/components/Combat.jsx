@@ -53,9 +53,9 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
 
   // This is used to for the targeting drop down
   const changeCombatOption = (event) => {
-    if (event === combatOption) {
-      return setcombatOption(0);
-    }
+    // if (event === combatOption) {
+    //   return setcombatOption(0);
+    // }
     setcombatOption(event);
   };
 
@@ -432,7 +432,6 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
               })}
             </div>
           </div>
-          <div className="bottomPlaceholder"></div>
           {!battleOver && !surprised && turn === 1 && (
             <div className="combatOptions">
               <div className="optionList">
