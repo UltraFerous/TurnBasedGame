@@ -9,16 +9,26 @@ function StatDisplay() {
       <div className="playerPortrait"></div>
       <div className="primaryStats">
         <div>
-          {" "}
           Strength: {player.stats.strength + player.statModifiers.strengthMod}
         </div>
         <div>
-          {" "}
-          Toughness:{" "}
+          Toughness:
           {player.stats.toughness + player.statModifiers.toughnessMod}
         </div>
         <div>
           Power: {player.stats.power + player.statModifiers.powerActivationMod}
+        </div>
+        <div>
+          Ranged Skill:
+          {player.stats.skill.ranged +
+            player.statBonuses.skillBonuses.ranged +
+            player.statModifiers.skillMod}
+        </div>
+        <div>
+          Melee Skill:
+          {player.stats.skill.melee +
+            player.statBonuses.skillBonuses.melee +
+            player.statModifiers.skillMod}
         </div>
       </div>
       <div>
@@ -30,24 +40,16 @@ function StatDisplay() {
       </div>
       <div className="secondaryStats">
         <div>
-          {" "}
-          Damage Modifier:{" "}
-          {player.statBonuses.damageBonus + player.statModifiers.damageMod}{" "}
+          Damage Modifier:
+          {player.statBonuses.damageBonus + player.statModifiers.damageMod}
         </div>
         <div>
-          {" "}
-          Power Damage Modifier:{" "}
+          Power Damage Modifier:
           {player.statBonuses.powerDamageBonus +
             player.statModifiers.powerDamageMod}
         </div>
         <div>
-          {" "}
-          Skill Modifier:{" "}
-          {player.statBonuses.skillBonus + player.statModifiers.skillMod}
-        </div>
-        <div>
-          {" "}
-          Attacks Modifier:{" "}
+          Attacks Modifier:
           {player.statBonuses.attacksBonus + player.statModifiers.attacksMod}
         </div>
         <div> Money: ¤{player.scores.money}.00</div>

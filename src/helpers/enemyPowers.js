@@ -69,8 +69,8 @@ const activatePower = function (
   const enemyPowerLog = [
     `${user.information.name} attempts to activate power ${powerData.name}.`,
   ];
-  const totalPowerBonus =
-    user.statModifiers.powerActivationMod + user.stats.power;
+  const totalPowerBonus = user.statModifiers.powerMod + user.stats.power;
+
   const activationRoll = rollXDice(1)[0] + totalPowerBonus;
   if (activationRoll <= 1) {
     enemyPowerLog.push(

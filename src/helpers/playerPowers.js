@@ -116,9 +116,9 @@ const activatePower = function (
   const playerPowerLog = [
     `${user.information.name} attempts to activate power ${powerData.name}.`,
   ];
-  const totalPowerBonus =
-    user.statModifiers.powerActivationMod + user.stats.power;
+  const totalPowerBonus = user.statModifiers.powerMod + user.stats.power;
   const activationRoll = rollXDice(1)[0] + totalPowerBonus;
+  console.log(activationRoll);
 
   if (activationRoll <= 1) {
     playerPowerLog.push(

@@ -11,11 +11,28 @@ const purchaseMedKitPotion = function (userStats, itemIndex, itemInformation) {
   return { updatedStats, transaction: true };
 };
 
+const purchaseStatSkillUpgrade = function (
+  userStats,
+  itemIndex,
+  itemInformation
+) {
+  const updatedStats = { ...userStats };
+  if (updatedStats.statBonuses.skillBonuses.hasOwnProperty(itemInformation.stat)) {
+    updatedStats.statBonuses.skillBonuses[itemInformation.stat] += itemInformation.amount;
+  } else {
+    console.error(
+      `Stat ${itemInformation.stat} not found in userStats object.`
+    );
+  }
+  return { updatedStats, transaction: true };
+};
+
 const purchaseStatUpgrade = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
   if (updatedStats.stats.hasOwnProperty(itemInformation.stat)) {
     updatedStats.stats[itemInformation.stat] += itemInformation.amount;
-  } else if (updatedStats.statBonuses.hasOwnProperty(itemInformation.stat)) {
+  }
+  else if (updatedStats.statBonuses.hasOwnProperty(itemInformation.stat)) {
     updatedStats.statBonuses[itemInformation.stat] += itemInformation.amount;
   } else {
     console.error(
@@ -71,6 +88,16 @@ const itemPurchase = function (userStats, itemID) {
   const itemInformation = itemShopInventory[itemIndex];
   const itemCost = itemShopInventory[itemIndex].cost;
 
+  if (itemType === 4) {
+    return moneyChecker(
+      userStats,
+      itemIndex,
+      itemInformation,
+      itemCost,
+      purchaseStatUpgrade,
+      false
+    );
+  }
   if (itemType === 3) {
     return moneyChecker(
       userStats,
@@ -98,16 +125,6 @@ const itemPurchase = function (userStats, itemID) {
       itemInformation,
       itemCost,
       purchaseMedKitPotion,
-      false
-    );
-  }
-  if (itemType === 4) {
-    return moneyChecker(
-      userStats,
-      itemIndex,
-      itemInformation,
-      itemCost,
-      purchaseStatUpgrade,
       false
     );
   }

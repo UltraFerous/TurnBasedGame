@@ -1,6 +1,5 @@
 const beginnierEnemyDatabase = [
   {
-    size: "medium",
     information: {
       name: "Te'st",
       class: "Test",
@@ -9,7 +8,7 @@ const beginnierEnemyDatabase = [
     stats: {
       strength: 2,
       toughness: 2,
-      initiative: 2,
+      initiative: 10,
       power: 0,
       wounds: 6,
       currentWounds: 6,
@@ -21,7 +20,10 @@ const beginnierEnemyDatabase = [
     statBonuses: {
       damageBonus: 0,
       powerDamageBonus: 0,
-      skillBonus: 0,
+      skillBonuses: {
+        melee: 0,
+        ranged: 0,
+      },
       attacksBonus: 0,
       armourBonus: 0,
     },
@@ -30,8 +32,7 @@ const beginnierEnemyDatabase = [
       attacksMod: 0,
       toughnessMod: 0,
       initiativeMod: 0,
-      powerActivationMod: 0,
-      powerDamageMod: 0,
+      powerMod: 0,
       damageMod: 0,
       skillMod: 0,
       armourMod: 0,
@@ -76,6 +77,7 @@ const beginnierEnemyDatabase = [
       money: 100,
       points: 10,
     },
+    size: "medium",
   },
 ];
 

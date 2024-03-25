@@ -18,8 +18,10 @@ const playerObj = {
   },
   statBonuses: {
     damageBonus: 0,
-    powerDamageBonus: 0,
-    skillBonus: 0,
+    skillBonuses: {
+      melee: 0,
+      ranged: 0,
+    },
     attacksBonus: 0,
     armourBonus: 0,
   },
@@ -28,8 +30,7 @@ const playerObj = {
     attacksMod: 0,
     toughnessMod: 0,
     initiativeMod: 0,
-    powerActivationMod: 0,
-    powerDamageMod: 0,
+    powerMod: 0,
     damageMod: 0,
     skillMod: 0,
     armourMod: 0,
