@@ -5,6 +5,10 @@ const beginnierEnemyDatabase = [
       class: "Test",
       description: "Test",
     },
+    display: {
+      sprite: '',
+      size: "medium",
+    },
     stats: {
       strength: 2,
       toughness: 2,
@@ -77,7 +81,6 @@ const beginnierEnemyDatabase = [
       money: 100,
       points: 10,
     },
-    size: "medium",
   },
 ];
 

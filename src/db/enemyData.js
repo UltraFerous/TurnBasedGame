@@ -5,6 +5,10 @@ const enemyObj = [
       class: "Test",
       description: "Test",
     },
+    display: {
+      sprite: '',
+      size: "medium",
+    },
     stats: {
       strength: 2,
       toughness: 2,
@@ -77,13 +81,16 @@ const enemyObj = [
       money: 100,
       points: 10,
     },
-    size: "medium",
   },
   {
     information: {
       name: "Guy",
       class: "Test",
       description: "Test",
+    },
+    display: {
+      sprite: '',
+      size: "medium",
     },
     stats: {
       strength: 2,
@@ -157,7 +164,6 @@ const enemyObj = [
       money: 100,
       points: 10,
     },
-    size: "medium",
   },
 ];
 

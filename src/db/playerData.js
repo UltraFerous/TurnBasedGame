@@ -4,6 +4,9 @@ const playerObj = {
     class: "Test",
     description: "Test",
   },
+  display: {
+    sprite: '',
+  },
   stats: {
     strength: 3,
     toughness: 4,

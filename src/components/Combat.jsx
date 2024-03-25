@@ -424,7 +424,7 @@ function Combat({ log, addLogEntry, clearLog, removeLatestEntry }) {
                     className={`enemyUnitSprite
                     ${enemyAnimation && "moveLeft"} 
                     ${index === targetEnemy ? "targeted" : ""} ${
-                      enemyUnit.size
+                      enemyUnit.display.size
                     }`}
                     onClick={() => handleSelectChange(index)}
                     src="/testEnemySprite.png"
