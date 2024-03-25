@@ -82,6 +82,29 @@ const statIncrease = function (
   return { combatTeam: 0, updatedStats, targetID: 0, playerPowerLog };
 };
 
+const statDecrease = function (
+  user,
+  enemy,
+  enemyIndex,
+  powerData,
+  playerPowerLog
+) {
+  const updatedStats = { ...enemy };
+  if (updatedStats.statModifiers.hasOwnProperty(powerData.stat)) {
+    updatedStats.statModifiers[powerData.stat] -= powerData.amount;
+  } else {
+    console.error(
+      `Stat ${itemInformation.stat} not found in userStats object.`
+    );
+  }
+  playerPowerLog.push(
+    `${target.information.name} has their ${powerData.stat} decreased by ${powerData.amount}.`,
+    `${user.information.name}'s power cycle ends.`
+  );
+  console.log(updatedStats);
+  return { combatTeam: 0, updatedStats, targetID: enemyIndex, playerPowerLog };
+};
+
 const activatePower = function (
   user,
   enemy,
@@ -123,6 +146,9 @@ const usePlayerPower = function (powerData, user, enemy, enemyIndex) {
   }
   if (powerData.type === 3) {
     return activatePower(user, enemy, enemyIndex, powerData, justDoDamage);
+  }
+  if (powerData.type === 4) {
+    return activatePower(user, enemy, enemyIndex, powerData, statDecrease);
   }
 };
 
