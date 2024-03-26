@@ -406,48 +406,65 @@ const itemShopInventory = [
       attacks: 4,
     },
   },
-  //unbubji
+  // Armour
   {
     id: 11,
     type: 3,
-    name: "Quantum Weave",
+    name: "Vanguard Exosuit",
     description:
-      "A cutting-edge suit interwoven with quantum fibers, providing exceptional protection against physical and energy-based attacks.",
+      "Cutting-edge exoskeletal armor designed for frontline soldiers, enhancing strength and agility while providing advanced ballistic protection.",
     cost: 100,
     stats: {
-      armor: 2,
-      shield: 8,
+      armor: 8,
+      shield: 9,
     },
-
+  },
+  {
     id: 12,
     type: 3,
-    name: "Voidsteel Vestments",
+    name: "Stealth Shadowgear",
     description:
-      "Forged from the mysterious Voidsteel, these vestments offer unparalleled defense against supernatural forces. The material resonates with the void.",
+      "Sleek and lightweight armor built for covert operations, equipped with advanced camouflage technology and sound-dampening materials for silent movement.",
     cost: 100,
     stats: {
-      armor: 4,
-      shield: 11,
+      armor: 5,
+      shield: 6,
     },
+  },
+  {
     id: 13,
     type: 3,
-    name: "NebulaGuard Suit",
+    name: "Titanium Bulwark",
     description:
-      "Crafted from rare NebulaGuard alloy, this suit offers a harmonious blend of durability and agility. Its surface refracts light, making the wearer partially invisible.",
+      "Heavy-duty armor designed for tanking roles, featuring reinforced plating and energy shielding systems to withstand intense enemy fire and protect allies.",
     cost: 100,
     stats: {
-      armor: 3,
-      shield: 10,
+      armor: 9,
+      shield: 8,
     },
+  },
+  {
     id: 14,
     type: 3,
-    name: "Photon Barrier Armor",
+    name: "Aegis Sentinel",
     description:
-      "Featuring a state-of-the-art photon barrier technology, this armor generates a protective energy field that absorbs and disperses incoming attacks. Lightweight and versatile, it ensures both mobility and defense.",
+      "Versatile modular armor optimized for defense and support, equipped with deployable shields and medical assistance systems for sustaining troops in the heat of battle.",
     cost: 100,
     stats: {
-      armor: 2,
-      shield: 6,
+      armor: 7,
+      shield: 7,
+    },
+  },
+  {
+    id: 20,
+    type: 3,
+    name: "Assault Striker Mk. VI",
+    description:
+      "High-mobility combat suit engineered for offensive maneuvers, equipped with integrated weapon systems and rapid deployment capabilities for decisive strikes against enemy forces.",
+    cost: 100,
+    stats: {
+      armor: 8,
+      shield: 5,
     },
   },
   {
@@ -516,7 +533,7 @@ const itemShopInventory = [
     amount: 1,
     name: "Energized Core Amplifier",
     description: "A device that amplifies the inherent power in your attacks.",
-    stat: "powerDamageBonus",
+    stat: "powerBonus",
   },
   {
     id: 22,
