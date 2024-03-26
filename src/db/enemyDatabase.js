@@ -6,7 +6,7 @@ const beginnierEnemyDatabase = [
       description: "Test",
     },
     display: {
-      sprite: '',
+      sprite: "",
       size: "medium",
     },
     stats: {
@@ -17,7 +17,7 @@ const beginnierEnemyDatabase = [
       wounds: 6,
       currentWounds: 6,
       skill: {
-        ranged: 5,
+        range: 5,
         melee: 5,
       },
     },
@@ -26,7 +26,7 @@ const beginnierEnemyDatabase = [
       powerDamageBonus: 0,
       skillBonuses: {
         melee: 0,
-        ranged: 0,
+        range: 0,
       },
       attacksBonus: 0,
       armourBonus: 0,

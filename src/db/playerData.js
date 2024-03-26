@@ -15,7 +15,7 @@ const playerObj = {
     wounds: 5,
     currentWounds: 5,
     skill: {
-      ranged: 5,
+      range: 5,
       melee: 5,
     },
   },
@@ -23,7 +23,7 @@ const playerObj = {
     damageBonus: 0,
     skillBonuses: {
       melee: 0,
-      ranged: 0,
+      range: 0,
     },
     attacksBonus: 0,
     armourBonus: 0,

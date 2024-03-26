@@ -17,7 +17,7 @@ const enemyObj = [
       wounds: 6,
       currentWounds: 6,
       skill: {
-        ranged: 5,
+        range: 5,
         melee: 5,
       },
     },
@@ -26,7 +26,7 @@ const enemyObj = [
       powerDamageBonus: 0,
       skillBonuses: {
         melee: 0,
-        ranged: 0,
+        range: 0,
       },
       attacksBonus: 0,
       armourBonus: 0,
@@ -100,7 +100,7 @@ const enemyObj = [
       wounds: 6,
       currentWounds: 6,
       skill: {
-        ranged: 5,
+        range: 5,
         melee: 5,
       },
     },
@@ -109,7 +109,7 @@ const enemyObj = [
       powerDamageBonus: 0,
       skillBonuses: {
         melee: 0,
-        ranged: 0,
+        range: 0,
       },
       attacksBonus: 0,
       armourBonus: 0,
