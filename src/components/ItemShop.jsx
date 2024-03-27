@@ -3,12 +3,13 @@ import itemShopInventory from "../db/itemShopDatabase";
 import { itemPurchase } from "../helpers/itemPurchase";
 import PlayerContext from "../context/playerContext";
 import GameLog from "./GameLog";
-import useGameLog from "../hooks/useGameLog";
 import "../styles/ItemShop.scss";
+import ItemHelper from "./ItemHelper";
 
-function ItemShop({ log, addLogEntry, clearLog }) {
+function ItemShop({ log, addLogEntry, clearLog, removeLatestEntry }) {
   const { player, setPlayer } = useContext(PlayerContext);
   const [shop, setShop] = useState([]);
+  const { itemData, setItemData } = useContext(PlayerContext);
 
   const updateShop = function (shopIndex) {
     const tempShop = shop;
@@ -23,7 +24,7 @@ function ItemShop({ log, addLogEntry, clearLog }) {
   };
 
   const populateShop = function () {
-    const numberOfItems = 30; //4
+    const numberOfItems = 4; //4
     const itemsInShop = [itemShopInventory[0]];
     const minCeiled = Math.ceil(0);
     const maxFloored = Math.floor(itemShopInventory.length - 1);
@@ -46,6 +47,10 @@ function ItemShop({ log, addLogEntry, clearLog }) {
   useEffect(() => {
     setShop([]);
     populateShop();
+    removeLatestEntry();
+    addLogEntry([
+      "Welcome, your doign great work outthere! I have authority to give you equipment from our arensal to aid you!",
+    ]);
   }, []);
 
   return (
@@ -70,6 +75,7 @@ function ItemShop({ log, addLogEntry, clearLog }) {
             </div>
           ))}
         </div>
+        <ItemHelper itemData={itemData} />
         <div className="shopKeeper"> Welcome to the shop </div>
       </div>
     </div>

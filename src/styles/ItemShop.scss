@@ -15,25 +15,27 @@
       align-items: center;
       .itemCards {
         overflow: scroll;
-        max-height: 720px;
-        max-width: 704px;
+        min-height: 720px;
+        min-width: 768px;
         display: flex;
         flex-wrap: wrap; /* Allow items to wrap to the next row */
         justify-content: space-evenly; /* Distribute space evenly between items */
         .itemCard {
           border: 5px solid aqua;
+          margin: 8px;
           display: flex; /* Set display to flex */
           flex-direction: column; /* Stack children vertically */
           justify-content: space-between; /* Distribute space evenly between children */
-          min-height: 336px; /* Set a specific height for all item cards */
-          max-height: 336px; /* Set a specific height for all item cards */
-          width: 320px; /* Set a specific width for all item cards */
+          min-height: 25%; /* Set a specific height for all item cards */
+          max-height: 25%; /* Set a specific height for all item cards */
+
+          width: 768px; /* Set a specific width for all item cards */
         }
       }
       .shopKeeper {
         background-color: aliceblue;
-        min-height: 320px;
-        min-width: 320px;
+        min-height: 256px;
+        min-width: 256px;
         margin-top: auto; /* Push shop keeper to the bottom */
         margin-left: auto; /* Push shop keeper to the right */
       }
