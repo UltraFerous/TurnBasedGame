@@ -24,10 +24,6 @@ const enemyObj = [
     statBonuses: {
       damageBonus: 0,
       powerDamageBonus: 0,
-      skillBonuses: {
-        melee: 0,
-        range: 0,
-      },
       attacksBonus: 0,
       armourBonus: 0,
     },
@@ -107,10 +103,6 @@ const enemyObj = [
     statBonuses: {
       damageBonus: 0,
       powerDamageBonus: 0,
-      skillBonuses: {
-        melee: 0,
-        range: 0,
-      },
       attacksBonus: 0,
       armourBonus: 0,
     },

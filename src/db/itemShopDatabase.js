@@ -15,7 +15,7 @@ const itemShopInventory = [
     name: "Quantum Blade",
     cost: 100,
     description:
-      "A sleek, high-tech sword infused with quantum energy, capable of slicing through armored foes with ease.",
+      "A sleek, high-tech sword infused with quantum energy, capable of slicing through armoured foes with ease.",
     stats: {
       skill: {
         type: "melee",
@@ -50,7 +50,7 @@ const itemShopInventory = [
     type: 2,
     name: "Nanite Fangs",
     description:
-      "Dual carbon-fiber daggers coated with swarming nanobots, dissolving armor and flesh upon contact.",
+      "Dual carbon-fiber daggers coated with swarming nanobots, dissolving armour and flesh upon contact.",
     cost: 100,
     stats: {
       skill: {
@@ -190,9 +190,9 @@ const itemShopInventory = [
     },
   },
   {
-    id: 22,
+    id: 11,
     type: 2,
-    name: `Mk. IX Temporal Blade - "Chrono Slicer"`,
+    name: `Mk. IX Temporal Blade`,
     description:
       "This experimental blade harnesses quantum fluctuations to tear through the fabric of time and space, allowing its wielder to strike at enemies with unmatched speed and precision, leaving behind rifts of temporal instability in its wake.",
     cost: 100,
@@ -209,7 +209,7 @@ const itemShopInventory = [
   },
   // Ranged Weapons
   {
-    id: 11,
+    id: 12,
     type: 2,
     name: "Photon Blaster",
     cost: 100,
@@ -227,7 +227,7 @@ const itemShopInventory = [
     },
   },
   {
-    id: 12,
+    id: 13,
     type: 2,
     name: "Plasma Launcher",
     description:
@@ -245,11 +245,11 @@ const itemShopInventory = [
     },
   },
   {
-    id: 13,
+    id: 14,
     type: 2,
     name: "Magnetic Rail Rifle",
     description:
-      "A rifle utilizing magnetic rails to propel metal slugs at incredible velocities, punching through armor with devastating force.",
+      "A rifle utilizing magnetic rails to propel metal slugs at incredible velocities, punching through armour with devastating force.",
     cost: 100,
     stats: {
       skill: {
@@ -263,7 +263,7 @@ const itemShopInventory = [
     },
   },
   {
-    id: 14,
+    id: 15,
     type: 2,
     name: "Nanite Grenade Launcher",
     description:
@@ -281,7 +281,7 @@ const itemShopInventory = [
     },
   },
   {
-    id: 15,
+    id: 16,
     type: 2,
     name: "Electrostatic Disruptor",
     description:
@@ -299,7 +299,7 @@ const itemShopInventory = [
     },
   },
   {
-    id: 16,
+    id: 17,
     type: 2,
     name: "Vortex Cannon",
     description:
@@ -317,7 +317,7 @@ const itemShopInventory = [
     },
   },
   {
-    id: 17,
+    id: 18,
     type: 2,
     name: "Sonic Disruptor Rifle",
     description:
@@ -335,7 +335,7 @@ const itemShopInventory = [
     },
   },
   {
-    id: 18,
+    id: 19,
     type: 2,
     name: "EMP Sniper Rifle",
     description:
@@ -353,7 +353,7 @@ const itemShopInventory = [
     },
   },
   {
-    id: 19,
+    id: 20,
     type: 2,
     name: "Plasma Repeater",
     description:
@@ -371,11 +371,11 @@ const itemShopInventory = [
     },
   },
   {
-    id: 20,
+    id: 21,
     type: 2,
     name: "Particle Beam Cannon",
     description:
-      "A mounted cannon firing beams of charged particles, capable of obliterating fortified positions and armored vehicles with its intense energy blasts.",
+      "A mounted cannon firing beams of charged particles, capable of obliterating fortified positions and armoured vehicles with its intense energy blasts.",
     cost: 100,
     stats: {
       skill: {
@@ -389,9 +389,9 @@ const itemShopInventory = [
     },
   },
   {
-    id: 21,
+    id: 22,
     type: 2,
-    name: `Singularity Cannon VX-1000 - "Event Horizon Blaster"`,
+    name: `Singularity Cannon VX-1000`,
     description:
       "The pinnacle of advanced weaponry, this rifle fires concentrated beams of neutrinos capable of collapsing matter into miniature black holes, annihilating even the most fortified enemy positions with unparalleled destructive power.",
     cost: 100,
@@ -408,152 +408,164 @@ const itemShopInventory = [
   },
   // Armour
   {
-    id: 11,
+    id: 23,
     type: 3,
     name: "Vanguard Exosuit",
     description:
-      "Cutting-edge exoskeletal armor designed for frontline soldiers, enhancing strength and agility while providing advanced ballistic protection.",
+      "Cutting-edge exoskeletal armour designed for frontline soldiers, enhancing strength and agility while providing advanced ballistic protection.",
     cost: 100,
     stats: {
-      armor: 8,
-      shield: 9,
+      armour: 8,
+      shield: 10,
     },
   },
   {
-    id: 12,
+    id: 24,
     type: 3,
     name: "Stealth Shadowgear",
     description:
-      "Sleek and lightweight armor built for covert operations, equipped with advanced camouflage technology and sound-dampening materials for silent movement.",
+      "Sleek and lightweight armour built for covert operations, equipped with advanced camouflage technology and sound-dampening materials for silent movement.",
     cost: 100,
     stats: {
-      armor: 5,
-      shield: 6,
-    },
-  },
-  {
-    id: 13,
-    type: 3,
-    name: "Titanium Bulwark",
-    description:
-      "Heavy-duty armor designed for tanking roles, featuring reinforced plating and energy shielding systems to withstand intense enemy fire and protect allies.",
-    cost: 100,
-    stats: {
-      armor: 9,
-      shield: 8,
-    },
-  },
-  {
-    id: 14,
-    type: 3,
-    name: "Aegis Sentinel",
-    description:
-      "Versatile modular armor optimized for defense and support, equipped with deployable shields and medical assistance systems for sustaining troops in the heat of battle.",
-    cost: 100,
-    stats: {
-      armor: 7,
+      armour: 5,
       shield: 7,
     },
   },
   {
-    id: 20,
+    id: 25,
+    type: 3,
+    name: "Titanium Bulwark",
+    description:
+      "Heavy-duty armour designed for tanking roles, featuring reinforced plating and energy shielding systems to withstand intense enemy fire and protect allies.",
+    cost: 100,
+    stats: {
+      armour: 9,
+      shield: 9,
+    },
+  },
+  {
+    id: 26,
+    type: 3,
+    name: "Aegis Sentinel",
+    description:
+      "Versatile modular armour optimized for defense and support, equipped with deployable shields and medical assistance systems for sustaining troops in the heat of battle.",
+    cost: 100,
+    stats: {
+      armour: 7,
+      shield: 8,
+    },
+  },
+  {
+    id: 27,
     type: 3,
     name: "Assault Striker Mk. VI",
     description:
       "High-mobility combat suit engineered for offensive maneuvers, equipped with integrated weapon systems and rapid deployment capabilities for decisive strikes against enemy forces.",
     cost: 100,
     stats: {
-      armor: 8,
-      shield: 5,
+      armour: 8,
+      shield: 6,
     },
   },
   {
-    id: 15,
+    id: 28,
     type: 4,
     cost: 100,
     amount: 1,
-    name: "Strength Augmenter",
+    name: "Iron Gauntlets",
     description:
-      "A wristband infused with gravitic energy that enhances your physical strength.",
+      "Heavy gauntlets designed for rigorous training, enhancing raw physical power and muscle strength.",
     stat: "strength",
   },
   {
-    id: 16,
+    id: 29,
     type: 4,
     cost: 100,
     amount: 1,
-    name: "Toughhide Elixir",
+    name: "Reinforced Armour Plating",
     description:
-      "A vial containing a mixture of rare plant extracts and minerals that toughen your skin and muscles.",
+      "Extra layers of durable material added to armour, providing increased resistance to physical harm and improving overall endurance.",
     stat: "toughness",
   },
   {
-    id: 17,
+    id: 30,
     type: 4,
     cost: 100,
     amount: 1,
-    name: "Initiative Amulet",
+    name: "Swift Boots",
     description:
-      "A mystical amulet adorned with a time-bending crystal that heightens your reflexes and quick thinking.",
+      "Lightweight, well-crafted boots designed to increase agility and reaction time, granting the wearer quicker reflexes and the ability to act swiftly in combat.",
     stat: "initiative",
   },
   {
-    id: 18,
+    id: 31,
     type: 4,
     cost: 100,
     amount: 1,
-    name: "Power Core Catalyst",
+    name: "Enhanced Reactor Core",
     description:
-      "A small, radiant device that harnesses and channels pure energy. Activating it unleashes latent power within you.",
+      "Upgraded reactor cores integrated into mechanized suits, harnessing latent energy to grant the wearer enhanced mastery over universal forces.",
     stat: "power",
   },
   {
-    id: 19,
+    id: 32,
     type: 4,
     cost: 100,
     amount: 1,
-    name: "Vitality Band",
-    description: "A band that enhances your body's natural healing processes.",
+    name: "Nanotech Regenerators",
+    description:
+      "Advanced nanomachines infused within combat gear, swiftly repairing injuries and bolstering soldiers' resilience on the battlefield.",
     stat: "wounds",
   },
   {
-    id: 20,
+    id: 33,
     type: 4,
     cost: 100,
     amount: 1,
-    name: "Brutal Force Module",
+    name: "Precision Scope",
     description:
-      "An upgrade module for your weaponry that adds a raw, brute force element.",
+      "High-quality optics for firearms, enhancing accuracy and allowing for precise targeting over long distances.",
+    stat: "range",
+  },
+  {
+    id: 34,
+    type: 4,
+    cost: 100,
+    amount: 1,
+    name: "Mastercrafted Blade",
+    description:
+      "A meticulously crafted melee weapon, perfectly balanced for increased accuracy and devastating strikes in close combat.",
+    stat: "melee",
+  },
+  {
+    id: 35,
+    type: 4,
+    cost: 100,
+    amount: 1,
+    name: "Impact Amplifier Attachment",
+    description:
+      "Precision-engineered attachment for weapons, whether melee or ranged, focusing kinetic energy to amplify impact upon striking, resulting in greater damage output.",
     stat: "damageBonus",
   },
   {
-    id: 21,
+    id: 36,
     type: 4,
     cost: 100,
     amount: 1,
-    name: "Energized Core Amplifier",
-    description: "A device that amplifies the inherent power in your attacks.",
-    stat: "powerBonus",
-  },
-  {
-    id: 22,
-    type: 4,
-    cost: 100,
-    amount: 1,
-    name: "Skill Matrix Enhancer",
+    name: "Combat Training Manual",
     description:
-      "An advanced neural interface that enhances your cognitive abilities.",
-    stat: "skillBonus",
-  },
-  {
-    id: 23,
-    type: 4,
-    cost: 100,
-    amount: 1,
-    name: "Multi-Strike Module",
-    description:
-      " An augmentation for your combat gear that enables faster and more precise attacks.",
+      "Comprehensive guides and manuals on combat techniques, providing valuable insights and strategies to improve offensive capabilities and land more effective hits.",
     stat: "attacksBonus",
+  },
+  {
+    id: 37,
+    type: 4,
+    cost: 100,
+    amount: 1,
+    name: "Titanium Plating Upgrade",
+    description:
+      "Upgraded armour plating made from lightweight yet resilient titanium, offering superior protection against various types of attacks without sacrificing mobility.",
+    stat: "armourBonus",
   },
 ];
 

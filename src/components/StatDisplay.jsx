@@ -15,38 +15,29 @@ function StatDisplay() {
           Toughness:
           {player.stats.toughness + player.statModifiers.toughnessMod}
         </div>
-        <div>
-          Power: {player.stats.power + player.statModifiers.powerActivationMod}
-        </div>
+        <div>Power: {player.stats.power + player.statModifiers.powerMod}</div>
         <div>
           Ranged Skill:
-          {player.stats.skill.ranged +
-            player.statBonuses.skillBonuses.ranged +
-            player.statModifiers.skillMod}
+          {player.stats.skill.range + player.statModifiers.skillMod}
         </div>
         <div>
           Melee Skill:
-          {player.stats.skill.melee +
-            player.statBonuses.skillBonuses.melee +
-            player.statModifiers.skillMod}
+          {player.stats.skill.melee + player.statModifiers.skillMod}
         </div>
       </div>
       <div>
         <div>
           Wounds: {player.stats.currentWounds} / {player.stats.wounds}
         </div>
-        <div>Save: {player.save.armour - player.statBonuses.armourBonus}</div>
-        {player.save.shield < 11 && <div>Shield: {player.save.shield}+</div>}
+        <div>Save: {player.save.armour + player.statBonuses.armourBonus}</div>
+        {player.save.shield <= 10 && (
+          <div>Shield: {player.save.shield}+</div>
+        )}
       </div>
       <div className="secondaryStats">
         <div>
           Damage Modifier:
           {player.statBonuses.damageBonus + player.statModifiers.damageMod}
-        </div>
-        <div>
-          Power Damage Modifier:
-          {player.statBonuses.powerDamageBonus +
-            player.statModifiers.powerDamageMod}
         </div>
         <div>
           Attacks Modifier:

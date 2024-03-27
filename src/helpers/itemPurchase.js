@@ -11,42 +11,29 @@ const purchaseMedKitPotion = function (userStats, itemIndex, itemInformation) {
   return { updatedStats, transaction: true };
 };
 
-const purchaseStatSkillUpgrade = function (
-  userStats,
-  itemIndex,
-  itemInformation
-) {
-  const updatedStats = { ...userStats };
-  if (updatedStats.statBonuses.skillBonuses.hasOwnProperty(itemInformation.stat)) {
-    updatedStats.statBonuses.skillBonuses[itemInformation.stat] += itemInformation.amount;
-  } else {
-    console.error(
-      `Stat ${itemInformation.stat} not found in userStats object.`
-    );
-  }
-  return { updatedStats, transaction: true };
-};
-
 const purchaseStatUpgrade = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
-  if (updatedStats.stats.hasOwnProperty(itemInformation.stat)) {
+  if (itemInformation.stat === "range" || itemInformation.stat === "melee") {
+    updatedStats.stats.skill[itemInformation.stat] += itemInformation.amount;
+  } else if (updatedStats.stats.hasOwnProperty(itemInformation.stat)) {
     updatedStats.stats[itemInformation.stat] += itemInformation.amount;
-  }
-  else if (updatedStats.statBonuses.hasOwnProperty(itemInformation.stat)) {
+  } else if (updatedStats.statBonuses.hasOwnProperty(itemInformation.stat)) {
     updatedStats.statBonuses[itemInformation.stat] += itemInformation.amount;
   } else {
     console.error(
       `Stat ${itemInformation.stat} not found in userStats object.`
     );
   }
+  console.log(updatedStats);
   return { updatedStats, transaction: true };
 };
 
 const purchaseArmour = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
-  updatedStats.armour = {
+  updatedStats.save = {
     ...itemInformation.stats,
   };
+  console.log(itemInformation.stats);
   return { updatedStats, transaction: true };
 };
 
@@ -87,7 +74,7 @@ const itemPurchase = function (userStats, itemID) {
   const itemType = itemShopInventory[itemIndex].type;
   const itemInformation = itemShopInventory[itemIndex];
   const itemCost = itemShopInventory[itemIndex].cost;
-
+  console.log(itemType);
   if (itemType === 4) {
     return moneyChecker(
       userStats,

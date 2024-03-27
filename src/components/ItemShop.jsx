@@ -23,7 +23,7 @@ function ItemShop({ log, addLogEntry, clearLog }) {
   };
 
   const populateShop = function () {
-    const numberOfItems = 4;
+    const numberOfItems = 30; //4
     const itemsInShop = [itemShopInventory[0]];
     const minCeiled = Math.ceil(0);
     const maxFloored = Math.floor(itemShopInventory.length - 1);
@@ -58,7 +58,7 @@ function ItemShop({ log, addLogEntry, clearLog }) {
           {shop.map((item, index) => (
             <div key={index} className="itemCard">
               <div> {item.name} </div>
-              <div> {item.cost} </div>
+              <div> ¤{item.cost}.00 </div>
               <div> {item.description} </div>
               <button
                 onClick={() => {

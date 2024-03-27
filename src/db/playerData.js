@@ -21,10 +21,6 @@ const playerObj = {
   },
   statBonuses: {
     damageBonus: 0,
-    skillBonuses: {
-      melee: 0,
-      range: 0,
-    },
     attacksBonus: 0,
     armourBonus: 0,
   },
