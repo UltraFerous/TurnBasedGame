@@ -44,6 +44,12 @@
           margin-top: auto; /* Push shop keeper to the bottom */
           margin-left: auto; /* Push shop keeper to the right */
         }
+        .shopKeeperTip {
+          ul {
+            list-style: none; // Remove default bullet points
+            padding-left: 0; // Remove default left padding
+          }
+        }
       }
     }
   }

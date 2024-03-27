@@ -81,7 +81,7 @@ function ItemShop({ log, addLogEntry, clearLog, removeLatestEntry }) {
           ))}
         </div>
         <div className="shopKeeper">
-        <ItemHelper itemData={itemData} className="shopKeeperTip"/>
+        <ItemHelper itemData={itemData} />
         <div className="shopKeeperImage"> Welcome to the shop </div>
         </div>
       </div>
