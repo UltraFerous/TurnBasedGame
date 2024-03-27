@@ -9,7 +9,7 @@ import ItemHelper from "./ItemHelper";
 function ItemShop({ log, addLogEntry, clearLog, removeLatestEntry }) {
   const { player, setPlayer } = useContext(PlayerContext);
   const [shop, setShop] = useState([]);
-  const { itemData, setItemData } = useContext(PlayerContext);
+  const [ itemData, setItemData ] = useState();
 
   const updateShop = function (shopIndex) {
     const tempShop = shop;
@@ -61,7 +61,12 @@ function ItemShop({ log, addLogEntry, clearLog, removeLatestEntry }) {
       <div className="itemShop">
         <div className="itemCards">
           {shop.map((item, index) => (
-            <div key={index} className="itemCard">
+            <div
+              key={index}
+              className="itemCard"
+              onMouseEnter={() => setItemData(item)}
+              // onMouseLeave={() => setItemData()}
+            >
               <div> {item.name} </div>
               <div> ¤{item.cost}.00 </div>
               <div> {item.description} </div>
@@ -75,8 +80,10 @@ function ItemShop({ log, addLogEntry, clearLog, removeLatestEntry }) {
             </div>
           ))}
         </div>
-        <ItemHelper itemData={itemData} />
-        <div className="shopKeeper"> Welcome to the shop </div>
+        <div className="shopKeeper">
+        <ItemHelper itemData={itemData} className="shopKeeperTip"/>
+        <div className="shopKeeperImage"> Welcome to the shop </div>
+        </div>
       </div>
     </div>
   );

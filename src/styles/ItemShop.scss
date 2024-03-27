@@ -33,11 +33,17 @@
         }
       }
       .shopKeeper {
-        background-color: aliceblue;
-        min-height: 256px;
+        display: flex;
         min-width: 256px;
-        margin-top: auto; /* Push shop keeper to the bottom */
-        margin-left: auto; /* Push shop keeper to the right */
+        min-height: 720px;
+        flex-direction: column;
+        .shopKeeperImage {
+          background-color: aliceblue;
+          min-height: 256px;
+          min-width: 256px;
+          margin-top: auto; /* Push shop keeper to the bottom */
+          margin-left: auto; /* Push shop keeper to the right */
+        }
       }
     }
   }
