@@ -17,7 +17,7 @@ const beginnierEnemyDatabase = [
       wounds: 6,
       currentWounds: 6,
       skill: {
-        range: 5,
+        ranged: 5,
         melee: 5,
       },
     },

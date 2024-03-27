@@ -13,7 +13,7 @@ const purchaseMedKitPotion = function (userStats, itemIndex, itemInformation) {
 
 const purchaseStatUpgrade = function (userStats, itemIndex, itemInformation) {
   const updatedStats = { ...userStats };
-  if (itemInformation.stat === "range" || itemInformation.stat === "melee") {
+  if (itemInformation.stat === "ranged" || itemInformation.stat === "melee") {
     updatedStats.stats.skill[itemInformation.stat] += itemInformation.amount;
   } else if (updatedStats.stats.hasOwnProperty(itemInformation.stat)) {
     updatedStats.stats[itemInformation.stat] += itemInformation.amount;

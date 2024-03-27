@@ -18,7 +18,7 @@ function StatDisplay() {
         <div>Power: {player.stats.power + player.statModifiers.powerMod}</div>
         <div>
           Ranged Skill:
-          {player.stats.skill.range + player.statModifiers.skillMod}
+          {player.stats.skill.ranged + player.statModifiers.skillMod}
         </div>
         <div>
           Melee Skill:

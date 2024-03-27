@@ -4,7 +4,10 @@ const ItemHelper = ({ itemData }) => {
   if (typeof itemData === "undefined") {
     return <div>Welcome</div>;
   }
-  if (itemData.type === 2) return <div>weapon</div>;
+  if (itemData.type === 2) return <div>
+    The {itemData.name} is a {itemData.type} weapon.
+    
+  </div>;
 
   if (itemData.type === 3) return <div>Armour</div>;
 

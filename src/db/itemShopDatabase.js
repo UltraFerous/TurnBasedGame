@@ -198,7 +198,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "melee",
         value: 8,
       },
       weaponStrength: 4,
@@ -217,7 +217,7 @@ const itemShopInventory = [
       "A rifle emitting concentrated beams of photon energy, capable of piercing through multiple targets with pinpoint accuracy.",
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 5,
       },
       weaponStrength: 3,
@@ -235,7 +235,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 6,
       },
       weaponStrength: 3,
@@ -253,7 +253,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 7,
       },
       weaponStrength: 4,
@@ -271,7 +271,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 6,
       },
       weaponStrength: 2,
@@ -289,7 +289,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 5,
       },
       weaponStrength: 2,
@@ -307,7 +307,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 6,
       },
       weaponStrength: 3,
@@ -325,7 +325,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 5,
       },
       weaponStrength: 2,
@@ -343,7 +343,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 7,
       },
       weaponStrength: 3,
@@ -361,7 +361,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 6,
       },
       weaponStrength: 3,
@@ -379,7 +379,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 8,
       },
       weaponStrength: 4,
@@ -397,7 +397,7 @@ const itemShopInventory = [
     cost: 100,
     stats: {
       skill: {
-        type: "range",
+        type: "ranged",
         value: 8,
       },
       weaponStrength: 5,
