@@ -467,6 +467,7 @@ const itemShopInventory = [
       shield: 6,
     },
   },
+  //Stat Boost
   {
     id: 28,
     type: 4,

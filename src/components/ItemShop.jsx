@@ -9,7 +9,7 @@ import ItemHelper from "./ItemHelper";
 function ItemShop({ log, addLogEntry, clearLog, removeLatestEntry }) {
   const { player, setPlayer } = useContext(PlayerContext);
   const [shop, setShop] = useState([]);
-  const [ itemData, setItemData ] = useState();
+  const [itemData, setItemData] = useState();
 
   const updateShop = function (shopIndex) {
     const tempShop = shop;
@@ -81,8 +81,9 @@ function ItemShop({ log, addLogEntry, clearLog, removeLatestEntry }) {
           ))}
         </div>
         <div className="shopKeeper">
-        <ItemHelper itemData={itemData} />
-        <div className="shopKeeperImage"> Welcome to the shop </div>
+          <div> ¤{player.scores.money} </div>
+          <ItemHelper itemData={itemData} />
+          <div className="shopKeeperImage"> Welcome to the shop </div>
         </div>
       </div>
     </div>
